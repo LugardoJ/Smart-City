@@ -12,7 +12,31 @@ struct CitySearchView: View {
 
     var body: some View {
         VStack {
-            List(viewModel.results,id:\.id) { city in
+            listContainer
+        }
+        .navigationTitle("Smart City")
+        .searchable(text: $viewModel.query.animation(), prompt: "Search")
+        .frame(maxWidth: .infinity,maxHeight: .infinity,alignment: .topLeading)
+        .LoadingView(isPresented: viewModel.isLoading)
+        .if(!viewModel.isLoading, transform: { content in
+            content.overlay(alignment: .center, content: {
+                if let searchMessage = viewModel.searchMessage{
+                    ContentUnavailableView("Search", systemImage: "magnifyingglass", description: Text(searchMessage))
+                        .transition(.opacity)
+                        .animation(.easeInOut, value: searchMessage)
+                }
+            })
+        })
+        .task {
+            if viewModel.fullResults.isEmpty{
+                await viewModel.loadCities()
+            }
+        }
+    }
+    
+    private var listContainer: some View{
+        List {
+            ForEach(viewModel.results, id: \.id) { city in
                 Button {
                     viewModel.select(city: city)
                 } label: {
@@ -21,16 +45,14 @@ struct CitySearchView: View {
                         Text(city.country).font(.subheadline).foregroundColor(.gray)
                     }
                 }
-            }
-            .onChange(of: viewModel.query, initial: false) { oldValue, newValue in
-                viewModel.search()
+                .onAppear {
+                    viewModel.loadMoreIfNeeded(currentItem: city)
+                }
             }
         }
-        .navigationTitle("Smart City")
-        .searchable(text: $viewModel.query, prompt: "Search")
-        .frame(maxWidth: .infinity,maxHeight: .infinity,alignment: .topLeading)
-        .task {
-            await viewModel.loadCities()
+        .listStyle(.insetGrouped)
+        .onChange(of: viewModel.query, initial: false) { oldValue, newValue in
+            self.viewModel.search()
         }
     }
 }

@@ -14,9 +14,11 @@ protocol ToggleFavoriteCityUseCase {
 
 final class DefaultToggleFavoriteCityUseCase: ToggleFavoriteCityUseCase {
     private let repository: CityRepository
+    
     init(repository: CityRepository) {
         self.repository = repository
     }
+    
     func execute(city: City) {
         repository.toggleFavorite(city)
     }

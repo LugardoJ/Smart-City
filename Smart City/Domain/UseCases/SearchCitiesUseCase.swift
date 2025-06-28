@@ -14,9 +14,11 @@ protocol SearchCitiesUseCase {
 
 final class DefaultSearchCitiesUseCase: SearchCitiesUseCase {
     private let repository: CityRepository
+    
     init(repository: CityRepository) {
         self.repository = repository
     }
+    
     func execute(query: String) -> [City] {
         repository.searchCities(matching: query)
     }
