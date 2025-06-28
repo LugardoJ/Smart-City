@@ -81,8 +81,8 @@ Smart_City
 - [x] Estructura modular y coordinada
 - [x] Modelado de entidad `City` con ID personalizado (`_id`)
 - [x] Inyección de dependencias inicial con protocolos
-- [/] Carga remota del JSON de ciudades (~200k)
-- [/] Búsqueda sensible al texto (con optimización por prefijo)
+- [X] Carga remota del JSON de ciudades (~200k)
+- [X] Búsqueda sensible al texto (con optimización por prefijo)
 - [ ] UI reactiva con SwiftUI
 - [ ] Persistencia de favoritos
 - [ ] Vista de mapa interactivo (próximamente)

@@ -81,8 +81,8 @@ Smart_City
 - [x] Modular and coordinated structure
 - [x] `City` entity modeling with custom ID (`_id`)
 - [x] Initial dependency injection with protocols
-- [/] Remote JSON loading of cities (~200k)
-- [/] Prefix-based optimized search
+- [x] Remote JSON loading of cities (~200k)
+- [x] Prefix-based optimized search
 - [ ] Reactive UI with SwiftUI
 - [ ] Favorites persistence
 - [ ] Interactive map view (coming soon)
