@@ -18,6 +18,7 @@ final class DefaultSearchCitiesUseCase: SearchCitiesUseCase {
     init(repository: CityRepository) {
         self.repository = repository
     }
+    
     func execute(query: String) -> [City] {
         repository.searchCities(matching: query)
     }
