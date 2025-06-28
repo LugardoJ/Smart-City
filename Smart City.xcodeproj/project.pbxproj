@@ -1,0 +1,660 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0FD4F7012E0F8A4500AE7944 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4F6F02E0F8A4500AE7944 /* README.md */; };
+		0FD4F7032E0F8A4500AE7944 /* READMESP.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4F6F12E0F8A4500AE7944 /* READMESP.md */; };
+		0FD4F7102E0F8A4500AE7944 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4F6F02E0F8A4500AE7944 /* README.md */; };
+		0FD4F7112E0F8A4500AE7944 /* READMESP.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4F6F12E0F8A4500AE7944 /* READMESP.md */; };
+		0FD4F7122E0F8A4500AE7944 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4F6F02E0F8A4500AE7944 /* README.md */; };
+		0FD4F7132E0F8A4500AE7944 /* READMESP.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4F6F12E0F8A4500AE7944 /* READMESP.md */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0FD4F6462E0F822500AE7944 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0FD4F62D2E0F822300AE7944 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0FD4F6342E0F822300AE7944;
+			remoteInfo = "Smart City";
+		};
+		0FD4F6502E0F822500AE7944 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0FD4F62D2E0F822300AE7944 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0FD4F6342E0F822300AE7944;
+			remoteInfo = "Smart City";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0FD4F6352E0F822300AE7944 /* Smart City.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smart City.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0FD4F6452E0F822500AE7944 /* Smart CityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Smart CityTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0FD4F64F2E0F822500AE7944 /* Smart CityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Smart CityUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0FD4F6F02E0F8A4500AE7944 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		0FD4F6F12E0F8A4500AE7944 /* READMESP.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = READMESP.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0FD4F6992E0F862B00AE7944 /* Exceptions for "Smart City" folder in "Smart CityTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				App/AppCoordinator.swift,
+				App/AppRoute.swift,
+				Data/Repositories/CityRepository.swift,
+				Data/Repositories/InMemoryCityRepository.swift,
+				Domain/Entities/City.swift,
+				Domain/UseCases/LoadRemoteCitiesUseCase.swift,
+				Domain/UseCases/SearchCitiesUseCase.swift,
+				Domain/UseCases/ToggleFavoriteCityUseCase.swift,
+				Features/CitySearch/View/CityDetailView.swift,
+				Features/CitySearch/View/CitySearchView.swift,
+				Features/CitySearch/ViewModels/CitySearchViewModel.swift,
+				Framework/Services/CityRemoteDataSource.swift,
+			);
+			target = 0FD4F6442E0F822500AE7944 /* Smart CityTests */;
+		};
+		0FD4F69A2E0F862B00AE7944 /* Exceptions for "Smart City" folder in "Smart CityUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				App/AppCoordinator.swift,
+				App/AppRoute.swift,
+				Data/Repositories/CityRepository.swift,
+				Data/Repositories/InMemoryCityRepository.swift,
+				Domain/Entities/City.swift,
+				Domain/UseCases/LoadRemoteCitiesUseCase.swift,
+				Domain/UseCases/SearchCitiesUseCase.swift,
+				Domain/UseCases/ToggleFavoriteCityUseCase.swift,
+				Features/CitySearch/View/CityDetailView.swift,
+				Features/CitySearch/View/CitySearchView.swift,
+				Features/CitySearch/ViewModels/CitySearchViewModel.swift,
+				Framework/Services/CityRemoteDataSource.swift,
+			);
+			target = 0FD4F64E2E0F822500AE7944 /* Smart CityUITests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		0FD4F6372E0F822300AE7944 /* Smart City */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0FD4F6992E0F862B00AE7944 /* Exceptions for "Smart City" folder in "Smart CityTests" target */,
+				0FD4F69A2E0F862B00AE7944 /* Exceptions for "Smart City" folder in "Smart CityUITests" target */,
+			);
+			path = "Smart City";
+			sourceTree = "<group>";
+		};
+		0FD4F6482E0F822500AE7944 /* Smart CityTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Smart CityTests";
+			sourceTree = "<group>";
+		};
+		0FD4F6522E0F822500AE7944 /* Smart CityUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Smart CityUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0FD4F6322E0F822300AE7944 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0FD4F6422E0F822500AE7944 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0FD4F64C2E0F822500AE7944 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0FD4F62C2E0F822300AE7944 = {
+			isa = PBXGroup;
+			children = (
+				0FD4F6F02E0F8A4500AE7944 /* README.md */,
+				0FD4F6F12E0F8A4500AE7944 /* READMESP.md */,
+				0FD4F6372E0F822300AE7944 /* Smart City */,
+				0FD4F6482E0F822500AE7944 /* Smart CityTests */,
+				0FD4F6522E0F822500AE7944 /* Smart CityUITests */,
+				0FD4F6362E0F822300AE7944 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0FD4F6362E0F822300AE7944 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0FD4F6352E0F822300AE7944 /* Smart City.app */,
+				0FD4F6452E0F822500AE7944 /* Smart CityTests.xctest */,
+				0FD4F64F2E0F822500AE7944 /* Smart CityUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0FD4F6342E0F822300AE7944 /* Smart City */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0FD4F6592E0F822500AE7944 /* Build configuration list for PBXNativeTarget "Smart City" */;
+			buildPhases = (
+				0FD4F6312E0F822300AE7944 /* Sources */,
+				0FD4F6322E0F822300AE7944 /* Frameworks */,
+				0FD4F6332E0F822300AE7944 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				0FD4F6372E0F822300AE7944 /* Smart City */,
+			);
+			name = "Smart City";
+			packageProductDependencies = (
+			);
+			productName = "Smart City";
+			productReference = 0FD4F6352E0F822300AE7944 /* Smart City.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0FD4F6442E0F822500AE7944 /* Smart CityTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0FD4F65C2E0F822500AE7944 /* Build configuration list for PBXNativeTarget "Smart CityTests" */;
+			buildPhases = (
+				0FD4F6412E0F822500AE7944 /* Sources */,
+				0FD4F6422E0F822500AE7944 /* Frameworks */,
+				0FD4F6432E0F822500AE7944 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0FD4F6472E0F822500AE7944 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				0FD4F6482E0F822500AE7944 /* Smart CityTests */,
+			);
+			name = "Smart CityTests";
+			packageProductDependencies = (
+			);
+			productName = "Smart CityTests";
+			productReference = 0FD4F6452E0F822500AE7944 /* Smart CityTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		0FD4F64E2E0F822500AE7944 /* Smart CityUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0FD4F65F2E0F822500AE7944 /* Build configuration list for PBXNativeTarget "Smart CityUITests" */;
+			buildPhases = (
+				0FD4F64B2E0F822500AE7944 /* Sources */,
+				0FD4F64C2E0F822500AE7944 /* Frameworks */,
+				0FD4F64D2E0F822500AE7944 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0FD4F6512E0F822500AE7944 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				0FD4F6522E0F822500AE7944 /* Smart CityUITests */,
+			);
+			name = "Smart CityUITests";
+			packageProductDependencies = (
+			);
+			productName = "Smart CityUITests";
+			productReference = 0FD4F64F2E0F822500AE7944 /* Smart CityUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0FD4F62D2E0F822300AE7944 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					0FD4F6342E0F822300AE7944 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					0FD4F6442E0F822500AE7944 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 0FD4F6342E0F822300AE7944;
+					};
+					0FD4F64E2E0F822500AE7944 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 0FD4F6342E0F822300AE7944;
+					};
+				};
+			};
+			buildConfigurationList = 0FD4F6302E0F822300AE7944 /* Build configuration list for PBXProject "Smart City" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0FD4F62C2E0F822300AE7944;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0FD4F6362E0F822300AE7944 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0FD4F6342E0F822300AE7944 /* Smart City */,
+				0FD4F6442E0F822500AE7944 /* Smart CityTests */,
+				0FD4F64E2E0F822500AE7944 /* Smart CityUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0FD4F6332E0F822300AE7944 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0FD4F7012E0F8A4500AE7944 /* README.md in Resources */,
+				0FD4F7032E0F8A4500AE7944 /* READMESP.md in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0FD4F6432E0F822500AE7944 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0FD4F7102E0F8A4500AE7944 /* README.md in Resources */,
+				0FD4F7112E0F8A4500AE7944 /* READMESP.md in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0FD4F64D2E0F822500AE7944 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0FD4F7122E0F8A4500AE7944 /* README.md in Resources */,
+				0FD4F7132E0F8A4500AE7944 /* READMESP.md in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0FD4F6312E0F822300AE7944 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0FD4F6412E0F822500AE7944 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0FD4F64B2E0F822500AE7944 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0FD4F6472E0F822500AE7944 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0FD4F6342E0F822300AE7944 /* Smart City */;
+			targetProxy = 0FD4F6462E0F822500AE7944 /* PBXContainerItemProxy */;
+		};
+		0FD4F6512E0F822500AE7944 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0FD4F6342E0F822300AE7944 /* Smart City */;
+			targetProxy = 0FD4F6502E0F822500AE7944 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0FD4F6572E0F822500AE7944 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = A9A9F36289;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0FD4F6582E0F822500AE7944 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = A9A9F36289;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		0FD4F65A2E0F822500AE7944 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Smart City/Smart_City.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A9A9F36289;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lugardo.Smart-City";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Debug;
+		};
+		0FD4F65B2E0F822500AE7944 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Smart City/Smart_City.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A9A9F36289;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lugardo.Smart-City";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Release;
+		};
+		0FD4F65D2E0F822500AE7944 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A9A9F36289;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lugardo.Smart-CityTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Smart City.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Smart City";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Debug;
+		};
+		0FD4F65E2E0F822500AE7944 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A9A9F36289;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lugardo.Smart-CityTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Smart City.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Smart City";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Release;
+		};
+		0FD4F6602E0F822500AE7944 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A9A9F36289;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lugardo.Smart-CityUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = "Smart City";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Debug;
+		};
+		0FD4F6612E0F822500AE7944 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A9A9F36289;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lugardo.Smart-CityUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = "Smart City";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0FD4F6302E0F822300AE7944 /* Build configuration list for PBXProject "Smart City" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0FD4F6572E0F822500AE7944 /* Debug */,
+				0FD4F6582E0F822500AE7944 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0FD4F6592E0F822500AE7944 /* Build configuration list for PBXNativeTarget "Smart City" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0FD4F65A2E0F822500AE7944 /* Debug */,
+				0FD4F65B2E0F822500AE7944 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0FD4F65C2E0F822500AE7944 /* Build configuration list for PBXNativeTarget "Smart CityTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0FD4F65D2E0F822500AE7944 /* Debug */,
+				0FD4F65E2E0F822500AE7944 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0FD4F65F2E0F822500AE7944 /* Build configuration list for PBXNativeTarget "Smart CityUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0FD4F6602E0F822500AE7944 /* Debug */,
+				0FD4F6612E0F822500AE7944 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0FD4F62D2E0F822300AE7944 /* Project object */;
+}
