@@ -15,7 +15,6 @@ final class CitySearchViewModel {
 
     private let searchUseCase: SearchCitiesUseCase
     private unowned let coordinator: AppCoordinator
-
     private let loadUseCase: LoadRemoteCitiesUseCase
 
     init(searchUseCase: SearchCitiesUseCase,loadUseCase: LoadRemoteCitiesUseCase,coordinator: AppCoordinator) {
@@ -35,7 +34,14 @@ final class CitySearchViewModel {
     }
     
     func search() {
-        results = searchUseCase.execute(query: query)
+        let currentQuery = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            let filtered = self.searchUseCase.execute(query: currentQuery)
+            DispatchQueue.main.async {
+                self.results = filtered
+            }
+        }
     }
 
     @MainActor func select(city: City) {

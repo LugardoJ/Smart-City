@@ -12,13 +12,18 @@ struct CitySearchView: View {
 
     var body: some View {
         VStack {
-            List(viewModel.results,id:\.id) { city in
-                Button {
-                    viewModel.select(city: city)
-                } label: {
-                    VStack(alignment: .leading) {
-                        Text(city.name).bold()
-                        Text(city.country).font(.subheadline).foregroundColor(.gray)
+            ScrollView {
+                LazyVStack(alignment: .leading) {
+                    ForEach(viewModel.results, id: \.id) { city in
+                        Button {
+                            viewModel.select(city: city)
+                        } label: {
+                            VStack(alignment: .leading) {
+                                Text(city.name).bold()
+                                Text(city.country).font(.subheadline).foregroundColor(.gray)
+                            }
+                        }
+                        .id(city.id)
                     }
                 }
             }
@@ -26,6 +31,7 @@ struct CitySearchView: View {
                 viewModel.search()
             }
         }
+        .padding(.horizontal,20)
         .navigationTitle("Smart City")
         .searchable(text: $viewModel.query, prompt: "Search")
         .frame(maxWidth: .infinity,maxHeight: .infinity,alignment: .topLeading)
