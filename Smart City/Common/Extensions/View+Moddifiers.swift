@@ -20,6 +20,8 @@ extension View{
             self
                 .zIndex(0)
             if isPresented{
+                Color.secondary.opacity(0.3).ignoresSafeArea(.all)
+
                 ProgressView()
                     .zIndex(1)
             }

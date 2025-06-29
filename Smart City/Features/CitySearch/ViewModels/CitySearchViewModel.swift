@@ -17,15 +17,14 @@ final class CitySearchViewModel {
     private let context: ModelContext
     private let toggleFavoriteUseCase: ToggleFavoriteCityUseCase
     private unowned let coordinator: AppCoordinator
-
+    
     var query: String = ""
     var isLoading: Bool = true
     var results: [City] = []
     @ObservationIgnored var fullResults: [City] = []
     @ObservationIgnored var pageSize: Int = 100
     @ObservationIgnored var isLoadingMore = false
-
-    
+        
     var searchMessage: String? {
         results.isEmpty ? "No results found for \"\(query.trimmingCharacters(in: .whitespacesAndNewlines))\"." : nil
     }
@@ -39,23 +38,23 @@ final class CitySearchViewModel {
         self.toggleFavoriteUseCase = toggleFavoriteUseCase
     }
     
+    
     @MainActor
-    func loadCities() async {
+    func loadCities(_ refresh : Bool = false) async {
         isLoading = true
-        if context.isCityCacheEmpty() {
-            print("remote")
+        if context.isCityCacheEmpty() || refresh {
             do {
                 try await inMemoryRepository.loadCitiesRemote()
                 try context.cacheCities(inMemoryRepository.getCitites())
             } catch {
-                print("Error loading from remote: \(error)")
+                print("🔴 Error loading from remote: \(error)")
             }
-        }else {
-            print("locale")
+        } else {
             let cached = context.fetchCachedCities()
             inMemoryRepository.setCities(cached)
         }
-        self.search()
+        search()
+        isLoading = false
     }
     
     func search() {

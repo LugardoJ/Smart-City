@@ -83,7 +83,7 @@ Smart_City
 - [x] Inyección de dependencias inicial con protocolos
 - [X] Carga remota del JSON de ciudades (~200k)
 - [X] Búsqueda sensible al texto (con optimización por prefijo)
-- [ ] UI reactiva con SwiftUI
+- [x] UI reactiva con SwiftUI
 - [x] Persistencia de favoritos
 - [ ] Vista de mapa interactivo (próximamente)
 - [ ] Pruebas unitarias y de integración

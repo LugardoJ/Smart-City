@@ -17,15 +17,18 @@ struct CitySearchView: View {
         }
         .navigationTitle("Smart City")
         .searchable(text: $viewModel.query.animation(), prompt: "Search")
+        .onChange(of: viewModel.query, initial: false) { oldValue, newValue in
+            self.viewModel.search()
+        }
         .LoadingView(isPresented: viewModel.isLoading)
         .if(!viewModel.isLoading, transform: { content in
-            content.overlay(alignment: .center, content: {
+            content.overlay(alignment: .center){
                 if let searchMessage = viewModel.searchMessage{
                     ContentUnavailableView("Search", systemImage: "magnifyingglass", description: Text(searchMessage))
                         .transition(.opacity)
                         .animation(.easeInOut, value: searchMessage)
                 }
-            })
+            }
         })
         .task {
             if viewModel.fullResults.isEmpty{
@@ -37,33 +40,24 @@ struct CitySearchView: View {
     private var listContainer: some View{
         List {
             ForEach(viewModel.results, id: \.id) { city in
-                HStack{
-                    Button {
-                        viewModel.select(city: city)
-                    } label: {
-                        VStack(alignment: .leading) {
-                            Text(city.name).bold()
-                            Text(city.country).font(.subheadline).foregroundColor(.gray)
-                        }
-                        .frame(maxWidth: .infinity,alignment: .leading)
-                    }                    
-                    
-                    Image(systemName: city.isFavorite == true ? "bookmark.fill" : "bookmark")
-                        .onTapGesture {
-                            withAnimation {
-                                viewModel.toggleFavorite(item: city)
-                            }
-                        }
-                    
+                Button {
+                    viewModel.select(city: city)
+                } label: {
+                    cityRow(city)
                 }
-                .onAppear {
-                    viewModel.loadMoreIfNeeded(currentItem: city)
-                }
+                .tint(.primary)
             }
         }
         .listStyle(.insetGrouped)
-        .onChange(of: viewModel.query, initial: false) { oldValue, newValue in
-            self.viewModel.search()
+        .refreshable {
+            await Task{ await viewModel.loadCities(true) }.value
         }
+    }
+    
+    private func cityRow(_ city: City) -> some View{
+        SearchRowView(city: city)
+            .onAppear {
+                viewModel.loadMoreIfNeeded(currentItem: city)
+            }
     }
 }
