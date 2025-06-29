@@ -8,9 +8,7 @@
 
 protocol CityRepository {
     func searchCities(matching query: String) -> [City]
-    func toggleFavorite(_ city: City)
-    func isFavorite(_ city: City) -> Bool
-    func favorites() -> [City]
-    
+    func setCities(_ cities: [City])
+    func getCitites() -> [City]
     func loadCitiesRemote() async throws
 }

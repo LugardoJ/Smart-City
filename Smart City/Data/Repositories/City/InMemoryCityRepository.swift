@@ -8,23 +8,21 @@
 
 final class InMemoryCityRepository: CityRepository {
     private var cities: [City] = []
-    private var favoritesSet: Set<Int> = []
     private var indexedCities: [String: [City]] = [:]
     private let remoteDataSource: CityRemoteDataSourceProtocol
-    
-    init(remoteDataSource: CityRemoteDataSourceProtocol = CityRemoteDataSource()) {
+
+    init(remoteDataSource: CityRemoteDataSourceProtocol = CityRemoteDataSource()){
         self.remoteDataSource = remoteDataSource
+    }
+    
+    func setCities(_ cities: [City]) {
+        self.cities = cities.sorted(by: citySort)
+        indexCities()
     }
     
     func loadCitiesRemote() async throws {
         let loadedCities = try await remoteDataSource.fetchCities()
-        self.cities = loadedCities.sorted {
-            if $0.name == $1.name {
-                return $0.country < $1.country
-            }
-            return $0.name < $1.name
-        }
-        indexCities()
+        setCities(loadedCities)
     }
     
     private func indexCities() {
@@ -35,38 +33,22 @@ final class InMemoryCityRepository: CityRepository {
         }
     }
     
+    func getCitites() -> [City] {
+        self.cities
+    }
+    
     func searchCities(matching query: String) -> [City] {
         let q = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        
-        if q.isEmpty {
-            return cities
-        }
-        
+        guard !q.isEmpty else { return cities }
         guard let firstChar = q.first else { return [] }
         
         return indexedCities[String(firstChar), default: []]
             .filter { $0.name.lowercased().hasPrefix(q) }
-            .sorted {
-                if $0.name == $1.name {
-                    return $0.country < $1.country
-                }
-                return $0.name < $1.name
-            }
+            .sorted(by: citySort)
     }
     
-    func toggleFavorite(_ city: City) {
-        if favoritesSet.contains(city.id) {
-            favoritesSet.remove(city.id)
-        } else {
-            favoritesSet.insert(city.id)
-        }
+    private func citySort(lhs: City, rhs: City) -> Bool {
+        lhs.name == rhs.name ? lhs.country < rhs.country : lhs.name < rhs.name
     }
     
-    func isFavorite(_ city: City) -> Bool {
-        favoritesSet.contains(city.id)
-    }
-    
-    func favorites() -> [City] {
-        cities.filter { favoritesSet.contains($0.id) }
-    }
 }

@@ -13,7 +13,7 @@ protocol SearchCitiesUseCase {
 // MARK: - Use Case Implementations (Domain Layer)
 
 final class DefaultSearchCitiesUseCase: SearchCitiesUseCase {
-    private let repository: CityRepository
+    let repository: CityRepository
     
     init(repository: CityRepository) {
         self.repository = repository

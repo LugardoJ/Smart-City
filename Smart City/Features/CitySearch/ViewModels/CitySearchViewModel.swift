@@ -5,63 +5,93 @@
 //  Created by Lugardo on 27/06/25.
 //
 import SwiftUI
+import SwiftData
 
 // MARK: - ViewModel (Presentation Layer)
 
 @Observable
 final class CitySearchViewModel {
     private let searchUseCase: SearchCitiesUseCase
-    private unowned let coordinator: AppCoordinator
     private let loadUseCase: LoadRemoteCitiesUseCase
-    
+    private let inMemoryRepository: InMemoryCityRepository
+    private let context: ModelContext
+    private let toggleFavoriteUseCase: ToggleFavoriteCityUseCase
+    private unowned let coordinator: AppCoordinator
+
     var query: String = ""
-    var isLoading: Bool = false
+    var isLoading: Bool = true
     var results: [City] = []
     @ObservationIgnored var fullResults: [City] = []
     @ObservationIgnored var pageSize: Int = 100
+    @ObservationIgnored var isLoadingMore = false
 
+    
     var searchMessage: String? {
         results.isEmpty ? "No results found for \"\(query.trimmingCharacters(in: .whitespacesAndNewlines))\"." : nil
     }
     
-    init(searchUseCase: SearchCitiesUseCase,loadUseCase: LoadRemoteCitiesUseCase,coordinator: AppCoordinator) {
+    init(searchUseCase: SearchCitiesUseCase,loadUseCase: LoadRemoteCitiesUseCase,coordinator: AppCoordinator, inMemoryRepository: InMemoryCityRepository, context: ModelContext,toggleFavoriteUseCase: ToggleFavoriteCityUseCase) {
         self.searchUseCase = searchUseCase
         self.loadUseCase = loadUseCase
         self.coordinator = coordinator
+        self.inMemoryRepository = inMemoryRepository
+        self.context = context
+        self.toggleFavoriteUseCase = toggleFavoriteUseCase
     }
     
     @MainActor
     func loadCities() async {
         isLoading = true
-        do {
-            try await loadUseCase.execute()
-            search()
-        } catch {
-            print("Error loading remote cities: \(error)")
+        if context.isCityCacheEmpty() {
+            print("remote")
+            do {
+                try await inMemoryRepository.loadCitiesRemote()
+                try context.cacheCities(inMemoryRepository.getCitites())
+            } catch {
+                print("Error loading from remote: \(error)")
+            }
+        }else {
+            print("locale")
+            let cached = context.fetchCachedCities()
+            inMemoryRepository.setCities(cached)
         }
+        self.search()
     }
     
     func search() {
         Task.detached(priority: .userInitiated) {
             let filtered = self.searchUseCase.execute(query: self.query)
-            self.fullResults = filtered
+            let prefixSlice = Array(filtered.prefix(self.pageSize))
             await MainActor.run {
-                self.results = Array(filtered.prefix(self.pageSize))
+                self.fullResults = filtered
+                self.results = prefixSlice
                 self.isLoading = false
             }
         }
     }
     
     func loadMore() {
+        guard !isLoadingMore else { return }
+        isLoadingMore = true
         guard results.count < fullResults.count else { return }
         let next = fullResults[results.count..<min(results.count + pageSize, fullResults.count)]
         results.append(contentsOf: next)
+        isLoadingMore = false
     }
     
     func loadMoreIfNeeded(currentItem: City) {
         guard let last = results.last else { return }
         if currentItem.id == last.id {
             loadMore()
+        }
+    }
+    
+    func toggleFavorite(item: City){
+        toggleFavoriteUseCase.execute(city: item)
+        if let index = results.firstIndex(where: { $0.id == item.id }) {
+            var updated = results[index]
+            updated.isFavorite.toggle()
+            results[index] = updated
         }
     }
     

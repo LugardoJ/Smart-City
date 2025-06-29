@@ -11,11 +11,8 @@ import SwiftData
 @main
 struct Smart_CityApp: App {
     var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
+        let schema = Schema([CityEntity.self,])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
@@ -24,7 +21,6 @@ struct Smart_CityApp: App {
     }()
 
     @StateObject private var coordinator : AppCoordinator = .init()
-
     
     var body: some Scene {
         WindowGroup {
@@ -42,10 +38,23 @@ struct Smart_CityApp: App {
         .modelContainer(sharedModelContainer)
     }
     
-    private var viewModel: CitySearchViewModel{
-        let repository = InMemoryCityRepository()
-        let searchUseCase = DefaultSearchCitiesUseCase(repository: repository)
-        let loadUseCase = DefaultLoadRemoteCitiesUseCase(repository: repository)
-        return CitySearchViewModel(searchUseCase: searchUseCase,loadUseCase: loadUseCase,coordinator: coordinator)
+    private var viewModel: CitySearchViewModel {
+        let context = sharedModelContainer.mainContext
+        
+        let favoritesRepo = SwiftDataFavoritesRepository(context: context)
+        let cityRepo = InMemoryCityRepository()
+        
+        let searchUseCase = DefaultSearchCitiesUseCase(repository: cityRepo)
+        let loadUseCase = DefaultLoadRemoteCitiesUseCase(repository: cityRepo)
+        let toggleFavoriteUseCase = DefaultToggleFavoriteCityUseCase(favoriteRepository: favoritesRepo)
+
+        return CitySearchViewModel(
+            searchUseCase: searchUseCase,
+            loadUseCase: loadUseCase,
+            coordinator: coordinator,
+            inMemoryRepository: cityRepo,
+            context: context,
+            toggleFavoriteUseCase: toggleFavoriteUseCase
+        )
     }
 }

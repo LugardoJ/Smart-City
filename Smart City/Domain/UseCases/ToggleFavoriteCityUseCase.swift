@@ -13,13 +13,13 @@ protocol ToggleFavoriteCityUseCase {
 // MARK: - Use Case Implementations (Domain Layer)
 
 final class DefaultToggleFavoriteCityUseCase: ToggleFavoriteCityUseCase {
-    private let repository: CityRepository
-    
-    init(repository: CityRepository) {
-        self.repository = repository
+    private let favoriteRepository: FavoriteCityRepository
+
+    init(favoriteRepository: FavoriteCityRepository) {
+        self.favoriteRepository = favoriteRepository
     }
-    
+
     func execute(city: City) {
-        repository.toggleFavorite(city)
+        favoriteRepository.toggleFavorite(city)
     }
 }

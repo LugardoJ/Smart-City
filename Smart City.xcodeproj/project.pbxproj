@@ -46,8 +46,11 @@
 			membershipExceptions = (
 				App/AppCoordinator.swift,
 				App/AppRoute.swift,
-				Data/Repositories/CityRepository.swift,
-				Data/Repositories/InMemoryCityRepository.swift,
+				Data/Repositories/City/CityRepository.swift,
+				Data/Repositories/City/InMemoryCityRepository.swift,
+				Data/Repositories/City/SwiftDataFavoritesRepository.swift,
+				Data/Repositories/Favorites/FavoritesRepository.swift,
+				Data/Services/CityRemoteDataSource.swift,
 				Domain/Entities/City.swift,
 				Domain/UseCases/LoadRemoteCitiesUseCase.swift,
 				Domain/UseCases/SearchCitiesUseCase.swift,
@@ -55,7 +58,6 @@
 				Features/CitySearch/View/CityDetailView.swift,
 				Features/CitySearch/View/CitySearchView.swift,
 				Features/CitySearch/ViewModels/CitySearchViewModel.swift,
-				Framework/Services/CityRemoteDataSource.swift,
 			);
 			target = 0FD4F6442E0F822500AE7944 /* Smart CityTests */;
 		};
@@ -64,8 +66,11 @@
 			membershipExceptions = (
 				App/AppCoordinator.swift,
 				App/AppRoute.swift,
-				Data/Repositories/CityRepository.swift,
-				Data/Repositories/InMemoryCityRepository.swift,
+				Data/Repositories/City/CityRepository.swift,
+				Data/Repositories/City/InMemoryCityRepository.swift,
+				Data/Repositories/City/SwiftDataFavoritesRepository.swift,
+				Data/Repositories/Favorites/FavoritesRepository.swift,
+				Data/Services/CityRemoteDataSource.swift,
 				Domain/Entities/City.swift,
 				Domain/UseCases/LoadRemoteCitiesUseCase.swift,
 				Domain/UseCases/SearchCitiesUseCase.swift,
@@ -73,7 +78,6 @@
 				Features/CitySearch/View/CityDetailView.swift,
 				Features/CitySearch/View/CitySearchView.swift,
 				Features/CitySearch/ViewModels/CitySearchViewModel.swift,
-				Framework/Services/CityRemoteDataSource.swift,
 			);
 			target = 0FD4F64E2E0F822500AE7944 /* Smart CityUITests */;
 		};

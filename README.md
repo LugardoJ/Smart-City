@@ -41,9 +41,11 @@ Smart_City
 │   └── Smart_CityApp.swift
 │
 ├── Data/
-│   └── Repositories/
-│       ├── CityRepository.swift
-│       └── InMemoryCityRepository.swift
+│   ├── Repositories/
+│   │   ├── InMemoryCityRepository.swift
+│   │   └── SwiftDataFavoritesRepository.swift
+│   └── Models/
+│       └── CityEntity.swift
 │
 ├── Domain/
 │   ├── Entities/
@@ -71,6 +73,7 @@ Smart_City
 ├── Tests/
 │   └── (Under Construction)
 │
+├── CHANGELOG.md
 └── README.md
 ```
 
@@ -83,8 +86,8 @@ Smart_City
 - [x] Initial dependency injection with protocols
 - [x] Remote JSON loading of cities (~200k)
 - [x] Prefix-based optimized search
-- [ ] Reactive UI with SwiftUI
-- [ ] Favorites persistence
+- [~] **Reactive UI with SwiftUI (in progress)**
+- [x] Favorites persistence
 - [ ] Interactive map view (coming soon)
 - [ ] Unit and integration testing
 
@@ -111,7 +114,7 @@ City data is fetched from the following JSON:
 
 1. ✅ Commit 1 – Base structure, architecture, and initial README  
 2. ✅ Commit 2 – Data loading and real search implementation  
-3. 🔜 Commit 3 – Favorites and persistence  
+3. ✅ Commit 3 – Favorites and persistence  
 4. 🔜 Commit 4 – Map integration and visual improvements  
 5. 🔜 Commit 5 – Metrics, testing, and final tweaks  
 

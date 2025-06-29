@@ -84,7 +84,7 @@ Smart_City
 - [X] Carga remota del JSON de ciudades (~200k)
 - [X] Búsqueda sensible al texto (con optimización por prefijo)
 - [ ] UI reactiva con SwiftUI
-- [ ] Persistencia de favoritos
+- [x] Persistencia de favoritos
 - [ ] Vista de mapa interactivo (próximamente)
 - [ ] Pruebas unitarias y de integración
 
@@ -111,7 +111,7 @@ Los datos de ciudades se obtienen desde el siguiente JSON:
 
 1. ✅ Commit 1 – Estructura base, arquitectura y README inicial  
 2. ✅ Commit 2 – Implementación de carga y búsqueda con datos reales  
-3. 🔜 Commit 3 – Favoritos y persistencia  
+3. ✅ Commit 3 – Favoritos y persistencia  
 4. 🔜 Commit 4 – Integración con mapa y mejora visual  
 5. 🔜 Commit 5 – Métricas, testing y ajustes finales  
 
