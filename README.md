@@ -24,9 +24,9 @@ Develop a feature called **Smart City**, which enables:
 - **Framework**: SwiftUI + Combine
 - **Architecture**: Clean Architecture + SOLID
 - **Patterns**: MVVM, Coordinator
-- **Persistence**: Initially InMemory
+- **Persistence**: SwiftData (local), InMemory (search/cache)
 - **Map**: MapKit (to be integrated)
-- **Testing**: XCTest, Testables (to be added)
+- **Testing**: XCTest, UI Tests (planned)
 
 ---
 
@@ -38,19 +38,46 @@ Smart_City
 ├── App/
 │   ├── AppCoordinator.swift
 │   ├── AppRoute.swift
+│   ├── RootView.swift
 │   └── Smart_CityApp.swift
 │
+├── Common/
+│   └── Extensions/
+│       ├── Device+Extensions.swift
+│       ├── String+Extensions.swift
+│       └── View+Modifiers.swift
+│
 ├── Data/
+│   ├── Persistence/
+│   │   ├── CityEntity.swift
+│   │   ├── ModelContext+Cities.swift
+│   │   └── SwiftDataCityRepository.swift
+│   │
 │   ├── Repositories/
-│   │   ├── InMemoryCityRepository.swift
-│   │   └── SwiftDataFavoritesRepository.swift
-│   └── Models/
-│       └── CityEntity.swift
+│   │   ├── City/
+│   │   │   ├── CityRepository.swift
+│   │   │   ├── InMemoryCityRepository.swift
+│   │   │   └── SwiftDataFavoritesRepository.swift
+│   │   │
+│   │   ├── CitySummary/
+│   │   │   ├── CitySummaryRepository.swift
+│   │   │   └── DefaultCitySummaryRepository.swift
+│   │   │
+│   │   └── Favorites/
+│   │       └── FavoritesRepository.swift
+│   │
+│   └── Services/
+│       ├── CityRemoteDataSource.swift
+│       └── WikipediaRemoteDataSource.swift
 │
 ├── Domain/
 │   ├── Entities/
-│   │   └── City.swift
+│   │   ├── City.swift
+│   │   ├── City+Extensions.swift
+│   │   └── WikiCitySummary.swift
+│   │
 │   └── UseCases/
+│       ├── FetchCitySummaryUseCase.swift
 │       ├── LoadRemoteCitiesUseCase.swift
 │       ├── SearchCitiesUseCase.swift
 │       └── ToggleFavoriteCityUseCase.swift
@@ -58,38 +85,46 @@ Smart_City
 ├── Features/
 │   └── CitySearch/
 │       ├── View/
-│       │   ├── CityDetailView.swift
-│       │   └── CitySearchView.swift
+│       │   ├── Detail/
+│       │   │   ├── CityDetailView.swift
+│       │   │   └── CityInfoCard.swift
+│       │   │
+│       │   └── Search/
+│       │       ├── CitySearchView.swift
+│       │       └── SearchRowView.swift
+│       │
 │       └── ViewModels/
+│           ├── CityDetailViewModel.swift
 │           └── CitySearchViewModel.swift
 │
-├── Framework/
-│   └── Services/
-│       └── CityRemoteDataSource.swift
+├── Network/
+│   ├── Protocols/
+│   ├── Models/
+│   └── Implementations/
 │
 ├── Resources/
 │   └── Assets.xcassets
 │
-├── Tests/
-│   └── (Under Construction)
-│
-├── CHANGELOG.md
-└── README.md
+├── Smart_CityTests/
+└── Smart_CityUITests/
 ```
 
 ---
 
-## ⚙️ Planned Features
+## ⚙️ Completed Features
 
-- [x] Modular and coordinated structure
-- [x] `City` entity modeling with custom ID (`_id`)
-- [x] Initial dependency injection with protocols
-- [x] Remote JSON loading of cities (~200k)
+- [x] Modular and coordinated architecture.
+- [x] `City` domain modeling.
+- [x] InMemory search with index-based optimization.
+- [x] Remote fetch of 200K+ cities from JSON.
+- [x] Local persistence of cities using SwiftData.
 - [x] Prefix-based optimized search
-- [~] **Reactive UI with SwiftUI (in progress)**
-- [x] Favorites persistence
-- [ ] Interactive map view (coming soon)
-- [ ] Unit and integration testing
+- [x] Reactive UI with SwiftUI
+- [x] Favorites saved locally (SwiftData).
+- [x] Visual indicators: country flags, full country names, favorite stars.
+- [x] UI adaptable to orientation (WIP with SplitView).
+- [x] Interactive map view (✅)
+- [ ] Unit and integration testing (coming soon)
 
 ---
 
@@ -97,41 +132,48 @@ Smart_City
 
 City data is fetched from the following JSON:
 
-🔗 [Gist JSON (~200k cities)](https://gist.githubusercontent.com/hernan-uala/dce8843a8edbe0b0018b32e137bc2b3a/raw/0996accf70cb0ca0e16f9a99e0ee185fafca7af1/cities.json)
+🔗 [Cities JSON (~200k records)](https://gist.githubusercontent.com/hernan-uala/dce8843a8edbe0b0018b32e137bc2b3a/raw/0996accf70cb0ca0e16f9a99e0ee185fafca7af1/cities.json)
 
 ---
 
-## 🧪 Testing Plan (Pending)
+## 🧪 Testing Plan
 
-- [ ] Unit tests for `SearchCitiesUseCase`
-- [ ] Mocked `CityRepository`
-- [ ] ViewModel tests
-- [ ] UI search tests
+- [ ] Unit tests for search use cases.
+- [ ] Mock `CityRepository`.
+- [ ] ViewModel and UI snapshot tests.
+- [ ] Test SwiftData favorite persistence.
 
 ---
 
 ## 📦 Delivery Plan
 
-1. ✅ Commit 1 – Base structure, architecture, and initial README  
-2. ✅ Commit 2 – Data loading and real search implementation  
-3. ✅ Commit 3 – Favorites and persistence  
-4. 🔜 Commit 4 – Map integration and visual improvements  
-5. 🔜 Commit 5 – Metrics, testing, and final tweaks  
+1. ✅ Base structure and README.
+2. ✅ Search optimization and JSON fetch.
+3. ✅ SwiftData integration and favorites logic.
+4. ✅ Map interface and orientation support.
+5. 🔜 Final metrics, testing, and polish.
 
 ---
 
-## 📊 Key Metrics (To Implement)
 
-- Search response time
-- Favorite city event tracking
-- Most searched cities
-- Session duration on map view
+## 📈 Product Success Observability
+
+To ensure the success and usability of the **Smart City** feature, the following **key metrics** will be tracked:
+
+### ✅ Key Metrics
+
+- ⏱️ **Search performance time** – Track how long it takes to get search results.
+- ❤️ **Number of favorited cities** – Understand user engagement with the feature.
+- 🌍 **Most searched countries** – Identify geographic interest and patterns.
+- 📊 **Session duration** – Measure how long users interact with the feature.
+- 🔄 **Interaction events** – Monitor taps, navigation, and usage flow.
+
 
 ---
 
 ## 📬 Contact
 
-For technical questions:
-- iOS: jclugardo@icloud.com
+For questions or feedback:
+- 📩 iOS: jclugardo@icloud.com
 
-_Developed by Juan Carlos Lugardo as part of the selection process for the Mobile Technical Lead role._
+_Developed by **Juan Carlos Lugardo** as part of the recruitment process for Ualá's Mobile Technical Lead position._
