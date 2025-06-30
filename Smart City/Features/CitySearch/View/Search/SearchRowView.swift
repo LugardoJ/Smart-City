@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct SearchRowView : View {
-    let city : City
+    @Binding var city : City
     
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
@@ -24,9 +24,9 @@ struct SearchRowView : View {
             }
             Spacer()
             
-            Image(systemName: city.isFavorite ? "star.fill" : "star")
+            Image(systemName: city.isFavorite ? "heart.fill" : "heart")
                 .imageScale(.small)
-                .foregroundStyle(city.isFavorite ? .yellow : .secondary)
+                .foregroundStyle(city.isFavorite ? .red : .secondary)
                 .contentTransition(.symbolEffect(.replace))
         }
     }
@@ -34,5 +34,5 @@ struct SearchRowView : View {
 
 #Preview {
     @Previewable @State var isFavorite: Bool = false
-    SearchRowView(city: .init(id: 0, name: "Tokyo", country: "JP", coord: .init(lon: 100.320, lat: 100.203),isFavorite: isFavorite)) 
+    SearchRowView(city: .constant(.init(id: 0, name: "Tokyo", country: "JP", coord: .init(lon: 100.320, lat: 100.203),isFavorite: isFavorite))) 
 }

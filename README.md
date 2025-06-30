@@ -38,60 +38,75 @@ Smart_City
 ├── App/
 │   ├── AppCoordinator.swift
 │   ├── AppRoute.swift
+│   ├── RootView.swift
 │   └── Smart_CityApp.swift
 │
 ├── Common/
 │   └── Extensions/
+│       ├── Device+Extensions.swift
 │       ├── String+Extensions.swift
 │       └── View+Modifiers.swift
 │
 ├── Data/
-│   ├── Extensions/
 │   ├── Persistence/
 │   │   ├── CityEntity.swift
 │   │   ├── ModelContext+Cities.swift
 │   │   └── SwiftDataCityRepository.swift
-│   └── Repositories/
-│       ├── City/
-│       │   ├── CityRepository.swift
-│       │   ├── InMemoryCityRepository.swift
-│       │   └── SwiftDataFavoritesRepository.swift
-│       └── Favorites/
-│           └── FavoritesRepository.swift
+│   │
+│   ├── Repositories/
+│   │   ├── City/
+│   │   │   ├── CityRepository.swift
+│   │   │   ├── InMemoryCityRepository.swift
+│   │   │   └── SwiftDataFavoritesRepository.swift
+│   │   │
+│   │   ├── CitySummary/
+│   │   │   ├── CitySummaryRepository.swift
+│   │   │   └── DefaultCitySummaryRepository.swift
+│   │   │
+│   │   └── Favorites/
+│   │       └── FavoritesRepository.swift
+│   │
+│   └── Services/
+│       ├── CityRemoteDataSource.swift
+│       └── WikipediaRemoteDataSource.swift
 │
 ├── Domain/
-│   ├── City/
-│   │   ├── UseCases/
-│   │   │   ├── LoadRemoteCitiesUseCase.swift
-│   │   │   ├── SearchCitiesUseCase.swift
-│   │   │   └── ToggleFavoriteCityUseCase.swift
-│   │   └── Entities/
-│   │       └── City.swift
+│   ├── Entities/
+│   │   ├── City.swift
+│   │   ├── City+Extensions.swift
+│   │   └── WikiCitySummary.swift
+│   │
+│   └── UseCases/
+│       ├── FetchCitySummaryUseCase.swift
+│       ├── LoadRemoteCitiesUseCase.swift
+│       ├── SearchCitiesUseCase.swift
+│       └── ToggleFavoriteCityUseCase.swift
 │
 ├── Features/
 │   └── CitySearch/
 │       ├── View/
-│       │   ├── CityDetailView.swift
-│       │   ├── CitySearchView.swift
-│       │   └── SearchRowView.swift
+│       │   ├── Detail/
+│       │   │   ├── CityDetailView.swift
+│       │   │   └── CityInfoCard.swift
+│       │   │
+│       │   └── Search/
+│       │       ├── CitySearchView.swift
+│       │       └── SearchRowView.swift
+│       │
 │       └── ViewModels/
+│           ├── CityDetailViewModel.swift
 │           └── CitySearchViewModel.swift
 │
 ├── Network/
-│   ├── Implementations/
-│   │   └── CityRemoteDataSource.swift
+│   ├── Protocols/
 │   ├── Models/
-│   └── Protocols/
+│   └── Implementations/
 │
 ├── Resources/
 │   └── Assets.xcassets
 │
 ├── Smart_CityTests/
-│
-├── Smart_CityUITests/
-│
-├── README.md
-└── CHANGELOG.md
+└── Smart_CityUITests/
 ```
 
 ---
@@ -107,8 +122,8 @@ Smart_City
 - [x] Reactive UI with SwiftUI
 - [x] Favorites saved locally (SwiftData).
 - [x] Visual indicators: country flags, full country names, favorite stars.
-- [ ] UI adaptable to orientation (WIP with SplitView).
-- [ ] Interactive map view (coming soon)
+- [x] UI adaptable to orientation (WIP with SplitView).
+- [x] Interactive map view (✅)
 - [ ] Unit and integration testing (coming soon)
 
 ---
@@ -135,17 +150,24 @@ City data is fetched from the following JSON:
 1. ✅ Base structure and README.
 2. ✅ Search optimization and JSON fetch.
 3. ✅ SwiftData integration and favorites logic.
-4. 🔜 Map interface and orientation support.
+4. ✅ Map interface and orientation support.
 5. 🔜 Final metrics, testing, and polish.
 
 ---
 
-## 📊 Key Metrics (Planned)
 
-- Search time performance.
-- Number of favorited cities.
-- Most searched countries.
-- Session duration and interaction events.
+## 📈 Product Success Observability
+
+To ensure the success and usability of the **Smart City** feature, the following **key metrics** will be tracked:
+
+### ✅ Key Metrics
+
+- ⏱️ **Search performance time** – Track how long it takes to get search results.
+- ❤️ **Number of favorited cities** – Understand user engagement with the feature.
+- 🌍 **Most searched countries** – Identify geographic interest and patterns.
+- 📊 **Session duration** – Measure how long users interact with the feature.
+- 🔄 **Interaction events** – Monitor taps, navigation, and usage flow.
+
 
 ---
 

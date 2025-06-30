@@ -7,18 +7,25 @@
 import SwiftUI
 
 @MainActor
-final class AppCoordinator : ObservableObject{
+public final class AppCoordinator: ObservableObject {
     @Published var path = NavigationPath()
+    @Published var selectedCity: City? = nil
 
     func navigate(to route: AppRoute) {
-        path.append(route)
+        switch route {
+        case .cityDetail(let city):
+            selectedCity = city
+            path.append(city)
+        }
     }
 
     func pop() {
         path.removeLast()
+        selectedCity = nil
     }
 
     func reset() {
         path.removeLast(path.count)
+        selectedCity = nil
     }
 }

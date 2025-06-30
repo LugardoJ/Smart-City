@@ -10,13 +10,15 @@ import SwiftData
 
 struct CitySearchView: View {
     @State var viewModel: CitySearchViewModel
-
+    @EnvironmentObject var coordinator: AppCoordinator
+    @Binding var selectedCity: City?
+    
     var body: some View {
         VStack {
             listContainer
         }
         .navigationTitle("Smart City")
-        .searchable(text: $viewModel.query.animation(), prompt: "Search")
+        .searchable(text: $viewModel.query.animation(),placement: .navigationBarDrawer(displayMode: .always),prompt: "Search")
         .onChange(of: viewModel.query, initial: false) { oldValue, newValue in
             self.viewModel.search()
         }
@@ -38,26 +40,22 @@ struct CitySearchView: View {
     }
     
     private var listContainer: some View{
-        List {
-            ForEach(viewModel.results, id: \.id) { city in
-                Button {
-                    viewModel.select(city: city)
-                } label: {
-                    cityRow(city)
+        List(selection: $coordinator.selectedCity){
+            ForEach($viewModel.results, id: \.id) { city in
+                NavigationLink(value: city.wrappedValue) {
+                    SearchRowView(city: city)
+                        .onAppear {
+                            viewModel.loadMoreIfNeeded(currentItem: city.wrappedValue)
+                        }
                 }
-                .tint(.primary)
+                .isDetailLink(true)
             }
         }
         .listStyle(.insetGrouped)
         .refreshable {
-            await Task{ await viewModel.loadCities(true) }.value
-        }
-    }
-    
-    private func cityRow(_ city: City) -> some View{
-        SearchRowView(city: city)
-            .onAppear {
-                viewModel.loadMoreIfNeeded(currentItem: city)
+            Task.detached(priority: .userInitiated) {
+                await viewModel.loadCities(true)
             }
+        }
     }
 }

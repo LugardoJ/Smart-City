@@ -22,3 +22,12 @@ extension String {
             .map { String($0) }.joined()
     }
 }
+
+extension String{
+    func toDate() -> Date {
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions = [.withFullDate]
+        let date = dateFormatter.date(from: self) ?? Date.now
+        return date
+    }
+}

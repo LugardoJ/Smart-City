@@ -24,7 +24,7 @@ final class CitySearchViewModel {
     @ObservationIgnored var fullResults: [City] = []
     @ObservationIgnored var pageSize: Int = 100
     @ObservationIgnored var isLoadingMore = false
-        
+    
     var searchMessage: String? {
         results.isEmpty ? "No results found for \"\(query.trimmingCharacters(in: .whitespacesAndNewlines))\"." : nil
     }
