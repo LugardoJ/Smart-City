@@ -15,7 +15,7 @@ extension View{
         }
     }
     
-    func LoadingView(isPresented: Bool) -> some View {
+    func loadingView(isPresented: Bool) -> some View {
         self.zIndex(0)
             .overlay{
                 if isPresented{

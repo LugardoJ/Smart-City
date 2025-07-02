@@ -1,0 +1,96 @@
+# ========================
+# SwiftLint Configuration
+# Smart City – Clean Arch + SwiftUI Guidelines
+# ========================
+
+disabled_rules:
+  - nesting
+  - trailing_whitespace
+  - todo
+  - line_length
+  - function_parameter_count
+
+opt_in_rules:
+  - empty_count
+  - closure_spacing
+  - explicit_init
+  - fatal_error_message
+  - force_unwrapping
+  - unused_import
+  - redundant_optional_initialization
+  - vertical_whitespace
+  - multiline_arguments
+  - joined_default_parameter
+  - identifier_name
+  - discouraged_direct_init
+  - discouraged_optional_boolean
+  - sorted_imports
+  - unused_declaration
+  - convenience_type
+
+included:
+  - "Smart City"
+  - "Smart CityTests"
+  - "Smart CityUITests"
+
+excluded:
+  - "**/*.g.swift"
+  - .build
+  - DerivedData
+  - "**/*.generated.swift"
+  - "**/Generated/*"
+  - /var/folders
+  - "**/swift-generated-sources/*"
+  - "**/@__swiftmacro_*"
+
+force_cast: error
+force_try:
+  severity: warning
+
+type_body_length:
+  warning: 300
+  error: 500
+
+file_length:
+  warning: 400
+  error: 700
+
+function_body_length:
+  warning: 40
+  error: 80
+
+cyclomatic_complexity:
+  warning: 10
+  error: 15
+
+identifier_name:
+  excluded:
+    - id
+    - x
+    - y
+    - i
+    - k
+  min_length:
+    warning: 2
+    error: 1
+  max_length:
+    warning: 30
+    error: 40
+
+type_name:
+  min_length: 3
+  max_length:
+    warning: 30
+    error: 40
+  excluded:
+    - Smart_CityApp
+    - Smart_CityTests
+    - Smart_CityUITests
+    - Smart_CityUITestsLaunchTests
+
+analyzer_rules:
+  - explicit_self
+  - unused_import
+  - unused_declaration
+
+reporter: "xcode"

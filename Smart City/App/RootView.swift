@@ -9,7 +9,7 @@ import SwiftData
 
 public struct RootView: View {
     @State private var coordinator: AppCoordinator
-    @State private var columnVisibility : NavigationSplitViewVisibility = .automatic
+    @State private var columnVisibility: NavigationSplitViewVisibility = .automatic
     @State private var orientation = UIDeviceOrientation.unknown
     @State private var viewModel: CitySearchViewModel
     

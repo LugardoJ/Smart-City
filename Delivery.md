@@ -1,26 +1,26 @@
 ### 📦 `Delivery.md` – Deployment & Quality Pipeline
 
-Este archivo describe cómo se garantiza la **calidad del código** en el proyecto **Smart City** utilizando herramientas de análisis estático.  
-Actualmente, no se incluye una integración de CI/CD completa, pero se sientan las bases para implementarla fácilmente.
+This document outlines how **code quality** is ensured in the **Smart City** project using static analysis tools.  
+Currently, there is no full CI/CD integration, but the foundation is set to easily implement it.
 
 ---
 
 ## ✅ Code Quality Guardrails – SwiftLint
 
-Para asegurar la consistencia del código y buenas prácticas, se integró **SwiftLint** como linter principal del proyecto.
+To ensure code consistency and best practices, **SwiftLint** has been integrated as the project's primary linter.
 
-### 🛠 Configuración actual
+### 🛠 Current Configuration
 
-- Archivo de configuración: `.swiftlint.yml`
-- Ejecutable: `run-swiftlint.sh`
-- Integración: fase de *Build Phase* en Xcode
+- Configuration file: `.swiftlint.yml`
+- Executable: `run-swiftlint.sh`
+- Integration: *Build Phase* in Xcode
 - Logs:  
-  - 🟢 `Logs/Main/`: todos los resultados  
-  - 🔴 `Logs/Errors/`: solo errores  
-  - 🟡 `Logs/Warnings/`: solo advertencias  
-  - 📊 `Logs/summary-latest.json`: resumen automático
+  - 🟢 `Logs/Main/`: all results  
+  - 🔴 `Logs/Errors/`: only errors  
+  - 🟡 `Logs/Warnings/`: only warnings  
+  - 📊 `Logs/summary-latest.json`: automatic summary
 
-### 📂 Carpetas incluidas en el análisis
+### 📂 Folders Included in Analysis
 
 ```yaml
 included:
@@ -29,13 +29,13 @@ included:
   - "Smart CityUITests"
 ```
 
-### 🧹 Reglas activadas
+### 🧹 Enabled Rules
 
-- Reglas activadas por defecto
-- Reglas adicionales como:  
+- Default enabled rules
+- Additional rules such as:  
   `explicit_init`, `unused_import`, `closure_spacing`, `joined_default_parameter`, `force_unwrapping`, `sorted_imports`
 
-### ⚠️ Límite de complejidad y tamaño
+### ⚠️ Complexity and Size Limits
 
 ```yaml
 function_body_length:
@@ -47,9 +47,9 @@ cyclomatic_complexity:
   error: 15
 ```
 
-### ▶️ Cómo ejecutarlo manualmente
+### ▶️ How to Run It Manually
 
-Desde la raíz del proyecto:
+From the root of the project:
 
 ```bash
 bash run-swiftlint.sh
@@ -57,8 +57,8 @@ bash run-swiftlint.sh
 
 ---
 
-## 📈 Futuras integraciones
+## 📈 Future Integrations
 
-- [ ] CI/CD usando GitHub Actions o Bitrise
-- [ ] Fastlane para validación local y automatización
-- [ ] Exportación de reportes a formatos compatibles con CI
+- [ ] CI/CD using GitHub Actions or Bitrise  
+- [ ] Fastlane for local validation and automation  
+- [ ] Export reports to CI-compatible formats

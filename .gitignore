@@ -1,2 +1,5 @@
 *.xcuserstate
 Smart City.xcodeproj/project.xcworkspace/xcuserdata/lugardosmacmini.xcuserdatad/UserInterfaceState.xcuserstate
+/Logs/Errors
+*.log
+/Logs

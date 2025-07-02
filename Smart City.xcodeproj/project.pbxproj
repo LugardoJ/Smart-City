@@ -8,11 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0FD4F7012E0F8A4500AE7944 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4F6F02E0F8A4500AE7944 /* README.md */; };
-		0FD4F7032E0F8A4500AE7944 /* READMESP.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4F6F12E0F8A4500AE7944 /* READMESP.md */; };
 		0FD4F7102E0F8A4500AE7944 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4F6F02E0F8A4500AE7944 /* README.md */; };
-		0FD4F7112E0F8A4500AE7944 /* READMESP.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4F6F12E0F8A4500AE7944 /* READMESP.md */; };
 		0FD4F7122E0F8A4500AE7944 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4F6F02E0F8A4500AE7944 /* README.md */; };
-		0FD4F7132E0F8A4500AE7944 /* READMESP.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4F6F12E0F8A4500AE7944 /* READMESP.md */; };
 		0FD4FDF92E14B18F00AE7944 /* Delivery.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4FDF82E14B18F00AE7944 /* Delivery.md */; };
 		0FD4FDFA2E14B18F00AE7944 /* Delivery.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4FDF82E14B18F00AE7944 /* Delivery.md */; };
 		0FD4FDFB2E14B18F00AE7944 /* Delivery.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4FDF82E14B18F00AE7944 /* Delivery.md */; };
@@ -40,7 +37,6 @@
 		0FD4F6452E0F822500AE7944 /* Smart CityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "Smart CityTests.xctest"; path = "/Users/lugardosmacmini/Documents/Develop/GitHub/Smart-City/build/Debug/Smart City.app/Contents/PlugIns/Smart CityTests.xctest"; sourceTree = "<absolute>"; };
 		0FD4F64F2E0F822500AE7944 /* Smart CityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "Smart CityUITests.xctest"; path = "/Users/lugardosmacmini/Documents/Develop/GitHub/Smart-City/build/Debug/Smart CityUITests-Runner.app/Contents/PlugIns/Smart CityUITests.xctest"; sourceTree = "<absolute>"; };
 		0FD4F6F02E0F8A4500AE7944 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		0FD4F6F12E0F8A4500AE7944 /* READMESP.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = READMESP.md; sourceTree = "<group>"; };
 		0FD4FDF82E14B18F00AE7944 /* Delivery.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Delivery.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -157,7 +153,6 @@
 				0FD4F6482E0F822500AE7944 /* Smart CityTests */,
 				0FD4F6522E0F822500AE7944 /* Smart CityUITests */,
 				0FD4F6F02E0F8A4500AE7944 /* README.md */,
-				0FD4F6F12E0F8A4500AE7944 /* READMESP.md */,
 				0FD4FDF82E14B18F00AE7944 /* Delivery.md */,
 			);
 			sourceTree = "<group>";
@@ -284,7 +279,6 @@
 			files = (
 				0FD4F7012E0F8A4500AE7944 /* README.md in Resources */,
 				0FD4FDFB2E14B18F00AE7944 /* Delivery.md in Resources */,
-				0FD4F7032E0F8A4500AE7944 /* READMESP.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,7 +287,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FD4F7102E0F8A4500AE7944 /* README.md in Resources */,
-				0FD4F7112E0F8A4500AE7944 /* READMESP.md in Resources */,
 				0FD4FDF92E14B18F00AE7944 /* Delivery.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,7 +296,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FD4F7122E0F8A4500AE7944 /* README.md in Resources */,
-				0FD4F7132E0F8A4500AE7944 /* READMESP.md in Resources */,
 				0FD4FDFA2E14B18F00AE7944 /* Delivery.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

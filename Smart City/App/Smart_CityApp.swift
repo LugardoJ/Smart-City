@@ -11,7 +11,7 @@ import SwiftData
 @main
 struct Smart_CityApp: App {
 
-    @StateObject private var coordinator : AppCoordinator = .init()
+    @StateObject private var coordinator: AppCoordinator = .init()
 
     private var sharedModelContainer: ModelContainer = {
             let schema = Schema([CityEntity.self])
@@ -25,7 +25,7 @@ struct Smart_CityApp: App {
     
     var body: some Scene {
         WindowGroup {
-            RootView(coordinator: coordinator,sharedModelContainer: sharedModelContainer)
+            RootView(coordinator: coordinator, sharedModelContainer: sharedModelContainer)
         }
     }
 }

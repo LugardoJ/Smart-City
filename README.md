@@ -248,6 +248,44 @@ SwiftLint is automatically executed on build via a `run-swiftlint.sh` script.
 
 ---
 
+### 🧪 Code Quality Guardrails
+
+Este proyecto integra **SwiftLint** como fase de build para asegurar la calidad y mantenibilidad del código.  
+El archivo personalizado `.swiftlint.yml` incluye reglas avanzadas (`opt-in`, `analyzer`, exclusiones específicas) y los logs se generan en:
+
+- `Logs/Main/` – Logs completos.
+- `Logs/Errors/` – Solo errores.
+- `Logs/Warnings/` – Solo advertencias.
+- `summary-latest.json` – Resumen en JSON para CI u otros análisis automáticos.
+
+SwiftLint se ejecuta automáticamente al compilar gracias al script `run-swiftlint.sh`.
+
+---
+
+### 🧰 Instalación de SwiftLint en macOS
+
+Si estás usando una Mac con Homebrew, puedes instalar SwiftLint con:
+
+```bash
+brew install swiftlint
+```
+
+Luego verifica su instalación:
+
+```bash
+swiftlint version
+```
+
+Para ejecutar manualmente el análisis y ver los logs:
+
+```bash
+bash run-swiftlint.sh
+```
+
+> 💡 El script realiza correcciones automáticas de estilo (`autocorrect --format`) y divide los resultados por tipo para facilitar el análisis.
+
+---
+
 ## 📬 Contact
 
 For questions or feedback:

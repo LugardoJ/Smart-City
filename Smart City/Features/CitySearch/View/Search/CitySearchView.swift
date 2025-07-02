@@ -23,7 +23,7 @@ struct CitySearchView: View {
                 Text("Are you looking for \(result)?").searchCompletion(result)
             }
         }
-        .LoadingView(isPresented: viewModel.isLoading)
+        .loadingView(isPresented: viewModel.isLoading)
         .if(!viewModel.isLoading, transform: { content in
             content.overlay(alignment: .center){
                 if let searchMessage = viewModel.searchMessage{
