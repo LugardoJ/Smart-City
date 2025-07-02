@@ -1,0 +1,18 @@
+# Estilo general
+--allman false
+--indent 4
+--wraparguments before-first
+--wrapelements before-first
+--stripunusedargs closure-only
+--header ignore
+
+# Reglas activas
+--enable redundantReturn
+--enable redundantSelf
+--enable sortedImports
+--enable spaceInsideParens
+
+# Exclusiones
+--exclude Pods
+--exclude Carthage
+--exclude .build
