@@ -37,8 +37,16 @@ final class InMemoryCityRepository: CityRepository {
         self.cities
     }
     
+    func mergeFavorites(from persistedFavorites: [City]) {
+        let favoriteIDs = Set(persistedFavorites.map { $0.id })
+
+        for i in cities.indices {
+            cities[i].isFavorite = favoriteIDs.contains(cities[i].id)
+        }
+    }
+    
     func searchCities(matching query: String) -> [City] {
-        let q = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        let q = query.trimmingCharacters(in: .newlines).lowercased()
         guard !q.isEmpty else { return cities }
         guard let firstChar = q.first else { return [] }
         
