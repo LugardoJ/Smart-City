@@ -4,6 +4,7 @@
 //
 //  Created by Lugardo on 27/06/25.
 //
+
 // MARK: - Use Cases (Domain Layer)
 
 protocol SearchCitiesUseCase {
@@ -14,11 +15,11 @@ protocol SearchCitiesUseCase {
 
 final class DefaultSearchCitiesUseCase: SearchCitiesUseCase {
     let repository: CityRepository
-    
+
     init(repository: CityRepository) {
         self.repository = repository
     }
-    
+
     func execute(query: String) -> [City] {
         repository.searchCities(matching: query)
     }

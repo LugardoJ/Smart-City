@@ -8,7 +8,6 @@
 import XCTest
 
 final class Smart_CityUITestsLaunchTests: XCTestCase {
-
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }

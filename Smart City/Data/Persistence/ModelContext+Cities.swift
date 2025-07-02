@@ -8,18 +8,18 @@ import SwiftData
 
 extension ModelContext {
     func cacheCities(_ cities: [City]) throws {
-        let old = try self.fetch(FetchDescriptor<CityEntity>())
-        old.forEach(self.delete)
-        cities.map(CityEntity.fromDomain).forEach(self.insert)
-        try self.save()
+        let old = try fetch(FetchDescriptor<CityEntity>())
+        old.forEach(delete)
+        cities.map(CityEntity.fromDomain).forEach(insert)
+        try save()
     }
 
     func fetchCachedCities() -> [City] {
-        let entities = (try? self.fetch(FetchDescriptor<CityEntity>())) ?? []
-        return entities.map { $0.toDomain }
+        let entities = (try? fetch(FetchDescriptor<CityEntity>())) ?? []
+        return entities.map(\.toDomain)
     }
 
     func isCityCacheEmpty() -> Bool {
-        ((try? self.fetchCount(FetchDescriptor<CityEntity>())) ?? 0) == 0
+        ((try? fetchCount(FetchDescriptor<CityEntity>())) ?? 0) == 0
     }
 }

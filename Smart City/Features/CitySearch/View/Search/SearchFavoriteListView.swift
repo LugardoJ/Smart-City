@@ -8,17 +8,17 @@ import SwiftUI
 
 struct SearchFavoriteListView: View {
     @EnvironmentObject var coordinator: AppCoordinator
-    @Binding var citiesGroup :  [(key: String, value: [City])]
+    @Binding var citiesGroup: [(key: String, value: [City])]
     var onRefresh: (_ city: City) -> Void
-    
+
     var body: some View {
         List(selection: $coordinator.selectedCity) {
-            ForEach(Array(citiesGroup),id:\.key){ group in
+            ForEach(Array(citiesGroup), id: \.key) { group in
                 Section(header: Text(group.key.flagEmoji + group.key)) {
-                    ForEach(group.value,id:\.id){ city in
+                    ForEach(group.value, id: \.id) { city in
                         NavigationLink(value: city) {
-                            SearchFavoriteRowView(city: city)
-                                .onAppear{
+                            searchFavoriteRowView(city: city)
+                                .onAppear {
                                     onRefresh(city)
                                 }
                         }
@@ -29,6 +29,17 @@ struct SearchFavoriteListView: View {
             }
         }
         .listStyle(.insetGrouped)
-        
+    }
+
+    func searchFavoriteRowView(city: City) -> some View {
+        HStack {
+            Text(city.name)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+            Spacer()
+            Image(systemName: "heart.fill")
+                .imageScale(.small)
+                .foregroundStyle(.red)
+        }
     }
 }

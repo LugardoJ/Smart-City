@@ -25,68 +25,75 @@ Develop a feature called **Smart City**, which enables:
 - **Architecture**: Clean Architecture + SOLID
 - **Patterns**: MVVM, Coordinator
 - **Persistence**: SwiftData (local), InMemory (search/cache)
-- **Map**: MapKit (to be integrated)
+- **Map**: MapKit
 - **Testing**: XCTest, UI Tests (planned)
 
 ---
 
-### 🧭 Diagrama de Arquitectura (Clean Architecture)
+### 🧭 Architecture Diagram (Clean Architecture)
 
 ```
   ### 🧭 High-Level Architecture
-  
-                         +----------------------+
-                         |     Smart_CityApp    |
-                         +----------------------+
-                                   |
-                                   v
-                         +----------------------+
-                         |       RootView       | ← NavigationSplitView
-                         +----------------------+
-                          |                   |
-                          v                   v
-           +------------------------+   +-------------------------+
-           |  CitySearchView.swift  |   |  CityDetailView.swift   |
-           +------------------------+   +-------------------------+
-                     |                            ^
-                     v                            |
-      +-----------------------------+-------------+
-      |      CitySearchViewModel.swift            |
-      +-----------------------------+-------------+
-         |           |             |             |
-         |           |             |             |
-         |           |             |             +--> WikipediaRemoteDataSource
-         |           |             |                       (transitorio)
-         |           |             |
-         |           |             +--> SearchHistoryRepository
-         |           |                         (SwiftData)
-         |           |
-         v           v
-+-------------------------+   +--------------------------+
-| SearchCitiesUseCase     |   | ToggleFavoriteUseCase    |
-+-------------------------+   +--------------------------+
-          |                              |
-          v                              v
-+-----------------------------+   +-------------------------------+
-|        CityRepository       |   |  FavoriteCityRepository       |
-|   (InMemoryCityRepository)  |   | (SwiftDataFavoritesRepository)|
-+-----------------------------+   +-------------------------------+
-          |           ^
-          |           |  (fetchCachedCities / cacheCities)
-          v           |
-+----------------------------+
-|  SwiftData (ModelContext)  |
-+----------------------------+
-          ^
-          |
-+-----------------------------+
-| CityEntity / HistoryEntity  |
-+-----------------------------+
+                        +----------------------+
+                        |     Smart_CityApp    |
+                        +----------------------+
+                                  |
+                                  v
+                        +----------------------+
+                        |       RootView       | ← NavigationSplitView
+                        +----------------------+
+                         |                   |
+                         v                   v
+        +--------------------------+   +---------------------------+
+        |   CitySearchView.swift   |   |   CityDetailView.swift    |
+        +--------------------------+   +---------------------------+
+                  |                                ^
+                  v                                |
+    +-------------------------------+              |
+    | CitySearchViewModel.swift     |--------------+
+    +-------------------------------+
+       |         |        |     |   |    \
+       |         |        |     |    \--> RecordLoadTimeUseCase
+       |         |        |     |
+       |         |        |     +--> RecordSearchTermUseCase
+       |         |        |
+       |         |        +--> ToggleFavoriteUseCase
+       |         |
+       |         +--> SearchCitiesUseCase
+       |
+       +--> LoadRemoteCitiesUseCase
+       |
+       +--> FetchRecentSearchesUseCase
+       |
+       +--> FetchTopSearchedTermsUseCase
+       +--> FetchTopVisitedCitiesUseCase
+       +--> RecordCityVisitUseCase
 
-Remote carga inicial:
-   CityRepository  --loadCitiesRemote()-->  CityRemoteDataSource
-   CityRepository  --mergeFavorites()--->   (interno)
-   
+       ├────────────┬────────────┬─────────────┐
+       ↓            ↓            ↓             ↓
++----------------+ +------------------+ +------------------+ +----------------------+
+| CityRepository | | FavoriteRepo     | | HistoryRepo      | | MetricsRepo          |
+| (InMemory...)  | | (SwiftData)      | | (SwiftData)      | | (SwiftData)          |
++----------------+ +------------------+ +------------------+ +----------------------+
+        |                    |                |                             |
+        v                    |                |                             |
++-----------------------------+       +-----------------------------+   +---------------------------+
+|  SwiftData (ModelContext)   |       |     SearchHistoryEntity     |   | + LoadTimeEntity          |
++-----------------------------+       |     VisitMetricEntity       |   | + VisitMetricEntity       |
+        |                             |     SearchMetricEntity      |   |                           |
+        |                             +-----------------------------+   +---------------------------+
+        |
+        |      
+        v
++---------------------------+
+| CityRemoteDataSource      |
++---------------------------+
+
+         |
+         v
++---------------------------+
+| WikipediaRemoteDataSource | ← It is only used in CityDetailView
++---------------------------+   and does not save anything locally.
    
 ```
 
@@ -113,40 +120,61 @@ Smart_City
 ├── Data/
 │   ├── Persistence/
 │   │   ├── CityEntity.swift
-│   │   ├── ModelContext+Cities.swift
-│   │   └── SwiftDataCityRepository.swift
+│   │   ├── SearchHistoryEntity.swift
+│   │   ├── LoadTimeEntity.swift
+│   │   ├── VisitMetricEntity.swift
+│   │   ├── SearchMetricEntity.swift
+│   │   └── ModelContext+Cities.swift
 │   │
-│   ├── Repositories/
-│   │   ├── City/
-│   │   │   ├── CityRepository.swift
-│   │   │   ├── InMemoryCityRepository.swift
-│   │   │   └── SwiftDataFavoritesRepository.swift
-│   │   │
-│   │   ├── CitySummary/
-│   │   │   ├── CitySummaryRepository.swift
-│   │   │   └── DefaultCitySummaryRepository.swift
-│   │   │
-│   │   └── Favorites/
-│   │       └── FavoritesRepository.swift
-│   │
-│   └── Services/
-│       ├── CityRemoteDataSource.swift
-│       └── WikipediaRemoteDataSource.swift
+│   └── Repositories/
+│       ├── City/
+│       │   ├── CityRepository.swift
+│       │   ├── InMemoryCityRepository.swift
+│       │   └── SwiftDataFavoritesRepository.swift
+│       │
+│       ├── Favorites/
+│       │   └── FavoritesRepository.swift
+│       │
+│       ├── History/
+│       │   ├── SearchHistoryRepository.swift
+│       │   └── SwiftDataSearchHistoryRepository.swift
+│       │
+│       ├── Metrics/
+│       │   ├── MetricsRepository.swift
+│       │   └── SwiftDataMetricsRepository.swift
+│       │
+│       └── Summary/
+│           ├── CitySummaryRepository.swift
+│           └── DefaultCitySummaryRepository.swift
 │
 ├── Domain/
 │   ├── Entities/
 │   │   ├── City.swift
 │   │   ├── City+Extensions.swift
-│   │   └── WikiCitySummary.swift
+│   │   └── CityWikiSummary.swift
 │   │
 │   └── UseCases/
-│       ├── FetchCitySummaryUseCase.swift
-│       ├── LoadRemoteCitiesUseCase.swift
-│       ├── SearchCitiesUseCase.swift
-│       └── ToggleFavoriteCityUseCase.swift
+│       ├── City/
+│       │   ├── FetchCitySummaryUseCase.swift
+│       │   ├── FetchRecentSearchesUseCase.swift
+│       │   ├── LoadRemoteCitiesUseCase.swift
+│       │   ├── SearchCitiesUseCase.swift
+│       │   └── ToggleFavoriteCityUseCase.swift
+│       │
+│       ├── History/
+│       │   └── RecordSearchTermUseCase.swift
+│       │
+│       └── Metrics/
+│           ├── FetchTopSearchedTermsUseCase.swift
+│           ├── FetchTopVisitedCitiesUseCase.swift
+│           ├── RecordCityVisitUseCase.swift
+│           └── RecordLoadTimeUseCase.swift
 │
 ├── Features/
 │   └── CitySearch/
+│       ├── Enums/
+│       │   └── CityFilterType.swift
+│       │
 │       ├── View/
 │       │   ├── Detail/
 │       │   │   ├── CityDetailView.swift
@@ -154,6 +182,7 @@ Smart_City
 │       │   │
 │       │   └── Search/
 │       │       ├── CitySearchView.swift
+│       │       ├── SearchFavoriteListView.swift
 │       │       └── SearchRowView.swift
 │       │
 │       └── ViewModels/
@@ -161,15 +190,20 @@ Smart_City
 │           └── CitySearchViewModel.swift
 │
 ├── Network/
-│   ├── Protocols/
+│   ├── Implementations/
+│   │   ├── CityRemoteDataSource.swift
+│   │   ├── WikipediaRemoteDataSource.swift
+│   │   └── SessionRequest.swift
+│   │
 │   ├── Models/
-│   └── Implementations/
+│   └── Protocols/
 │
 ├── Resources/
 │   └── Assets.xcassets
 │
 ├── Smart_CityTests/
 └── Smart_CityUITests/
+
 ```
 
 ---
@@ -223,14 +257,13 @@ City data is fetched from the following JSON:
 
 To ensure the success and usability of the **Smart City** feature, the following **key metrics** will be tracked:
 
-### ✅ Key Metrics
+### ✅ Key Metrics (TODO)
 
 - ⏱️ **Search performance time** – Track how long it takes to get search results.
 - ❤️ **Number of favorited cities** – Understand user engagement with the feature.
-- 🌍 **Most searched countries** – Identify geographic interest and patterns.
+- 🌍 **Most searched cities** – Identify geographic interest and patterns.
 - 📊 **Session duration** – Measure how long users interact with the feature.
 - 🔄 **Interaction events** – Monitor taps, navigation, and usage flow.
-
 
 ---
 
@@ -248,41 +281,27 @@ SwiftLint is automatically executed on build via a `run-swiftlint.sh` script.
 
 ---
 
-### 🧪 Code Quality Guardrails
+### 🧰 Installing SwiftLint on macOS
 
-Este proyecto integra **SwiftLint** como fase de build para asegurar la calidad y mantenibilidad del código.  
-El archivo personalizado `.swiftlint.yml` incluye reglas avanzadas (`opt-in`, `analyzer`, exclusiones específicas) y los logs se generan en:
-
-- `Logs/Main/` – Logs completos.
-- `Logs/Errors/` – Solo errores.
-- `Logs/Warnings/` – Solo advertencias.
-- `summary-latest.json` – Resumen en JSON para CI u otros análisis automáticos.
-
-SwiftLint se ejecuta automáticamente al compilar gracias al script `run-swiftlint.sh`.
-
----
-
-### 🧰 Instalación de SwiftLint en macOS
-
-Si estás usando una Mac con Homebrew, puedes instalar SwiftLint con:
+If you're using a Mac with Homebrew, you can install SwiftLint with:
 
 ```bash
 brew install swiftlint
 ```
 
-Luego verifica su instalación:
+Then verify your installation:
 
 ```bash
 swiftlint version
 ```
 
-Para ejecutar manualmente el análisis y ver los logs:
+To manually run the analysis and view the logs:
 
 ```bash
 bash run-swiftlint.sh
 ```
 
-> 💡 El script realiza correcciones automáticas de estilo (`autocorrect --format`) y divide los resultados por tipo para facilitar el análisis.
+> 💡 The script performs automatic style corrections (`autocorrect --format`) and splits the results by type to facilitate analysis.
 
 ---
 

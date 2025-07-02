@@ -23,7 +23,7 @@ final class CityDetailViewModel {
         isLoading = true
         do {
             summary = try await fetchSummaryUseCase.execute(for: city.name)
-            self.error = nil
+            error = nil
         } catch {
             self.error = "Failed to load summary"
         }

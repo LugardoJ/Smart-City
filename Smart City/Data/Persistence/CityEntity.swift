@@ -15,7 +15,7 @@ final class CityEntity {
     var lat: Double
     var isFavorite: Bool
 
-    init(id: Int, name: String, country: String, lon: Double, lat: Double,isFavorite: Bool) {
+    init(id: Int, name: String, country: String, lon: Double, lat: Double, isFavorite: Bool) {
         self.id = id
         self.name = name
         self.country = country
@@ -23,20 +23,20 @@ final class CityEntity {
         self.lat = lat
         self.isFavorite = isFavorite
     }
-    
+
     var toDomain: City {
         City(id: id, name: name, country: country, coord: .init(lon: lon, lat: lat), isFavorite: isFavorite)
     }
-    
+
     static func fromDomain(_ city: City) -> CityEntity {
-        CityEntity(id: city.id,name: city.name,country: city.country,lon: city.coord.lon,lat: city.coord.lat,isFavorite: city.isFavorite)
+        CityEntity(id: city.id, name: city.name, country: city.country, lon: city.coord.lon, lat: city.coord.lat, isFavorite: city.isFavorite)
     }
-    
+
     func update(from model: City) {
-        self.name = model.name
-        self.country = model.country
-        self.lon = model.coord.lon
-        self.lat = model.coord.lat
-        self.isFavorite = model.isFavorite
+        name = model.name
+        country = model.country
+        lon = model.coord.lon
+        lat = model.coord.lat
+        isFavorite = model.isFavorite
     }
 }

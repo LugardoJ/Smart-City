@@ -33,11 +33,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0FD4005D2E14C1F900AE7944 /* Smart CityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Smart CityTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0FD4005E2E14C1F900AE7944 /* Smart City.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smart City.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0FD4005F2E14C1F900AE7944 /* Smart CityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Smart CityUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FD4F6F02E0F8A4500AE7944 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0FD4FDF82E14B18F00AE7944 /* Delivery.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Delivery.md; sourceTree = "<group>"; };
-		0FD4FE8C2E14BD3C00AE7944 /* Smart CityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "Smart CityTests.xctest"; path = "/Users/lugardosmacmini/Documents/Develop/GitHub/Smart-City/build/Debug/Smart City.app/Contents/PlugIns/Smart CityTests.xctest"; sourceTree = "<absolute>"; };
-		0FD4FE8D2E14BD3C00AE7944 /* Smart City.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Smart City.app"; path = "/Users/lugardosmacmini/Documents/Develop/GitHub/Smart-City/build/Debug/Smart City.app"; sourceTree = "<absolute>"; };
-		0FD4FE8E2E14BD3C00AE7944 /* Smart CityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "Smart CityUITests.xctest"; path = "/Users/lugardosmacmini/Documents/Develop/GitHub/Smart-City/build/Debug/Smart CityUITests-Runner.app/Contents/PlugIns/Smart CityUITests.xctest"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -48,24 +48,26 @@
 				App/AppRoute.swift,
 				App/RootView.swift,
 				Data/Repositories/City/CityRepository.swift,
-				Data/Repositories/City/CitySummaryRepository.swift,
 				Data/Repositories/City/InMemoryCityRepository.swift,
 				Data/Repositories/City/SwiftDataFavoritesRepository.swift,
 				Data/Repositories/Favorites/FavoritesRepository.swift,
-				Data/Services/CityRemoteDataSource.swift,
-				Data/Services/WikipediaRemoteDataSource.swift,
+				Data/Repositories/Summary/CitySummaryRepository.swift,
+				Data/Repositories/Summary/DefaultCitySummaryRepository.swift,
 				Domain/Entities/City.swift,
 				"Domain/Entities/City+Extensions.swift",
 				Domain/Entities/CityWikiSummary.swift,
-				Domain/UseCases/FetchCitySummaryUseCase.swift,
-				Domain/UseCases/LoadRemoteCitiesUseCase.swift,
-				Domain/UseCases/SearchCitiesUseCase.swift,
-				Domain/UseCases/ToggleFavoriteCityUseCase.swift,
+				Domain/UseCases/City/FetchCitySummaryUseCase.swift,
+				Domain/UseCases/City/FetchRecentSearchesUseCase.swift,
+				Domain/UseCases/City/LoadRemoteCitiesUseCase.swift,
+				Domain/UseCases/City/SearchCitiesUseCase.swift,
+				Domain/UseCases/City/ToggleFavoriteCityUseCase.swift,
 				Features/CitySearch/View/Detail/CityDetailView.swift,
 				Features/CitySearch/View/Detail/CityInfoCard.swift,
 				Features/CitySearch/View/Search/CitySearchView.swift,
 				Features/CitySearch/ViewModels/CityDetailViewModel.swift,
 				Features/CitySearch/ViewModels/CitySearchViewModel.swift,
+				Network/Implementations/CityRemoteDataSource.swift,
+				Network/Implementations/WikipediaRemoteDataSource.swift,
 			);
 			target = 0FD4F6442E0F822500AE7944 /* Smart CityTests */;
 		};
@@ -76,24 +78,26 @@
 				App/AppRoute.swift,
 				App/RootView.swift,
 				Data/Repositories/City/CityRepository.swift,
-				Data/Repositories/City/CitySummaryRepository.swift,
 				Data/Repositories/City/InMemoryCityRepository.swift,
 				Data/Repositories/City/SwiftDataFavoritesRepository.swift,
 				Data/Repositories/Favorites/FavoritesRepository.swift,
-				Data/Services/CityRemoteDataSource.swift,
-				Data/Services/WikipediaRemoteDataSource.swift,
+				Data/Repositories/Summary/CitySummaryRepository.swift,
+				Data/Repositories/Summary/DefaultCitySummaryRepository.swift,
 				Domain/Entities/City.swift,
 				"Domain/Entities/City+Extensions.swift",
 				Domain/Entities/CityWikiSummary.swift,
-				Domain/UseCases/FetchCitySummaryUseCase.swift,
-				Domain/UseCases/LoadRemoteCitiesUseCase.swift,
-				Domain/UseCases/SearchCitiesUseCase.swift,
-				Domain/UseCases/ToggleFavoriteCityUseCase.swift,
+				Domain/UseCases/City/FetchCitySummaryUseCase.swift,
+				Domain/UseCases/City/FetchRecentSearchesUseCase.swift,
+				Domain/UseCases/City/LoadRemoteCitiesUseCase.swift,
+				Domain/UseCases/City/SearchCitiesUseCase.swift,
+				Domain/UseCases/City/ToggleFavoriteCityUseCase.swift,
 				Features/CitySearch/View/Detail/CityDetailView.swift,
 				Features/CitySearch/View/Detail/CityInfoCard.swift,
 				Features/CitySearch/View/Search/CitySearchView.swift,
 				Features/CitySearch/ViewModels/CityDetailViewModel.swift,
 				Features/CitySearch/ViewModels/CitySearchViewModel.swift,
+				Network/Implementations/CityRemoteDataSource.swift,
+				Network/Implementations/WikipediaRemoteDataSource.swift,
 			);
 			target = 0FD4F64E2E0F822500AE7944 /* Smart CityUITests */;
 		};
@@ -154,6 +158,9 @@
 				0FD4F6522E0F822500AE7944 /* Smart CityUITests */,
 				0FD4F6F02E0F8A4500AE7944 /* README.md */,
 				0FD4FDF82E14B18F00AE7944 /* Delivery.md */,
+				0FD4005D2E14C1F900AE7944 /* Smart CityTests.xctest */,
+				0FD4005E2E14C1F900AE7944 /* Smart City.app */,
+				0FD4005F2E14C1F900AE7944 /* Smart CityUITests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -179,7 +186,7 @@
 			packageProductDependencies = (
 			);
 			productName = "Smart City";
-			productReference = 0FD4FE8D2E14BD3C00AE7944 /* Smart City.app */;
+			productReference = 0FD4005E2E14C1F900AE7944 /* Smart City.app */;
 			productType = "com.apple.product-type.application";
 		};
 		0FD4F6442E0F822500AE7944 /* Smart CityTests */ = {
@@ -202,7 +209,7 @@
 			packageProductDependencies = (
 			);
 			productName = "Smart CityTests";
-			productReference = 0FD4FE8C2E14BD3C00AE7944 /* Smart CityTests.xctest */;
+			productReference = 0FD4005D2E14C1F900AE7944 /* Smart CityTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		0FD4F64E2E0F822500AE7944 /* Smart CityUITests */ = {
@@ -225,7 +232,7 @@
 			packageProductDependencies = (
 			);
 			productName = "Smart CityUITests";
-			productReference = 0FD4FE8E2E14BD3C00AE7944 /* Smart CityUITests.xctest */;
+			productReference = 0FD4005F2E14C1F900AE7944 /* Smart CityUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */

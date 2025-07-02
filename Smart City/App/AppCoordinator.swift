@@ -13,7 +13,7 @@ public final class AppCoordinator: ObservableObject {
 
     func navigate(to route: AppRoute) {
         switch route {
-        case .cityDetail(let city):
+        case let .cityDetail(city):
             selectedCity = city
             path.append(city)
         }

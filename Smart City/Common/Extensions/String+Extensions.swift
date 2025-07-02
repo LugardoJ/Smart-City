@@ -8,22 +8,22 @@ import Foundation
 
 extension String {
     var countryName: String? {
-        Locale.current.localizedString(forRegionCode: self.uppercased())
+        Locale.current.localizedString(forRegionCode: uppercased())
     }
-    
+
     var flagEmoji: String {
-        guard self.count == 2, self.range(of: #"^[A-Za-z]{2}$"#, options: .regularExpression) != nil else {
+        guard count == 2, range(of: #"^[A-Za-z]{2}$"#, options: .regularExpression) != nil else {
             return ""
         }
-        
-        return self.uppercased()
+
+        return uppercased()
             .unicodeScalars
-            .compactMap { UnicodeScalar(127397 + $0.value) }
+            .compactMap { UnicodeScalar(127_397 + $0.value) }
             .map { String($0) }.joined()
     }
 }
 
-extension String{
+extension String {
     func toDate() -> Date {
         let dateFormatter = ISO8601DateFormatter()
         dateFormatter.formatOptions = [.withFullDate]

@@ -6,26 +6,26 @@
 //
 import SwiftUI
 
-extension View{
-    @ViewBuilder func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+extension View {
+    @ViewBuilder func `if`(_ condition: Bool, transform: (Self) -> some View) -> some View {
         if condition {
             transform(self)
-        }else{
+        } else {
             self
         }
     }
-    
+
     func loadingView(isPresented: Bool) -> some View {
-        self.zIndex(0)
-            .overlay{
-                if isPresented{
+        zIndex(0)
+            .overlay {
+                if isPresented {
                     Color.secondary.opacity(0.3).ignoresSafeArea(.all)
                         .zIndex(1)
                     ProgressView()
                         .zIndex(1)
                 }
             }
-        .animation(.easeInOut(duration: 1.5), value: isPresented)
+            .animation(.easeInOut(duration: 1.5), value: isPresented)
     }
 }
 
@@ -47,6 +47,6 @@ extension View {
 
 extension View {
     func onRotate(perform action: @escaping (UIDeviceOrientation) -> Void) -> some View {
-        self.modifier(DeviceRotationViewModifier(action: action))
+        modifier(DeviceRotationViewModifier(action: action))
     }
 }
