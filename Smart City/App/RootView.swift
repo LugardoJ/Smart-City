@@ -28,6 +28,8 @@ public struct RootView: View {
         let loadUseCase = DefaultLoadRemoteCitiesUseCase(repository: cityRepo)
         let toggleFavoriteUseCase = DefaultToggleFavoriteCityUseCase(favoriteRepository: favoritesRepo)
         
+        let searchHistoryRepository = SwiftDataSearchHistoryRepository(context: context)
+
         _viewModel = State(wrappedValue:
                             CitySearchViewModel(
                                 searchUseCase: searchUseCase,
@@ -35,14 +37,17 @@ public struct RootView: View {
                                 coordinator: coordinator,
                                 inMemoryRepository: cityRepo,
                                 context: context,
-                                toggleFavoriteUseCase: toggleFavoriteUseCase
+                                toggleFavoriteUseCase: toggleFavoriteUseCase,
+                                searchHistoryRepository: searchHistoryRepository
                             )
         )
     }
     
     public var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility){
-            CitySearchView(viewModel: viewModel, selectedCity: $coordinator.selectedCity)
+            CitySearchView(viewModel: viewModel)
+                .navigationTitle("Smart City")
+                .navigationBarTitleDisplayMode(.inline)
         }detail: {
             NavigationStack{
                 if let city = coordinator.selectedCity{

@@ -15,7 +15,9 @@ final class SwiftDataFavoritesRepository: FavoriteCityRepository {
     }
 
     func favorites() -> [City] {
-        return []
+        let descriptor = FetchDescriptor<CityEntity>(predicate: #Predicate { $0.isFavorite })
+        let entities = (try? context.fetch(descriptor)) ?? []
+        return (entities.map{$0.toDomain})
     }
     
     func toggleFavorite(_ city: City) {
@@ -31,9 +33,7 @@ final class SwiftDataFavoritesRepository: FavoriteCityRepository {
     }
 
     func fetchFavoriteIDs() -> Set<Int> {
-        let descriptor = FetchDescriptor<CityEntity>(predicate: #Predicate { $0.isFavorite })
-        let entities = (try? context.fetch(descriptor)) ?? []
-        return Set(entities.map { $0.id })
+        Set(favorites().map({$0.id}))
     }
 
     func fetchFavorites(from cities: [City]) -> [City] {

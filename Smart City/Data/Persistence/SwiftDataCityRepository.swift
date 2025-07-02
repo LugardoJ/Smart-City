@@ -35,7 +35,7 @@ final class SwiftDataCityRepository: CityRepository {
     
     func searchCities(matching query: String) -> [City] {
         let cities = context.fetchCachedCities()
-        let q = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        let q = query.trimmingCharacters(in: .newlines).lowercased()
         guard !q.isEmpty else { return cities.sorted(by: citySort) }
 
         return cities

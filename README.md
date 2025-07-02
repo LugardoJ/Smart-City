@@ -30,6 +30,69 @@ Develop a feature called **Smart City**, which enables:
 
 ---
 
+### 🧭 Diagrama de Arquitectura (Clean Architecture)
+
+```
+  ### 🧭 High-Level Architecture
+  
+                         +----------------------+
+                         |     Smart_CityApp    |
+                         +----------------------+
+                                   |
+                                   v
+                         +----------------------+
+                         |       RootView       | ← NavigationSplitView
+                         +----------------------+
+                          |                   |
+                          v                   v
+           +------------------------+   +-------------------------+
+           |  CitySearchView.swift  |   |  CityDetailView.swift   |
+           +------------------------+   +-------------------------+
+                     |                            ^
+                     v                            |
+      +-----------------------------+-------------+
+      |      CitySearchViewModel.swift            |
+      +-----------------------------+-------------+
+         |           |             |             |
+         |           |             |             |
+         |           |             |             +--> WikipediaRemoteDataSource
+         |           |             |                       (transitorio)
+         |           |             |
+         |           |             +--> SearchHistoryRepository
+         |           |                         (SwiftData)
+         |           |
+         v           v
++-------------------------+   +--------------------------+
+| SearchCitiesUseCase     |   | ToggleFavoriteUseCase    |
++-------------------------+   +--------------------------+
+          |                              |
+          v                              v
++-----------------------------+   +-------------------------------+
+|        CityRepository       |   |  FavoriteCityRepository       |
+|   (InMemoryCityRepository)  |   | (SwiftDataFavoritesRepository)|
++-----------------------------+   +-------------------------------+
+          |           ^
+          |           |  (fetchCachedCities / cacheCities)
+          v           |
++----------------------------+
+|  SwiftData (ModelContext)  |
++----------------------------+
+          ^
+          |
++-----------------------------+
+| CityEntity / HistoryEntity  |
++-----------------------------+
+
+Remote carga inicial:
+   CityRepository  --loadCitiesRemote()-->  CityRemoteDataSource
+   CityRepository  --mergeFavorites()--->   (interno)
+   
+   
+```
+
+---
+
+
 ## 🗂 Project Structure
 
 ```
@@ -168,6 +231,20 @@ To ensure the success and usability of the **Smart City** feature, the following
 - 📊 **Session duration** – Measure how long users interact with the feature.
 - 🔄 **Interaction events** – Monitor taps, navigation, and usage flow.
 
+
+---
+
+## 🧪 Code Quality Guardrails
+
+This project integrates **SwiftLint** as a build phase to ensure code quality and maintainability.  
+Custom `.swiftlint.yml` includes opt-in rules, analyzer rules, and logs are output to:
+
+- `Logs/Main/` – Full logs.
+- `Logs/Errors/` – Errors only.
+- `Logs/Warnings/` – Warnings only.
+- `summary-latest.json` – Summary for fast CI parsing.
+
+SwiftLint is automatically executed on build via a `run-swiftlint.sh` script.
 
 ---
 
