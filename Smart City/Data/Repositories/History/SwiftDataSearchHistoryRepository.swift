@@ -29,14 +29,14 @@ public final class SwiftDataSearchHistoryRepository: SearchHistoryRepository {
         let desc = FetchDescriptor<SearchHistoryEntity>(
             sortBy: [SortDescriptor(\.lastSearchedAt, order: .reverse)]
         )
-        return (try? context.fetch(desc))?.prefix(limit).map { $0 } ?? []
+        return (try? context.fetch(desc))?.prefix(limit).map(\.self) ?? []
     }
 
     public func fetchMostSearched(limit: Int = 10) -> [SearchHistoryEntity] {
         let desc = FetchDescriptor<SearchHistoryEntity>(
             sortBy: [SortDescriptor(\.count, order: .reverse)]
         )
-        return (try? context.fetch(desc))?.prefix(limit).map { $0 } ?? []
+        return (try? context.fetch(desc))?.prefix(limit).map(\.self) ?? []
     }
 
     public func clearHistory() {

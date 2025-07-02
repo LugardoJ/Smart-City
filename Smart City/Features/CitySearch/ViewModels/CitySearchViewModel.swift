@@ -49,9 +49,9 @@ final class CitySearchViewModel {
 
     var searchMessage: String? {
         if selectedFilter == .all {
-            return results.isEmpty ? "No results found for \"\(query.trimmingCharacters(in: .whitespacesAndNewlines))\"." : nil
+            results.isEmpty ? "No results found for \"\(query.trimmingCharacters(in: .whitespacesAndNewlines))\"." : nil
         } else {
-            return groupedFavorites.isEmpty ? "No results found for \"\(query.trimmingCharacters(in: .whitespacesAndNewlines))\"." : nil
+            groupedFavorites.isEmpty ? "No results found for \"\(query.trimmingCharacters(in: .whitespacesAndNewlines))\"." : nil
         }
     }
 
@@ -129,7 +129,7 @@ final class CitySearchViewModel {
         Task.detached(priority: .userInitiated) {
             let filtered = self.searchUseCase.execute(query: self.query)
             let prefixSlice = Array(filtered.prefix(self.pageSize))
-            let favoriteSlice = Array(filtered.filter { $0.isFavorite }.prefix(self.pageSize))
+            let favoriteSlice = Array(filtered.filter(\.isFavorite).prefix(self.pageSize))
             await MainActor.run {
                 self.fullResults = filtered
                 self.results = prefixSlice
@@ -150,7 +150,7 @@ final class CitySearchViewModel {
         if oldQuery.trimmingCharacters(in: .newlines).count > 3, !recentQueries.contains(oldQuery) {
             recordSearchTermUseCase.execute(term: oldQuery)
             recentQueries.insert(oldQuery, at: 0)
-            recentQueries = recentQueries.prefix(8).map { $0 }
+            recentQueries = recentQueries.prefix(8).map(\.self)
         }
     }
 

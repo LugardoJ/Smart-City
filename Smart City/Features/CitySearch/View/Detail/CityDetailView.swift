@@ -70,7 +70,7 @@ struct CityDetailView: View {
     private func showDelayMarker() {
         DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5) {
             withAnimation {
-                self.showMarker = true
+                showMarker = true
             }
         }
     }

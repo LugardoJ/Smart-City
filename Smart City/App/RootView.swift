@@ -80,11 +80,11 @@ public struct RootView: View {
             columnVisibility = (newValue == .landscapeLeft || newValue == .landscapeRight) || coordinator.selectedCity == nil ? .doubleColumn : .automatic
         }
         .onChange(of: viewModel.query, initial: false) { oldValue, newValue in
-            self.viewModel.search()
-            if !oldValue.isEmpty && !isSearchActive {
+            viewModel.search()
+            if !oldValue.isEmpty, !isSearchActive {
                 viewModel.saveRecentQuery(oldValue)
             }
-            if !isSearchActive && !newValue.isEmpty {
+            if !isSearchActive, !newValue.isEmpty {
                 withAnimation {
                     isSearchActive = true
                 }

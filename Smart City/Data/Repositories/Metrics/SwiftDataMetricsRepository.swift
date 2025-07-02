@@ -40,7 +40,7 @@ public final class SwiftDataMetricsRepository: MetricsRepository {
         )
         return (try? context.fetch(desc))?
             .prefix(limit)
-            .map { $0.term } ?? []
+            .map(\.term) ?? []
     }
 
     // MARK: – City Visits
@@ -61,6 +61,6 @@ public final class SwiftDataMetricsRepository: MetricsRepository {
         )
         return (try? context.fetch(desc))?
             .prefix(limit)
-            .map { $0.cityId } ?? []
+            .map(\.cityId) ?? []
     }
 }

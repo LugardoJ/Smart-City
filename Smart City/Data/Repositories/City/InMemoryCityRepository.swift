@@ -39,7 +39,7 @@ final class InMemoryCityRepository: CityRepository {
     }
 
     func mergeFavorites(from persistedFavorites: [City]) {
-        let favoriteIDs = Set(persistedFavorites.map { $0.id })
+        let favoriteIDs = Set(persistedFavorites.map(\.id))
 
         for i in cities.indices {
             cities[i].isFavorite = favoriteIDs.contains(cities[i].id)

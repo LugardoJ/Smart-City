@@ -16,7 +16,7 @@ extension ModelContext {
 
     func fetchCachedCities() -> [City] {
         let entities = (try? fetch(FetchDescriptor<CityEntity>())) ?? []
-        return entities.map { $0.toDomain }
+        return entities.map(\.toDomain)
     }
 
     func isCityCacheEmpty() -> Bool {

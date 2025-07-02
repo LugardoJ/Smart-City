@@ -12,8 +12,8 @@ enum CityFilterType: CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .all: return "All"
-        case .favorites: return "Favorites"
+        case .all: "All"
+        case .favorites: "Favorites"
         }
     }
 }
