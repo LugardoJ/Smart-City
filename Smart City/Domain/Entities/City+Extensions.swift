@@ -12,17 +12,17 @@ extension City {
     var coordinateDescription: String {
         "lon: \(coord.lon), lat: \(coord.lat)"
     }
-    
+
     var coordinateMultiLineDescription: String {
         "lon: \(coord.lon)\nlat: \(coord.lat)"
     }
-    
-    var countryName : String{
-        self.country.countryName ?? self.country
+
+    var countryName: String {
+        country.countryName ?? country
     }
-    
+
     func coordinateMarker() -> Marker<Label<Text, Text>> {
-        Marker(self.name, monogram: Text(self.country.flagEmoji), coordinate: self.coordinate.locationCoordinate)
+        Marker(name, monogram: Text(country.flagEmoji), coordinate: coordinate.locationCoordinate)
     }
 }
 
@@ -30,6 +30,7 @@ extension City.Coordinate {
     var description: String {
         "lon: \(lon), lat: \(lat)"
     }
+
     var locationCoordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }

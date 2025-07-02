@@ -18,7 +18,7 @@ struct DeviceRotationViewModifier: ViewModifier {
     }
 }
 
-extension UIDevice{
+extension UIDevice {
     var supportsSplitView: Bool {
         if userInterfaceIdiom == .pad {
             return true

@@ -1,18 +1,24 @@
-# Estilo general
---allman false
---indent 4
---wraparguments before-first
---wrapelements before-first
+# ✅ Swift version
+--swiftversion 6.0
+
+# ✅ Estilo general
+--allman false               # Llaves al estilo K&R (Apple style)
+--indent 4                   # Sangría de 4 espacios
+--wraparguments before-first # Rompe argumentos antes del primero
+--wrapelements before-first  # Rompe elementos en arrays/diccionarios antes del primero
+
+# ✅ Reglas activas (limpieza y estilo)
+--enable redundantReturn     # Elimina return innecesario
+--enable redundantSelf       # Elimina self innecesario
+--enable sortImports         # Ordena imports alfabéticamente
+--enable spaceInsideParens   # Añade espacio entre paréntesis
+
+# ✅ Argumentos sin uso
 --stripunusedargs closure-only
---header ignore
 
-# Reglas activas
---enable redundantReturn
---enable redundantSelf
---enable sortedImports
---enable spaceInsideParens
+# ✅ Header
+--header ignore              # No fuerza un encabezado
 
-# Exclusiones
---exclude Pods
---exclude Carthage
+# ✅ Exclusiones
 --exclude .build
+--exclude DerivedData

@@ -6,14 +6,14 @@
 //
 import SwiftUI
 
-struct SearchRowView : View {
-    @Binding var city : City
-    
+struct SearchRowView: View {
+    @Binding var city: City
+
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
             Text(city.country.flagEmoji)
                 .font(.largeTitle)
-            VStack(alignment: .leading){
+            VStack(alignment: .leading) {
                 Text(city.name)
                     .font(.subheadline)
                     .fontWeight(.semibold)
@@ -23,7 +23,7 @@ struct SearchRowView : View {
                     .foregroundStyle(.secondary)
             }
             Spacer()
-            
+
             Image(systemName: city.isFavorite ? "heart.fill" : "heart")
                 .imageScale(.small)
                 .foregroundStyle(city.isFavorite ? .red : .secondary)
@@ -33,6 +33,6 @@ struct SearchRowView : View {
 }
 
 #Preview {
-    @Previewable @State var isFavorite: Bool = false
-    SearchRowView(city: .constant(.init(id: 0, name: "Tokyo", country: "JP", coord: .init(lon: 100.320, lat: 100.203),isFavorite: isFavorite))) 
+    @Previewable @State var isFavorite = false
+    SearchRowView(city: .constant(.init(id: 0, name: "Tokyo", country: "JP", coord: .init(lon: 100.320, lat: 100.203), isFavorite: isFavorite)))
 }

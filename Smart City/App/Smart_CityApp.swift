@@ -5,21 +5,20 @@
 //  Created by Lugardo on 27/06/25.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @main
 struct Smart_CityApp: App {
-    
     @StateObject private var coordinator: AppCoordinator = .init()
-    
+
     private var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             CityEntity.self,
             SearchHistoryEntity.self,
             LoadTimeMetricEntity.self,
             SearchMetricEntity.self,
-            VisitMetricEntity.self
+            VisitMetricEntity.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         do {
@@ -28,7 +27,7 @@ struct Smart_CityApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
-    
+
     var body: some Scene {
         WindowGroup {
             RootView(coordinator: coordinator, sharedModelContainer: sharedModelContainer)

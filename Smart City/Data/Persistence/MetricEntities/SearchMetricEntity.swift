@@ -4,8 +4,8 @@
 //
 //  Created by Lugardo on 01/07/25.
 //
-import SwiftData
 import Foundation
+import SwiftData
 
 @Model
 public final class SearchMetricEntity {
@@ -14,9 +14,9 @@ public final class SearchMetricEntity {
     public var lastSearchedAt: Date
 
     public init(term: String) {
-        self.term         = term
-        self.count         = 1
-        self.lastSearchedAt = Date()
+        self.term = term
+        count = 1
+        lastSearchedAt = Date()
     }
 
     public func record() {

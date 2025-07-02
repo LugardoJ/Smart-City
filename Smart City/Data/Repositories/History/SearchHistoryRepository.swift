@@ -9,6 +9,6 @@ public protocol SearchHistoryRepository {
     func fetchRecentSearches(limit: Int) -> [SearchHistoryEntity]
     func fetchMostSearched(limit: Int) -> [SearchHistoryEntity]
     func clearHistory()
-    
+
     func deleteQueries(_ terms: [String])
 }

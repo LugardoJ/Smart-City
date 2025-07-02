@@ -22,7 +22,8 @@ final class WikipediaRemoteDataSource: WikipediaRemoteDataSourceProtocol {
 
     func fetchSummary(for cityName: String) async throws -> CityWikiSummary {
         guard let encodedCity = cityName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
-              let url = URL(string: "\(baseURL)\(encodedCity.replacingOccurrences(of: "%20", with: "_"))") else {
+              let url = URL(string: "\(baseURL)\(encodedCity.replacingOccurrences(of: "%20", with: "_"))")
+        else {
             throw URLError(.badURL)
         }
 

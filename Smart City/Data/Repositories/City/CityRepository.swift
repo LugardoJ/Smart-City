@@ -4,6 +4,7 @@
 //
 //  Created by Lugardo on 27/06/25.
 //
+
 // MARK: - Repository (Data Layer)
 
 protocol CityRepository {

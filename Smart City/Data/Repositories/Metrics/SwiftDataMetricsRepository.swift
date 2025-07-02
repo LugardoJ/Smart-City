@@ -15,6 +15,7 @@ public final class SwiftDataMetricsRepository: MetricsRepository {
     }
 
     // MARK: – Load Time
+
     public func recordLoadTime(source: String, duration: TimeInterval) {
         let entity = LoadTimeMetricEntity(source: source, duration: duration)
         context.insert(entity)
@@ -22,6 +23,7 @@ public final class SwiftDataMetricsRepository: MetricsRepository {
     }
 
     // MARK: – Search Term
+
     public func recordSearchTerm(_ term: String) {
         let desc = FetchDescriptor<SearchMetricEntity>(predicate: #Predicate { $0.term == term })
         if let existing = try? context.fetch(desc).first {
@@ -42,6 +44,7 @@ public final class SwiftDataMetricsRepository: MetricsRepository {
     }
 
     // MARK: – City Visits
+
     public func recordCityVisit(cityId: Int) {
         let desc = FetchDescriptor<VisitMetricEntity>(predicate: #Predicate { $0.cityId == cityId })
         if let existing = try? context.fetch(desc).first {

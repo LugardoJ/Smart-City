@@ -19,7 +19,7 @@ public final class DefaultFetchRecentSearchesUseCase: FetchRecentSearchesUseCase
     public func execute(limit: Int = 8) -> [String] {
         historyRepo.fetchRecentSearches(limit: limit).map { $0.term }
     }
-    
+
     public func delete(_ terms: [String]) {
         historyRepo.deleteQueries(terms)
     }

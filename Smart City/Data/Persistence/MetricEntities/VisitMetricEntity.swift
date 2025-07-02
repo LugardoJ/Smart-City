@@ -4,8 +4,8 @@
 //
 //  Created by Lugardo on 01/07/25.
 //
-import SwiftData
 import Foundation
+import SwiftData
 
 @Model
 public final class VisitMetricEntity {
@@ -14,9 +14,9 @@ public final class VisitMetricEntity {
     public var lastVisitedAt: Date
 
     public init(cityId: Int) {
-        self.cityId        = cityId
-        self.count         = 1
-        self.lastVisitedAt = Date()
+        self.cityId = cityId
+        count = 1
+        lastVisitedAt = Date()
     }
 
     public func record() {

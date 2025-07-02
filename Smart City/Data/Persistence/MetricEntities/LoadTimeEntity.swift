@@ -4,8 +4,8 @@
 //
 //  Created by Lugardo on 01/07/25.
 //
-import SwiftData
 import Foundation
+import SwiftData
 
 @Model
 public final class LoadTimeMetricEntity {
@@ -14,8 +14,8 @@ public final class LoadTimeMetricEntity {
     public var timestamp: Date
 
     public init(source: String, duration: Double, timestamp: Date = Date()) {
-        self.source    = source
-        self.duration  = duration
+        self.source = source
+        self.duration = duration
         self.timestamp = timestamp
     }
 }
