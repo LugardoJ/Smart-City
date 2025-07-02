@@ -1,0 +1,23 @@
+name: Code Quality
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+
+jobs:
+  lint:
+    name: 🧪 SwiftLint
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install SwiftLint
+        run: brew install swiftlint
+
+      - name: Run SwiftLint
+        run: |
+          swiftlint --config .swiftlint.yml
