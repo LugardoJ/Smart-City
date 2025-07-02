@@ -1,26 +1,29 @@
-### 📦 `Delivery.md` – Deployment & Quality Pipeline
 
-This document outlines how **code quality** is ensured in the **Smart City** project using static analysis tools.  
-Currently, there is no full CI/CD integration, but the foundation is set to easily implement it.
+# 📦 `Delivery.md` – Deployment & Quality Pipeline
+
+This document outlines the code quality and deployment strategy of the **Smart City** project.  
+The project integrates automated linting, formatting, and a continuous verification workflow.
 
 ---
 
-## ✅ Code Quality Guardrails – SwiftLint
+## ✅ Code Quality Guardrails
 
-To ensure code consistency and best practices, **SwiftLint** has been integrated as the project's primary linter.
+### 🧪 SwiftLint (Linter)
 
-### 🛠 Current Configuration
+To ensure code consistency and best practices, **SwiftLint** is integrated as the primary static analysis tool.
 
-- Configuration file: `.swiftlint.yml`
+#### 🔧 Configuration
+
+- Config file: `.swiftlint.yml`
 - Executable: `run-swiftlint.sh`
-- Integration: *Build Phase* in Xcode
-- Logs:  
-  - 🟢 `Logs/Main/`: all results  
-  - 🔴 `Logs/Errors/`: only errors  
-  - 🟡 `Logs/Warnings/`: only warnings  
+- Integration: Build Phase in Xcode
+- Logs:
+  - 🟢 `Logs/Main/`: all results
+  - 🔴 `Logs/Errors/`: only errors
+  - 🟡 `Logs/Warnings/`: only warnings
   - 📊 `Logs/summary-latest.json`: automatic summary
 
-### 📂 Folders Included in Analysis
+#### 📂 Folders Included
 
 ```yaml
 included:
@@ -29,13 +32,13 @@ included:
   - "Smart CityUITests"
 ```
 
-### 🧹 Enabled Rules
+#### 📏 Enabled Rules
 
-- Default enabled rules
-- Additional rules such as:  
+- Default rules
+- Extra:
   `explicit_init`, `unused_import`, `closure_spacing`, `joined_default_parameter`, `force_unwrapping`, `sorted_imports`
 
-### ⚠️ Complexity and Size Limits
+#### ⚠️ Complexity Limits
 
 ```yaml
 function_body_length:
@@ -47,9 +50,7 @@ cyclomatic_complexity:
   error: 15
 ```
 
-### ▶️ How to Run It Manually
-
-From the root of the project:
+#### ▶️ Manual Execution
 
 ```bash
 bash run-swiftlint.sh
@@ -57,8 +58,55 @@ bash run-swiftlint.sh
 
 ---
 
-## 📈 Future Integrations
+### 🧹 SwiftFormat (Code Formatter)
 
-- [ ] CI/CD using GitHub Actions or Bitrise  
-- [ ] Fastlane for local validation and automation  
-- [ ] Export reports to CI-compatible formats
+To automate code formatting and enforce a consistent style, **SwiftFormat** has been added.
+
+#### 🔧 Configuration
+
+- Config file: `.swiftformat`
+- Style: K&R, 4-space indentation, sorted imports, consistent spacing
+- Swift version: 6.0
+
+#### 🧪 Manual Execution
+
+```bash
+swiftformat .
+```
+
+#### ✅ Pre-commit Hook
+
+A Git `pre-commit` hook automatically formats staged files before every commit.
+
+To enable it manually:
+
+```bash
+cp scripts/pre-commit .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+```
+
+---
+
+## ⚙️ Continuous Verification (CI)
+
+### ✅ GitHub Actions
+
+Every pull request automatically runs:
+
+- SwiftFormat in `--dryrun` mode to verify formatting
+- Status check appears on PR to block merge if unformatted files are detected
+
+Workflow file:
+
+```
+.github/workflows/format-check.yml
+```
+
+---
+
+## 📈 Future CI/CD Integrations
+
+- [ ] Full CI pipeline: lint → test → format → build → deploy
+- [ ] Fastlane integration for builds and reports
+- [ ] Artifacts and test coverage reporting
+- [ ] TestFlight distribution on merge to `main` or `release/*`
