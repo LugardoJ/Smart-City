@@ -12,7 +12,8 @@ public struct RootView: View {
     @State private var columnVisibility: NavigationSplitViewVisibility = .automatic
     @State private var orientation = UIDeviceOrientation.unknown
     @State private var viewModel: CitySearchViewModel
-    
+    @State private var isSearchActive: Bool = false
+
     private var sharedModelContainer: ModelContainer
 
     public init(coordinator: AppCoordinator, sharedModelContainer: ModelContainer) {
@@ -21,25 +22,35 @@ public struct RootView: View {
         self.sharedModelContainer = sharedModelContainer
         let context = sharedModelContainer.mainContext
 
-        let favoritesRepo = SwiftDataFavoritesRepository(context: context)
-        let cityRepo = InMemoryCityRepository()
-        
-        let searchUseCase = DefaultSearchCitiesUseCase(repository: cityRepo)
-        let loadUseCase = DefaultLoadRemoteCitiesUseCase(repository: cityRepo)
-        let toggleFavoriteUseCase = DefaultToggleFavoriteCityUseCase(favoriteRepository: favoritesRepo)
-        
-        let searchHistoryRepository = SwiftDataSearchHistoryRepository(context: context)
+        let favoritesRepo          = SwiftDataFavoritesRepository(context: context)
+        let cityRepo               = InMemoryCityRepository()
+        let historyRepo            = SwiftDataSearchHistoryRepository(context: context)
+        let metricsRepo            = SwiftDataMetricsRepository(context: context)
 
+        let searchUseCase          = DefaultSearchCitiesUseCase(repository: cityRepo)
+        let loadUseCase            = DefaultLoadRemoteCitiesUseCase(repository: cityRepo)
+        let toggleFavoriteUseCase  = DefaultToggleFavoriteCityUseCase(favoriteRepository: favoritesRepo)
+
+        let fetchRecentsUseCase    = DefaultFetchRecentSearchesUseCase(historyRepo: historyRepo)
+        let recordSearchTermUseCase = DefaultRecordSearchTermUseCase(historyRepo: historyRepo)
+
+        let recordLoadTimeUseCase   = DefaultRecordLoadTimeUseCase(repo: metricsRepo)
+        let recordCityVisitUseCase  = DefaultRecordCityVisitUseCase(repo: metricsRepo)
+        
         _viewModel = State(wrappedValue:
-                            CitySearchViewModel(
-                                searchUseCase: searchUseCase,
-                                loadUseCase: loadUseCase,
-                                coordinator: coordinator,
-                                inMemoryRepository: cityRepo,
-                                context: context,
-                                toggleFavoriteUseCase: toggleFavoriteUseCase,
-                                searchHistoryRepository: searchHistoryRepository
-                            )
+          CitySearchViewModel(
+            searchUseCase:               searchUseCase,
+            loadUseCase:                 loadUseCase,
+            toggleFavoriteUseCase:       toggleFavoriteUseCase,
+            inMemoryRepository:          cityRepo,
+            searchHistoryRepository:     historyRepo,
+            fetchRecentSearchesUseCase:  fetchRecentsUseCase,
+            recordLoadTimeUseCase:       recordLoadTimeUseCase,
+            recordSearchTermUseCase:     recordSearchTermUseCase,
+            recordCityVisitUseCase:      recordCityVisitUseCase,
+            coordinator:                 coordinator,
+            context:                     context
+          )
         )
     }
     
@@ -64,8 +75,23 @@ public struct RootView: View {
             }
         }
         .navigationSplitViewStyle(.balanced)
+        .searchable(text: $viewModel.query.animation(),isPresented: $isSearchActive,prompt: "Search for cities")
         .onChange(of: orientation, initial: true, { oldValue, newValue in
             columnVisibility = (newValue == .landscapeLeft || newValue == .landscapeRight) || coordinator.selectedCity == nil ? .doubleColumn : .automatic
+        })
+        .onChange(of: viewModel.query, initial: false) { oldValue, newValue in
+            self.viewModel.search()
+            if !oldValue.isEmpty && !isSearchActive{
+                viewModel.saveRecentQuery(oldValue)
+            }
+            if !isSearchActive && !newValue.isEmpty{
+                withAnimation {
+                    isSearchActive = true 
+                }
+            }
+        }
+        .onSubmit(of: .search, {
+            viewModel.saveRecentQuery(viewModel.query)
         })
         .onRotate { newOrientation in
             orientation = newOrientation

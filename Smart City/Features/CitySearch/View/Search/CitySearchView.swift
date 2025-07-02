@@ -11,17 +11,11 @@ import SwiftData
 struct CitySearchView: View {
     @State var viewModel: CitySearchViewModel
     @EnvironmentObject var coordinator: AppCoordinator
-    @State private var isSearchActive: Bool = false
     
     var body: some View {
         VStack {
             filterSegment
             listContainer
-        }
-        .searchable(text: $viewModel.query.animation(),prompt: "Search"){
-            ForEach(viewModel.mostQueried, id: \.self) { result in
-                Text("Are you looking for \(result)?").searchCompletion(result)
-            }
         }
         .loadingView(isPresented: viewModel.isLoading)
         .if(!viewModel.isLoading, transform: { content in
@@ -38,10 +32,6 @@ struct CitySearchView: View {
                 await viewModel.loadCities()
             }
         }
-        .onChange(of: viewModel.query, initial: false) { oldValue, newValue in
-            self.viewModel.search()
-        }
-        
     }
     
     private var filterSegment: some View{
@@ -76,6 +66,62 @@ struct CitySearchView: View {
     
     private func cityList(for cities: Binding<[City]>) -> some View {
         List(selection: $coordinator.selectedCity) {
+            if !viewModel.filteredRecentQueries.isEmpty{
+                recentSearchSection
+            }
+            if !viewModel.fullFavorites.isEmpty{
+                citiesSection(for: cities)
+            }
+        }
+        .listStyle(.insetGrouped)
+        .refreshable {
+            Task.detached(priority: .userInitiated) {
+                await viewModel.loadCities(true)
+            }
+        }
+    }
+    
+    private var recentSearchSection: some View{
+        Section {
+            ForEach(viewModel.filteredRecentQueries, id: \.self) { query in
+                HStack{
+                    Image(systemName: "clock")
+                        .imageScale(.small)
+                        .foregroundStyle(.secondary)
+                    Text(query)
+                        .font(.body)
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    Image(systemName: "arrow.up.left")
+                        .foregroundStyle(.secondary)
+                        .opacity(0.5)
+                }
+                .contentShape(.capsule)
+                .onTapGesture {
+                    withAnimation {
+                        viewModel.query = query
+                    }
+                }
+            }
+        } header: {
+            HStack{
+                Text("Last search").font(.headline)
+                
+                Spacer()
+                
+                Image(systemName: "xmark.circle.fill")
+                    .foregroundStyle(.secondary)
+                    .onTapGesture {
+                        withAnimation {
+                            viewModel.clearRecents()
+                        }
+                    }
+            }
+        }
+    }
+    
+    private func citiesSection(for cities: Binding<[City]>) -> some View {
+        Section {
             ForEach(cities, id: \.id) { city in
                 NavigationLink(value: city.wrappedValue) {
                     SearchRowView(city: city)
@@ -85,12 +131,8 @@ struct CitySearchView: View {
                 }
                 .isDetailLink(true)
             }
-        }
-        .listStyle(.insetGrouped)
-        .refreshable {
-            Task.detached(priority: .userInitiated) {
-                await viewModel.loadCities(true)
-            }
+        } header: {
+            Text("Cities").font(.headline)
         }
     }
 }

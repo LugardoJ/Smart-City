@@ -14,9 +14,15 @@ final class CitySearchViewModel {
     private let searchUseCase: SearchCitiesUseCase
     private let loadUseCase: LoadRemoteCitiesUseCase
     private let inMemoryRepository: InMemoryCityRepository
-    private let context: ModelContext
     private let toggleFavoriteUseCase: ToggleFavoriteCityUseCase
-    private let searchHistoryRepository: SearchHistoryRepository
+
+    private let historyRepo: SearchHistoryRepository
+    private let fetchRecentsUseCase: FetchRecentSearchesUseCase
+    private let recordLoadTimeUseCase: RecordLoadTimeUseCase
+    private let recordSearchTermUseCase: RecordSearchTermUseCase
+    private let recordCityVisitUseCase: RecordCityVisitUseCase
+    
+    private let context: ModelContext
     private unowned let coordinator: AppCoordinator
     
     var query: String = ""
@@ -29,9 +35,17 @@ final class CitySearchViewModel {
     var results: [City] = []
     @ObservationIgnored var favorites: [City] = []
     var groupedFavorites: [(key: String, value: [City])] = []
-    var mostQueried: [String] = []
-    
     var selectedFilter: CityFilterType = .all
+    
+    var recentQueries: [String] = []
+    
+    public var filteredRecentQueries: [String] {
+        let q = query.trimmingCharacters(in: .newlines).lowercased()
+        guard !q.isEmpty else { return recentQueries }
+        return recentQueries.filter {
+            $0.lowercased().hasPrefix(q)
+        }
+    }
     
     
     var searchMessage: String? {
@@ -42,20 +56,52 @@ final class CitySearchViewModel {
         }
     }
     
-    init(searchUseCase: SearchCitiesUseCase,loadUseCase: LoadRemoteCitiesUseCase,coordinator: AppCoordinator, inMemoryRepository: InMemoryCityRepository, context: ModelContext,toggleFavoriteUseCase: ToggleFavoriteCityUseCase,searchHistoryRepository: SearchHistoryRepository) {
+    // MARK: - Init
+    public init(
+        searchUseCase: SearchCitiesUseCase,
+        loadUseCase: LoadRemoteCitiesUseCase,
+        toggleFavoriteUseCase: ToggleFavoriteCityUseCase,
+        inMemoryRepository: InMemoryCityRepository,
+        searchHistoryRepository: SearchHistoryRepository,
+        fetchRecentSearchesUseCase: FetchRecentSearchesUseCase,
+        recordLoadTimeUseCase: RecordLoadTimeUseCase,
+        recordSearchTermUseCase: RecordSearchTermUseCase,
+        recordCityVisitUseCase: RecordCityVisitUseCase,
+        coordinator: AppCoordinator,
+        context: ModelContext
+    ) {
         self.searchUseCase = searchUseCase
         self.loadUseCase = loadUseCase
-        self.coordinator = coordinator
-        self.inMemoryRepository = inMemoryRepository
-        self.context = context
         self.toggleFavoriteUseCase = toggleFavoriteUseCase
-        self.searchHistoryRepository = searchHistoryRepository
+        self.inMemoryRepository = inMemoryRepository
+        self.historyRepo = searchHistoryRepository
+        self.fetchRecentsUseCase = fetchRecentSearchesUseCase
+        self.recordLoadTimeUseCase = recordLoadTimeUseCase
+        self.recordSearchTermUseCase = recordSearchTermUseCase
+        self.recordCityVisitUseCase = recordCityVisitUseCase
+        self.coordinator = coordinator
+        self.context = context
+    }
+    
+    // MARK: - Recent Queries
+    @MainActor
+    public func loadRecentQueries(limit: Int = 5) {
+        recentQueries = fetchRecentsUseCase.execute(limit: recentQueries.isEmpty ? 20 : limit)
+    }
+    
+    public func recordCurrentQueryIfNeeded() {
+        let term = query.trimmingCharacters(in: .newlines)
+        guard term.count >= 3 else { return }
+        historyRepo.registerQuery(term: term)
     }
     
     @MainActor
     func loadCities(_ refresh : Bool = false) async {
+        let start = Date()
         isLoading = true
-        if context.isCityCacheEmpty() || refresh {
+        let fromRemote = context.isCityCacheEmpty() || refresh
+
+        if fromRemote {
             do {
                 try await inMemoryRepository.loadCitiesRemote()
                 if refresh && !self.fullFavorites.isEmpty{
@@ -71,10 +117,11 @@ final class CitySearchViewModel {
         }
         
         loadFavorites()
-        loadMostQueried()
-
         search()
         isLoading = false
+        loadRecentQueries()
+        let duration = Date().timeIntervalSince(start)
+        recordLoadTimeUseCase.execute(source: fromRemote ? "network" : "local", duration: duration)
     }
     
     func search() {
@@ -88,13 +135,21 @@ final class CitySearchViewModel {
                 self.favorites = self.query.isEmpty ? self.fullFavorites : favoriteSlice
                 self.updateGroupedFavorites()
                 
-                if !self.query.isEmpty && self.query.count > 3{
-                    let trimmed = self.query.trimmingCharacters(in: .newlines)
-                    self.searchHistoryRepository.registerQuery(term: trimmed)
-                }
                 self.isLoading = false
-
             }
+        }
+    }
+    
+    func clearRecents(){
+        fetchRecentsUseCase.delete(recentQueries)
+        recentQueries.removeAll()
+    }
+    
+    func saveRecentQuery(_ oldQuery: String){
+        if oldQuery.trimmingCharacters(in: .newlines).count > 3 && !recentQueries.contains(oldQuery){
+            recordSearchTermUseCase.execute(term: oldQuery)
+            recentQueries.insert(oldQuery, at: 0)
+            recentQueries = recentQueries.prefix(8).map({$0})
         }
     }
     
@@ -107,16 +162,14 @@ final class CitySearchViewModel {
                 let sortedCities = value.sorted { $0.name < $1.name }
                 return (key: key, value: sortedCities)
             }
-
+        
         groupedFavorites = sortedGroups
     }
     
     
     func loadMoreIfNeeded(currentItem: City) {
-        guard let last = results.last else { return }
-        if currentItem.id == last.id {
-            loadMore()
-        }
+        guard let last = results.last, currentItem.id == last.id else { return }
+        loadMore()
     }
     
     func loadMore() {
@@ -153,11 +206,8 @@ final class CitySearchViewModel {
         fullFavorites = toggleFavoriteUseCase.fetchFavorites()
     }
     
-    func loadMostQueried(limit: Int = 5) {
-        mostQueried = searchHistoryRepository.fetchMostQueried(limit: limit).map { $0.term }
-    }
-    
     @MainActor func select(city: City) {
+        recordCityVisitUseCase.execute(cityId: city.id)
         coordinator.navigate(to: .cityDetail(city))
     }
 }

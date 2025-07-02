@@ -17,7 +17,7 @@ struct SearchFavoriteListView: View {
                 Section(header: Text(group.key.flagEmoji + group.key)) {
                     ForEach(group.value,id:\.id){ city in
                         NavigationLink(value: city) {
-                            SearchFavoriteRowView(city: city)
+                            searchFavoriteRowView(city: city)
                                 .onAppear{
                                     onRefresh(city)
                                 }
@@ -30,5 +30,17 @@ struct SearchFavoriteListView: View {
         }
         .listStyle(.insetGrouped)
         
+    }
+    
+    func searchFavoriteRowView(city: City) -> some View{
+        HStack{
+            Text(city.name)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+            Spacer()
+            Image(systemName: "heart.fill")
+                .imageScale(.small)
+                .foregroundStyle(.red)
+        }
     }
 }
