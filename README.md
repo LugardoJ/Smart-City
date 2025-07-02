@@ -26,6 +26,8 @@ Develop a feature called **Smart City**, which enables:
 - **Patterns**: MVVM, Coordinator
 - **Persistence**: SwiftData (local), InMemory (search/cache)
 - **Map**: MapKit
+- **CI/CD**: GitHub Actions
+- **Linting**: SwiftLint + SwiftFormat
 - **Testing**: XCTest, UI Tests (planned)
 
 ---
@@ -252,7 +254,6 @@ City data is fetched from the following JSON:
 
 ---
 
-
 ## 📈 Product Success Observability
 
 To ensure the success and usability of the **Smart City** feature, the following **key metrics** will be tracked:
@@ -302,6 +303,86 @@ bash run-swiftlint.sh
 ```
 
 > 💡 The script performs automatic style corrections (`autocorrect --format`) and splits the results by type to facilitate analysis.
+
+---
+
+## 🧹 Code Formatting – SwiftFormat
+
+This project uses [SwiftFormat](https://github.com/nicklockwood/SwiftFormat) to ensure a consistent and clean Swift codebase across all contributors.
+
+### ✅ What's included
+
+- `.swiftformat` configuration file at project root
+- Project-wide formatting applied via `swiftformat .`
+- `pre-commit` Git hook to auto-format code before every commit
+- GitHub Actions workflow to validate formatting on every pull request
+
+---
+
+### 🛠 Installation (macOS)
+
+Install SwiftFormat globally via Homebrew:
+
+```bash
+brew install swiftformat
+```
+
+Or update:
+
+```bash
+brew upgrade swiftformat
+```
+
+Verify installation:
+
+```bash
+swiftformat --version
+```
+
+---
+
+### 🧪 Manual formatting
+
+You can manually format the codebase at any time by running:
+
+```bash
+swiftformat .
+```
+
+This will apply the rules defined in `.swiftformat`.
+
+---
+
+### 🧾 Pre-commit automation
+
+A Git `pre-commit` hook is included to automatically run SwiftFormat before each commit.  
+To enable it manually (if not already active):
+
+```bash
+cp scripts/pre-commit .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+```
+
+This ensures that any staged Swift files are formatted before being committed.
+
+---
+
+### 🚦 CI Integration
+
+Every pull request triggers a GitHub Actions workflow that runs SwiftFormat in dry-run mode.  
+If any file is not properly formatted, the PR check will fail.
+
+Workflow file:
+```
+.github/workflows/format-check.yml
+```
+
+---
+
+### ⚠️ Note
+
+SwiftFormat applies **non-functional changes only** (spacing, indentation, wrapping, import sorting, etc.).  
+It does **not affect logic or business functionality**.
 
 ---
 
