@@ -5,11 +5,14 @@
 //  Created by Lugardo on 29/06/25.
 //
 import SwiftUI
+import Translation
 
 struct CityInfoCard: View {
     @Binding var city: City
     @Binding var isMaximized: Bool
     @State var viewModel: CityDetailViewModel
+    @State var translate: Bool = false
+    @State var extractValue: String = ""
 
     public init(city: Binding<City>, isMaximized: Binding<Bool>, viewModel: CityDetailViewModel) {
         _city = city
@@ -82,6 +85,7 @@ struct CityInfoCard: View {
                         }
                         .toggleStyle(.button)
                         .tint(.red)
+                        .sensoryFeedback(.success, trigger: city.isFavorite)
                     }
 
                     HStack(spacing: 20) {
@@ -114,19 +118,33 @@ struct CityInfoCard: View {
                         }
                     }
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("About")
-                            .font(.headline.bold())
+                        HStack {
+                            Text("About")
+                                .font(.headline.bold())
+                            Spacer()
+                            Button("Translate", systemImage: "translate") {
+                                translate.toggle()
+                            }
+                            .tint(.teal)
+                        }
 
                         Text(summary.description ?? "")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
-                        Text(summary.extract)
+                        Text(extractValue)
                             .font(.caption)
                             .foregroundStyle(.primary)
                     }
                 }
                 .padding(.horizontal, 20)
             }
+        }
+        .onChange(of: viewModel.summary?.extract, initial: false) { _, newValue in
+            guard let safeValue = newValue else { return }
+            extractValue = safeValue
+        }
+        .translationPresentation(isPresented: $translate, text: extractValue) { translatedText in
+            extractValue = translatedText
         }
     }
 

@@ -9,4 +9,5 @@
 
 enum AppRoute: Hashable {
     case cityDetail(City)
+    case metricsDashboard
 }

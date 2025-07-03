@@ -16,6 +16,8 @@ public final class AppCoordinator: ObservableObject {
         case let .cityDetail(city):
             selectedCity = city
             path.append(city)
+        case .metricsDashboard:
+            path.append(route)
         }
     }
 

@@ -77,26 +77,22 @@ public struct RootView: View {
                 .navigationTitle("Smart City")
                 .navigationBarTitleDisplayMode(.inline)
         } detail: {
-            NavigationStack {
+            NavigationStack(path: $coordinator.path) {
                 if let city = coordinator.selectedCity {
                     let bindingCity: Binding<City> = .init {
                         city
-                    } set: { newCity in
-                        viewModel.toggleFavorite(item: newCity)
-                        coordinator.selectedCity = newCity
+                    } set: {
+                        viewModel.toggleFavorite(item: $0)
+                        coordinator.selectedCity = $0
                     }
+
                     CityDetailView(city: bindingCity)
-                        .onAppear {
-                            viewModel.saveSelect(city: city)
-                        }
+                        .onAppear { viewModel.saveSelect(city: city) }
                 } else {
                     ContentUnavailableView(
-                        viewModel.isLoading ? "Loading data"
-                            : "Select a city",
+                        viewModel.isLoading ? "Loading data" : "Select a city",
                         systemImage: viewModel.isLoading ? "externaldrive.fill.badge.icloud" : "globe",
-                        description:
-                        Text(viewModel.isLoading ? "Wait a minute"
-                            : "Tap a city to see more information.")
+                        description: Text(viewModel.isLoading ? "Wait a minute" : "Tap a city to see more information.")
                     )
                 }
             }
