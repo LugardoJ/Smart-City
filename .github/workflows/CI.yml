@@ -30,14 +30,13 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Install xcpretty
-        run: |
-          gem install xcpretty --no-document
-      - name: Select Xcode 16.4
-        run: |
-          sudo xcode-select -s /Applications/Xcode_16.4
+        run: gem install xcpretty --no-document
+
       - name: Show Xcode Version
         run: xcodebuild -version
+
       - name: Build & Run All Tests
         run: |
           xcodebuild test \
