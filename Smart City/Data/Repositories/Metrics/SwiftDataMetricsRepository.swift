@@ -7,12 +7,9 @@
 import SwiftData
 import SwiftUI
 
-public final class SwiftDataMetricsRepository: MetricsRepository {
+public final class SwiftDataMetricsRecorder: MetricsRecording {
     private let context: ModelContext
-
-    public init(context: ModelContext) {
-        self.context = context
-    }
+    public init(context: ModelContext) { self.context = context }
 
     // MARK: – Load Time
 
@@ -34,15 +31,6 @@ public final class SwiftDataMetricsRepository: MetricsRepository {
         try? context.save()
     }
 
-    public func fetchTopSearchTerms(limit: Int = 10) -> [String] {
-        let desc = FetchDescriptor<SearchMetricEntity>(
-            sortBy: [SortDescriptor(\.count, order: .reverse)]
-        )
-        return (try? context.fetch(desc))?
-            .prefix(limit)
-            .map(\.term) ?? []
-    }
-
     // MARK: – City Visits
 
     public func recordCityVisit(cityId: Int) {
@@ -53,6 +41,23 @@ public final class SwiftDataMetricsRepository: MetricsRepository {
             context.insert(VisitMetricEntity(cityId: cityId))
         }
         try? context.save()
+    }
+}
+
+public final class SwiftDataMetricsQueryRepository: MetricsQuerying {
+    private let context: ModelContext
+
+    public init(context: ModelContext) {
+        self.context = context
+    }
+
+    public func fetchTopSearchTerms(limit: Int = 10) -> [String] {
+        let desc = FetchDescriptor<SearchMetricEntity>(
+            sortBy: [SortDescriptor(\.count, order: .reverse)]
+        )
+        return (try? context.fetch(desc))?
+            .prefix(limit)
+            .map(\.term) ?? []
     }
 
     public func fetchTopVisitedCities(limit: Int = 10) -> [Int] {

@@ -6,13 +6,13 @@
 //
 import Foundation
 
-public protocol MetricsRepository {
-    // Load times
+public protocol MetricsRecording {
     func recordLoadTime(source: String, duration: TimeInterval)
-    // Search metrics
     func recordSearchTerm(_ term: String)
-    func fetchTopSearchTerms(limit: Int) -> [String]
-    // Visit metrics
     func recordCityVisit(cityId: Int)
+}
+
+public protocol MetricsQuerying {
+    func fetchTopSearchTerms(limit: Int) -> [String]
     func fetchTopVisitedCities(limit: Int) -> [Int]
 }

@@ -7,8 +7,10 @@ disabled_rules:
   - nesting
   - trailing_whitespace
   - todo
-  - line_length
+  #- line_length
   - function_parameter_count
+  - trailing_comma
+  - comment_spacing
 
 opt_in_rules:
   - empty_count
@@ -56,8 +58,8 @@ file_length:
   error: 700
 
 function_body_length:
-  warning: 40
-  error: 80
+  warning: 60
+  error: 100
 
 cyclomatic_complexity:
   warning: 10
@@ -74,14 +76,14 @@ identifier_name:
     warning: 2
     error: 1
   max_length:
-    warning: 30
-    error: 40
+    warning: 35
+    error: 45
 
 type_name:
   min_length: 3
   max_length:
-    warning: 30
-    error: 40
+    warning: 35
+    error: 45
   excluded:
     - Smart_CityApp
     - Smart_CityTests

@@ -1,5 +1,5 @@
 //
-//  FetchTopSearchTermsUseCase.swift
+//  DefaultFetchTopSearchTermsUseCase.swift
 //  Smart City
 //
 //  Created by Lugardo on 01/07/25.
@@ -8,10 +8,10 @@ public protocol FetchTopSearchTermsUseCase {
     func execute(limit: Int) -> [String]
 }
 
-public final class DefaultFetchTopSearchTermsUseCase: FetchTopSearchTermsUseCase {
-    private let repo: MetricsRepository
+public final class DefaultTopSearchTermsUseCase: FetchTopSearchTermsUseCase {
+    private let repo: MetricsQuerying
 
-    public init(repo: MetricsRepository) {
+    public init(repo: MetricsQuerying) {
         self.repo = repo
     }
 

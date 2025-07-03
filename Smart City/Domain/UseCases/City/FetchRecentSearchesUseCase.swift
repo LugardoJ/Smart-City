@@ -9,7 +9,7 @@ public protocol FetchRecentSearchesUseCase {
     func delete(_ terms: [String])
 }
 
-public final class DefaultFetchRecentSearchesUseCase: FetchRecentSearchesUseCase {
+public final class DefaultFetchSearchesUseCase: FetchRecentSearchesUseCase {
     private let historyRepo: SearchHistoryRepository
 
     public init(historyRepo: SearchHistoryRepository) {

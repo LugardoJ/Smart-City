@@ -23,6 +23,13 @@
                </EnvironmentBuildable>
             </ActionContent>
          </ExecutionAction>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "swiftformat"
+               scriptText = "if which swiftformat &gt; /dev/null; then&#10;  swiftformat .&#10;else&#10;  echo &quot;warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat&quot;&#10;fi&#10;">
+            </ActionContent>
+         </ExecutionAction>
       </PreActions>
       <BuildActionEntries>
          <BuildActionEntry

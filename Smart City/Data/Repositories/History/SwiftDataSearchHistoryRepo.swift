@@ -7,7 +7,7 @@
 import SwiftData
 import SwiftUI
 
-public final class SwiftDataSearchHistoryRepository: SearchHistoryRepository {
+public final class SwiftDataSearchHistoryRepo: SearchHistoryRepository {
     private let context: ModelContext
 
     public init(context: ModelContext) {

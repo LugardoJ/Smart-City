@@ -1,5 +1,5 @@
 //
-//  FetchTopVisitedCitiesUseCase.swift
+//  DefaultFetchTopVisitedCitiesUseCase.swift
 //  Smart City
 //
 //  Created by Lugardo on 01/07/25.
@@ -8,10 +8,10 @@ public protocol FetchTopVisitedCitiesUseCase {
     func execute(limit: Int) -> [Int]
 }
 
-public final class DefaultFetchTopVisitedCitiesUseCase: FetchTopVisitedCitiesUseCase {
-    private let repo: MetricsRepository
+public final class DefaultTopVisitedCitiesUseCase: FetchTopVisitedCitiesUseCase {
+    private let repo: MetricsQuerying
 
-    public init(repo: MetricsRepository) {
+    public init(repo: MetricsQuerying) {
         self.repo = repo
     }
 

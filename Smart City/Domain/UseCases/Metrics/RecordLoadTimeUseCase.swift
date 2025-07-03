@@ -11,9 +11,9 @@ public protocol RecordLoadTimeUseCase {
 }
 
 public final class DefaultRecordLoadTimeUseCase: RecordLoadTimeUseCase {
-    private let repo: MetricsRepository
+    private let repo: MetricsRecording
 
-    public init(repo: MetricsRepository) {
+    public init(repo: MetricsRecording) {
         self.repo = repo
     }
 

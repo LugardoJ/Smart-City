@@ -13,7 +13,13 @@ struct CityWikiSummary: Codable {
     public let timestamp: String
     public let originalimage: WikiSummaryThumbnail?
 
-    public init(title: String, description: String?, extract: String, timestamp: String, thumbnail: WikiSummaryThumbnail?) {
+    public init(
+        title: String,
+        description: String?,
+        extract: String,
+        timestamp: String,
+        thumbnail: WikiSummaryThumbnail?
+    ) {
         self.title = title
         self.description = description
         self.extract = extract
