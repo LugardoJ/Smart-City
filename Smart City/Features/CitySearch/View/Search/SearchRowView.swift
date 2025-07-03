@@ -34,5 +34,13 @@ struct SearchRowView: View {
 
 #Preview {
     @Previewable @State var isFavorite = false
-    SearchRowView(city: .constant(.init(id: 0, name: "Tokyo", country: "JP", coord: .init(lon: 100.320, lat: 100.203), isFavorite: isFavorite)))
+    SearchRowView(city:
+        .constant(.init(
+            id: 0,
+            name: "Tokyo",
+            country: "JP",
+            coord: .init(lon: 100.320, lat: 100.203),
+            isFavorite: isFavorite
+        )
+        ))
 }

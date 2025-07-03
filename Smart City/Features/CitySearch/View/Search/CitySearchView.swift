@@ -15,7 +15,6 @@ struct CitySearchView: View {
 
     var body: some View {
         VStack {
-            filterSegment
             listContainer
         }
         .loadingView(isPresented: viewModel.isLoading)
@@ -33,16 +32,6 @@ struct CitySearchView: View {
                 await viewModel.loadCities()
             }
         }
-    }
-
-    private var filterSegment: some View {
-        Picker("Filter", selection: $viewModel.selectedFilter.animation()) {
-            ForEach(CityFilterType.allCases, id: \.id) { filter in
-                Label(filter.title, systemImage: "heart")
-            }
-        }
-        .pickerStyle(.segmented)
-        .padding(.horizontal, 20)
     }
 
     @ViewBuilder

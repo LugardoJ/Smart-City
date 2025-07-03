@@ -21,7 +21,12 @@ struct CityInfoCard: View {
         VStack(alignment: .leading) {
             if let error = viewModel.error {
                 VStack(spacing: 5) {
-                    ContentUnavailableView(error, systemImage: "xmark.icloud.fill", description: Text("We were unable to retrieve the information from the servers (wikipedia.org)"))
+                    ContentUnavailableView(
+                        error,
+                        systemImage: "xmark.icloud.fill",
+                        description:
+                        Text("We were unable to retrieve the information from (wikipedia.org)")
+                    )
                     minimizedView
                 }
                 .fixedSize(horizontal: false, vertical: true)
@@ -51,11 +56,17 @@ struct CityInfoCard: View {
                             ProgressView()
                         }
                     } else {
-                        ContentUnavailableView("Image not found", systemImage: "photo.trianglebadge.exclamationmark.fill")
+                        ContentUnavailableView(
+                            "Image not found",
+                            systemImage: "photo.trianglebadge.exclamationmark.fill"
+                        )
                     }
                 }
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 400, height: UIScreen.main.bounds.size.height * 0.3)
+                .frame(
+                    width: 400,
+                    height: UIScreen.main.bounds.size.height * 0.3
+                )
                 .clipped()
                 .cornerRadius(15, corners: [.bottomLeft, .bottomRight])
 
@@ -163,13 +174,23 @@ struct CityInfoCard: View {
 }
 
 #Preview {
-    @Previewable @State var city = City(id: 1, name: "Tokyo", country: "JP", coord: .init(lon: 139.691711, lat: 35.689499), isFavorite: true)
+    @Previewable @State var city = City(
+        id: 1,
+        name: "Tokyo",
+        country: "JP",
+        coord: .init(lon: 139.691711, lat: 35.689499),
+        isFavorite: true
+    )
     var cityDetailViewModel: CityDetailViewModel {
         let repository = DefaultCitySummaryRepository()
         let useCase = DefaultFetchCitySummaryUseCase(repository: repository)
         return CityDetailViewModel(fetchSummaryUseCase: useCase)
     }
-    CityInfoCard(city: $city, isMaximized: .constant(true), viewModel: cityDetailViewModel)
-        .frame(width: 400)
-        .clipped()
+    CityInfoCard(
+        city: $city,
+        isMaximized: .constant(true),
+        viewModel: cityDetailViewModel
+    )
+    .frame(width: 400)
+    .clipped()
 }

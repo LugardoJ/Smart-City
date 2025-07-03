@@ -9,7 +9,7 @@ import SwiftUI
 @MainActor
 public final class AppCoordinator: ObservableObject {
     @Published var path = NavigationPath()
-    @Published var selectedCity: City? = nil
+    @Published var selectedCity: City?
 
     func navigate(to route: AppRoute) {
         switch route {

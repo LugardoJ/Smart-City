@@ -25,11 +25,24 @@ final class CityEntity {
     }
 
     var toDomain: City {
-        City(id: id, name: name, country: country, coord: .init(lon: lon, lat: lat), isFavorite: isFavorite)
+        City(
+            id: id,
+            name: name,
+            country: country,
+            coord: .init(lon: lon, lat: lat),
+            isFavorite: isFavorite
+        )
     }
 
     static func fromDomain(_ city: City) -> CityEntity {
-        CityEntity(id: city.id, name: city.name, country: city.country, lon: city.coord.lon, lat: city.coord.lat, isFavorite: city.isFavorite)
+        CityEntity(
+            id: city.id,
+            name: city.name,
+            country: city.country,
+            lon: city.coord.lon,
+            lat: city.coord.lat,
+            isFavorite: city.isFavorite
+        )
     }
 
     func update(from model: City) {

@@ -40,10 +40,10 @@ final class CitySearchViewModel {
     var recentQueries: [String] = []
 
     public var filteredRecentQueries: [String] {
-        let q = query.trimmingCharacters(in: .newlines).lowercased()
-        guard !q.isEmpty else { return recentQueries }
+        let qry = query.trimmingCharacters(in: .newlines).lowercased()
+        guard !qry.isEmpty else { return recentQueries }
         return recentQueries.filter {
-            $0.lowercased().hasPrefix(q)
+            $0.lowercased().hasPrefix(qry)
         }
     }
 
@@ -51,7 +51,9 @@ final class CitySearchViewModel {
         if selectedFilter == .all {
             results.isEmpty ? "No results found for \"\(query.trimmingCharacters(in: .whitespacesAndNewlines))\"." : nil
         } else {
-            groupedFavorites.isEmpty ? "No results found for \"\(query.trimmingCharacters(in: .whitespacesAndNewlines))\"." : nil
+            groupedFavorites.isEmpty ?
+                "No results found for \"\(query.trimmingCharacters(in: .whitespacesAndNewlines))\"."
+                : nil
         }
     }
 
@@ -206,8 +208,7 @@ final class CitySearchViewModel {
         fullFavorites = toggleFavoriteUseCase.fetchFavorites()
     }
 
-    @MainActor func select(city: City) {
+    func saveSelect(city: City) {
         recordCityVisitUseCase.execute(cityId: city.id)
-        coordinator.navigate(to: .cityDetail(city))
     }
 }

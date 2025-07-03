@@ -6,14 +6,14 @@
 //
 import Foundation
 
-protocol WikipediaRemoteDataSourceProtocol {
+protocol WikipediaDataSourceProtocol {
     func fetchSummary(for cityName: String) async throws -> CityWikiSummary
 }
 
-final class WikipediaRemoteDataSource: WikipediaRemoteDataSourceProtocol {
+final class WikipediaRemoteDataSource: WikipediaDataSourceProtocol {
     private let session: NetworkSession
     private let decoder: JSONDecoder
-    private let baseURL = "https://\(Locale.current.language.languageCode?.identifier ?? "en").wikipedia.org/api/rest_v1/page/summary/"
+    private let baseURL = "https://en.wikipedia.org/api/rest_v1/page/summary/"
 
     init(session: NetworkSession = URLSession.shared, decoder: JSONDecoder = JSONDecoder()) {
         self.session = session

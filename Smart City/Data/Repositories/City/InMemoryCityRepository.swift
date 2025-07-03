@@ -47,12 +47,12 @@ final class InMemoryCityRepository: CityRepository {
     }
 
     func searchCities(matching query: String) -> [City] {
-        let q = query.trimmingCharacters(in: .newlines).lowercased()
-        guard !q.isEmpty else { return cities }
-        guard let firstChar = q.first else { return [] }
+        let qry = query.trimmingCharacters(in: .newlines).lowercased()
+        guard !qry.isEmpty else { return cities }
+        guard let firstChar = qry.first else { return [] }
 
         return indexedCities[String(firstChar), default: []]
-            .filter { $0.name.lowercased().hasPrefix(q) }
+            .filter { $0.name.lowercased().hasPrefix(qry) }
             .sorted(by: citySort)
     }
 

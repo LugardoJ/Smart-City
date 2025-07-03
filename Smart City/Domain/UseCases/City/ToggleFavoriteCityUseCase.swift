@@ -14,7 +14,7 @@ protocol ToggleFavoriteCityUseCase {
 
 // MARK: - Use Case Implementations (Domain Layer)
 
-final class DefaultToggleFavoriteCityUseCase: ToggleFavoriteCityUseCase {
+final class DefaultToggleFavCityUseCase: ToggleFavoriteCityUseCase {
     private let favoriteRepository: FavoriteCityRepository
 
     init(favoriteRepository: FavoriteCityRepository) {

@@ -124,7 +124,13 @@ struct CityDetailView: View {
 }
 
 #Preview {
-    @Previewable @State var city = City(id: 1, name: "Tokyo", country: "JP", coord: .init(lon: 139.691711, lat: 35.689499), isFavorite: true)
+    @Previewable @State var city = City(
+        id: 1,
+        name: "Tokyo",
+        country: "JP",
+        coord: .init(lon: 139.691711, lat: 35.689499),
+        isFavorite: true
+    )
     NavigationStack {
         CityDetailView(city: $city)
     }
