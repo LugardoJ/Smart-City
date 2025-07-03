@@ -113,6 +113,7 @@ struct CityDetailView: View {
                     .contentTransition(.symbolEffect(.replace))
             }
             .tint(city.isFavorite ? .red : .accentColor)
+            .sensoryFeedback(.success, trigger: city.isFavorite)
         }
     }
 
