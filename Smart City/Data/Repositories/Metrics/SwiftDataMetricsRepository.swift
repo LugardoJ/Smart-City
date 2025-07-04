@@ -84,7 +84,7 @@ public final class SwiftDataMetricsQueryRepository: MetricsQuerying {
         )
         return (try? context.fetch(desc))?
             .prefix(limit)
-            .map { (SearchLatency(query: $0.query, duration: $0.duration, timestamp: $0.timestamp) ) } ?? []
+            .map { SearchLatency(query: $0.query, duration: $0.duration, timestamp: $0.timestamp) } ?? []
     }
 
     public func fetchTopVisitedCities(limit: Int = 10) -> [(Int, Int)] {

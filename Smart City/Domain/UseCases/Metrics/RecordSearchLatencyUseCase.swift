@@ -11,7 +11,8 @@ public protocol RecordSearchLatencyUseCase {
 }
 
 public struct DefaultRecordSearchLatencyUseCase:
-    RecordSearchLatencyUseCase {
+    RecordSearchLatencyUseCase
+{
     private let recorder: MetricsRecording
     public init(recorder: MetricsRecording) { self.recorder = recorder }
     public func execute(query: String, duration: TimeInterval) {
