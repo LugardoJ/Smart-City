@@ -9,10 +9,13 @@ import Foundation
 public protocol MetricsRecording {
     func recordLoadTime(source: String, duration: TimeInterval)
     func recordSearchTerm(_ term: String)
+    func recordSearchLatency(query: String, duration: TimeInterval)
     func recordCityVisit(cityId: Int)
+    func recordTimeInScreen(name: String, duration: TimeInterval)
 }
 
 public protocol MetricsQuerying {
-    func fetchTopSearchTerms(limit: Int) -> [String]
-    func fetchTopVisitedCities(limit: Int) -> [Int]
+    func fetchTopSearchTerms(limit: Int) -> [(String, Int)]
+    func fetchSearchLatencies(limit: Int) -> [SearchLatency]
+    func fetchTopVisitedCities(limit: Int) -> [(Int, Int)]
 }

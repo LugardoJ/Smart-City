@@ -6,6 +6,7 @@
 //
 import SwiftData
 
+@MainActor
 extension ModelContext {
     func cacheCities(_ cities: [City]) throws {
         let old = try fetch(FetchDescriptor<CityEntity>())

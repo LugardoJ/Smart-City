@@ -67,7 +67,6 @@ struct CityInfoCard: View {
                 }
                 .aspectRatio(contentMode: .fill)
                 .frame(
-                    width: 400,
                     height: UIScreen.main.bounds.size.height * 0.3
                 )
                 .clipped()

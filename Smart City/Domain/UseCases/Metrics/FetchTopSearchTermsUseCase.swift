@@ -5,7 +5,7 @@
 //  Created by Lugardo on 01/07/25.
 //
 public protocol FetchTopSearchTermsUseCase {
-    func execute(limit: Int) -> [String]
+    func execute(limit: Int) -> [(String, Int)]
 }
 
 public final class DefaultTopSearchTermsUseCase: FetchTopSearchTermsUseCase {
@@ -15,7 +15,7 @@ public final class DefaultTopSearchTermsUseCase: FetchTopSearchTermsUseCase {
         self.repo = repo
     }
 
-    public func execute(limit: Int = 10) -> [String] {
+    public func execute(limit: Int = 40) -> [(String, Int)] {
         repo.fetchTopSearchTerms(limit: limit)
     }
 }

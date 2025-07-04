@@ -5,7 +5,7 @@
 //  Created by Lugardo on 01/07/25.
 //
 public protocol FetchTopVisitedCitiesUseCase {
-    func execute(limit: Int) -> [Int]
+    func execute(limit: Int) -> [(Int, Int)]
 }
 
 public final class DefaultTopVisitedCitiesUseCase: FetchTopVisitedCitiesUseCase {
@@ -15,7 +15,7 @@ public final class DefaultTopVisitedCitiesUseCase: FetchTopVisitedCitiesUseCase 
         self.repo = repo
     }
 
-    public func execute(limit: Int = 10) -> [Int] {
+    public func execute(limit: Int = 10) -> [(Int, Int)] {
         repo.fetchTopVisitedCities(limit: limit)
     }
 }

@@ -27,6 +27,15 @@ struct CitySearchView: View {
                 }
             }
         })
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    coordinator.navigate(to: .metricsDashboard)
+                } label: {
+                    Image(systemName: "gearshape.fill")
+                }
+            }
+        }
         .task {
             if viewModel.fullResults.isEmpty {
                 await viewModel.loadCities()
@@ -34,14 +43,15 @@ struct CitySearchView: View {
         }
     }
 
-    @ViewBuilder
     private var listContainer: some View {
-        switch viewModel.selectedFilter {
-        case .all:
-            fullResults
-        case .favorites:
-            SearchFavoriteListView(citiesGroup: $viewModel.groupedFavorites) { city in
-                viewModel.loadMoreIfNeeded(currentItem: city)
+        Group {
+            switch viewModel.selectedFilter {
+            case .all:
+                fullResults
+            case .favorites:
+                SearchFavoriteListView(citiesGroup: $viewModel.groupedFavorites) { city in
+                    viewModel.loadMoreIfNeeded(currentItem: city)
+                }
             }
         }
     }
@@ -50,18 +60,12 @@ struct CitySearchView: View {
         cityList(for: $viewModel.results)
     }
 
-    private var favoriteResults: some View {
-        cityList(for: $viewModel.favorites)
-    }
-
     private func cityList(for cities: Binding<[City]>) -> some View {
         List(selection: $coordinator.selectedCity) {
             if !viewModel.filteredRecentQueries.isEmpty {
                 recentSearchSection
             }
-            if !viewModel.fullFavorites.isEmpty {
-                citiesSection(for: cities)
-            }
+            citiesSection(for: cities)
         }
         .listStyle(.insetGrouped)
         .refreshable {
@@ -114,7 +118,7 @@ struct CitySearchView: View {
         Section {
             ForEach(cities, id: \.id) { city in
                 NavigationLink(value: city.wrappedValue) {
-                    SearchRowView(city: city)
+                    SearchRowView(city: city, selected: .constant(city.wrappedValue.id == coordinator.selectedCity?.id))
                         .onAppear {
                             viewModel.loadMoreIfNeeded(currentItem: city.wrappedValue)
                         }

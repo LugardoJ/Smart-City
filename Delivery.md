@@ -1,112 +1,59 @@
 
-# 📦 `Delivery.md` – Deployment & Quality Pipeline
+# 📦 Delivery Plan
 
-This document outlines the code quality and deployment strategy of the **Smart City** project.  
-The project integrates automated linting, formatting, and a continuous verification workflow.
-
----
-
-## ✅ Code Quality Guardrails
-
-### 🧪 SwiftLint (Linter)
-
-To ensure code consistency and best practices, **SwiftLint** is integrated as the primary static analysis tool.
-
-#### 🔧 Configuration
-
-- Config file: `.swiftlint.yml`
-- Executable: `run-swiftlint.sh`
-- Integration: Build Phase in Xcode
-- Logs:
-  - 🟢 `Logs/Main/`: all results
-  - 🔴 `Logs/Errors/`: only errors
-  - 🟡 `Logs/Warnings/`: only warnings
-  - 📊 `Logs/summary-latest.json`: automatic summary
-
-#### 📂 Folders Included
-
-```yaml
-included:
-  - "Smart City"
-  - "Smart CityTests"
-  - "Smart CityUITests"
-```
-
-#### 📏 Enabled Rules
-
-- Default rules
-- Extra:
-  `explicit_init`, `unused_import`, `closure_spacing`, `joined_default_parameter`, `force_unwrapping`, `sorted_imports`
-
-#### ⚠️ Complexity Limits
-
-```yaml
-function_body_length:
-  warning: 40
-  error: 80
-
-cyclomatic_complexity:
-  warning: 10
-  error: 15
-```
-
-#### ▶️ Manual Execution
-
-```bash
-bash run-swiftlint.sh
-```
+This document outlines the key delivery milestones for **Smart City**.
 
 ---
 
-### 🧹 SwiftFormat (Code Formatter)
+## 1. Base & Architecture  
+- Modular project structure (App, Common, Data, Domain, Features, Network)  
+- MVVM + Coordinator pattern  
+- Clean Architecture & SOLID principles  
 
-To automate code formatting and enforce a consistent style, **SwiftFormat** has been added.
+## 2. Search & Remote Data  
+- Load ~200K city records from JSON  
+- Optimized in-memory prefix search  
+- `CityRemoteDataSource` for network fetch  
 
-#### 🔧 Configuration
+## 3. Local Persistence & Favorites  
+- **SwiftData** entities (`CityEntity`) for caching cities  
+- `cacheCities()` and `fetchCachedCities()` extensions on `ModelContext`  
+- Persistent favorites via `SwiftDataFavoritesRepository`  
 
-- Config file: `.swiftformat`
-- Style: K&R, 4-space indentation, sorted imports, consistent spacing
-- Swift version: 6.0
+## 4. MapKit & Adaptive UI  
+- Detail view with MapKit integration  
+- `NavigationSplitView` on iPad / large screens  
+- `CompactLandscapeView` for iPhone:  
+  - Portrait: push detail on stack  
+  - Landscape: split layout with search + detail  
 
-#### 🧪 Manual Execution
+## 5. 📊 Metrics & Dashboard  
+- **Capture** metrics:  
+  - Page load time (network vs. local)  
+  - Search latency  
+  - Top search terms counts  
+  - Top visited cities counts  
+- **Persistence** via SwiftData entities:  
+  - `LoadTimeMetricEntity`  
+  - `SearchLatencyEntity`  
+  - `SearchMetricEntity`  
+  - `VisitMetricEntity`  
+- **Visualization** in `MetricsDashboardView` with Swift Charts:  
+  - `LineMark` for latencies  
+  - `BarMark` for load times, searches, visits  
+  - `SectorMark` for favorites-by-country  
+- **Adapters**:  
+  - `SwiftDataMetricsRecorder` + `AmplitudeMetricsAdapter` combined in `CompositeMetricsRecorder`  
 
-```bash
-swiftformat .
-```
+## 6. 🧪 Testing & QA  
+- Unit tests for UseCases & Repositories  
+- UI tests for core user flows  
+- Code quality guardrails:  
+  - **SwiftLint** configuration & build-phase script  
+  - **SwiftFormat** pre-commit hook & CI check  
 
-#### ✅ Pre-commit Hook
-
-A Git `pre-commit` hook automatically formats staged files before every commit.
-
-To enable it manually:
-
-```bash
-cp scripts/pre-commit .git/hooks/pre-commit
-chmod +x .git/hooks/pre-commit
-```
-
----
-
-## ⚙️ Continuous Verification (CI)
-
-### ✅ GitHub Actions
-
-Every pull request automatically runs:
-
-- SwiftFormat in `--dryrun` mode to verify formatting
-- Status check appears on PR to block merge if unformatted files are detected
-
-Workflow file:
-
-```
-.github/workflows/format-check.yml
-```
-
----
-
-## 📈 Future CI/CD Integrations
-
-- [ ] Full CI pipeline: lint → test → format → build → deploy
-- [ ] Fastlane integration for builds and reports
-- [ ] Artifacts and test coverage reporting
-- [ ] TestFlight distribution on merge to `main` or `release/*`
+## 7. 🚀 Rollout & Observability  
+- CI/CD pipeline via GitHub Actions  
+- Automatic linting, formatting, and test runs on PRs  
+- Amplitude integration for production analytics  
+- Dashboard for tracking key metrics post-release  
