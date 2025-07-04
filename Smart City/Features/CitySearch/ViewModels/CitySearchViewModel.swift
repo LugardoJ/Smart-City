@@ -13,7 +13,7 @@ import SwiftUI
 final class CitySearchViewModel {
     private let searchUseCase: SearchCitiesUseCase
     private let loadUseCase: LoadRemoteCitiesUseCase
-    private let inMemoryRepository: InMemoryCityRepository
+    public let inMemoryRepository: InMemoryCityRepository
     private let toggleFavoriteUseCase: ToggleFavoriteCityUseCase
 
     private let historyRepo: SearchHistoryRepository
@@ -21,8 +21,9 @@ final class CitySearchViewModel {
     private let recordLoadTimeUseCase: RecordLoadTimeUseCase
     private let recordSearchTermUseCase: RecordSearchTermUseCase
     private let recordCityVisitUseCase: RecordCityVisitUseCase
+    private let recordSearchLatencyUC: RecordSearchLatencyUseCase
 
-    private let context: ModelContext
+    let context: ModelContext
     private unowned let coordinator: AppCoordinator
 
     var query: String = ""
@@ -69,6 +70,7 @@ final class CitySearchViewModel {
         recordLoadTimeUseCase: RecordLoadTimeUseCase,
         recordSearchTermUseCase: RecordSearchTermUseCase,
         recordCityVisitUseCase: RecordCityVisitUseCase,
+        recordSearchLatencyUC: RecordSearchLatencyUseCase,
         coordinator: AppCoordinator,
         context: ModelContext
     ) {
@@ -81,6 +83,7 @@ final class CitySearchViewModel {
         self.recordLoadTimeUseCase = recordLoadTimeUseCase
         self.recordSearchTermUseCase = recordSearchTermUseCase
         self.recordCityVisitUseCase = recordCityVisitUseCase
+        self.recordSearchLatencyUC = recordSearchLatencyUC
         self.coordinator = coordinator
         self.context = context
     }
@@ -103,7 +106,6 @@ final class CitySearchViewModel {
         let start = Date()
         isLoading = true
         let fromRemote = context.isCityCacheEmpty() || refresh
-
         if fromRemote {
             do {
                 try await inMemoryRepository.loadCitiesRemote()
@@ -128,14 +130,23 @@ final class CitySearchViewModel {
     }
 
     func search() {
+        let start = Date.now.timeIntervalSince1970
+
         Task.detached(priority: .userInitiated) {
             let filtered = self.searchUseCase.execute(query: self.query)
             let prefixSlice = Array(filtered.prefix(self.pageSize))
             let favoriteSlice = Array(filtered.filter(\.isFavorite).prefix(self.pageSize))
+            let duration = Date.now.timeIntervalSince1970 - start
+
+            self.recordCurrentQueryIfNeeded()
             await MainActor.run {
                 self.fullResults = filtered
                 self.results = prefixSlice
                 self.favorites = self.query.isEmpty ? self.fullFavorites : favoriteSlice
+                self.recordSearchLatencyUC.execute(
+                    query: self.query,
+                    duration: duration
+                )
                 self.updateGroupedFavorites()
 
                 self.isLoading = false
@@ -149,10 +160,12 @@ final class CitySearchViewModel {
     }
 
     func saveRecentQuery(_ oldQuery: String) {
-        if oldQuery.trimmingCharacters(in: .newlines).count > 3, !recentQueries.contains(oldQuery) {
+        if oldQuery.trimmingCharacters(in: .newlines).count > 3 {
             recordSearchTermUseCase.execute(term: oldQuery)
-            recentQueries.insert(oldQuery, at: 0)
-            recentQueries = recentQueries.prefix(8).map(\.self)
+            if !recentQueries.contains(oldQuery) {
+                recentQueries.insert(oldQuery, at: 0)
+                recentQueries = recentQueries.prefix(8).map(\.self)
+            }
         }
     }
 
@@ -211,4 +224,23 @@ final class CitySearchViewModel {
     func saveSelect(city: City) {
         recordCityVisitUseCase.execute(cityId: city.id)
     }
+
+    @ObservationIgnored
+    lazy var metricsDashboardViewModel: MetricsDashboardViewModel = {
+        let querier: MetricsQuerying = SwiftDataMetricsQueryRepository(context: context)
+
+        let fetchTopTermsUC = DefaultTopSearchTermsUseCase(repo: querier)
+        let fetchTopCitiesUC = DefaultTopVisitedCitiesUseCase(repo: querier)
+        let fetchLoadTimesUC = DefaultFetchLoadTimeMetricsUseCase(context: context)
+        let fetchLatenciesUC = DefaultFetchSearchLatenciesUseCase(repo: querier)
+
+        return MetricsDashboardViewModel(
+            fetchTopTermsUseCase: fetchTopTermsUC,
+            fetchTopCitiesUseCase: fetchTopCitiesUC,
+            fetchLoadTimesUseCase: fetchLoadTimesUC,
+            cityRepository: inMemoryRepository,
+            toggleFavoriteUseCase: toggleFavoriteUseCase,
+            fetchLatenciesUC: fetchLatenciesUC
+        )
+    }()
 }

@@ -19,6 +19,14 @@ public final class SwiftDataMetricsRecorder: MetricsRecording {
         try? context.save()
     }
 
+    // MARK: – Watching Screen Time
+
+    public func recordTimeInScreen(name: String, duration: TimeInterval) {
+        let entity = LoadTimeMetricEntity(source: name, duration: duration)
+        context.insert(entity)
+        try? context.save()
+    }
+
     // MARK: – Search Term
 
     public func recordSearchTerm(_ term: String) {
@@ -28,6 +36,16 @@ public final class SwiftDataMetricsRecorder: MetricsRecording {
         } else {
             context.insert(SearchMetricEntity(term: term))
         }
+        try? context.save()
+    }
+
+    // MARK: – Capture search time
+
+    public func recordSearchLatency(query: String, duration: TimeInterval) {
+        context.insert(SearchLatencyEntity(
+            query: query,
+            duration: duration
+        ))
         try? context.save()
     }
 
@@ -51,21 +69,30 @@ public final class SwiftDataMetricsQueryRepository: MetricsQuerying {
         self.context = context
     }
 
-    public func fetchTopSearchTerms(limit: Int = 10) -> [String] {
+    public func fetchTopSearchTerms(limit: Int = 10) -> [(String, Int)] {
         let desc = FetchDescriptor<SearchMetricEntity>(
             sortBy: [SortDescriptor(\.count, order: .reverse)]
         )
         return (try? context.fetch(desc))?
             .prefix(limit)
-            .map(\.term) ?? []
+            .map { ($0.term, $0.count) } ?? []
     }
 
-    public func fetchTopVisitedCities(limit: Int = 10) -> [Int] {
+    public func fetchSearchLatencies(limit: Int) -> [SearchLatency] {
+        let desc = FetchDescriptor<SearchLatencyEntity>(
+            sortBy: [SortDescriptor(\.timestamp, order: .reverse)]
+        )
+        return (try? context.fetch(desc))?
+            .prefix(limit)
+            .map { (SearchLatency(query: $0.query, duration: $0.duration, timestamp: $0.timestamp) ) } ?? []
+    }
+
+    public func fetchTopVisitedCities(limit: Int = 10) -> [(Int, Int)] {
         let desc = FetchDescriptor<VisitMetricEntity>(
             sortBy: [SortDescriptor(\.count, order: .reverse)]
         )
         return (try? context.fetch(desc))?
             .prefix(limit)
-            .map(\.cityId) ?? []
+            .map { ($0.cityId, $0.count) } ?? []
     }
 }

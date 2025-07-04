@@ -26,8 +26,18 @@ public final class CompositeMetricsRecorder: MetricsRecording {
         remote.recordSearchTerm(term)
     }
 
+    public func recordSearchLatency(query: String, duration: TimeInterval) {
+        local.recordSearchLatency(query: query, duration: duration)
+        remote.recordSearchLatency(query: query, duration: duration)
+    }
+
     public func recordCityVisit(cityId: Int) {
         local.recordCityVisit(cityId: cityId)
         remote.recordCityVisit(cityId: cityId)
+    }
+
+    public func recordTimeInScreen(name: String, duration: TimeInterval) {
+        local.recordTimeInScreen(name: name, duration: duration)
+        remote.recordTimeInScreen(name: name, duration: duration)
     }
 }

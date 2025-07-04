@@ -9,6 +9,7 @@ import SwiftData
 
 @Model
 public final class LoadTimeMetricEntity {
+    @Attribute(.unique) public var id = UUID()
     public var source: String
     public var duration: Double
     public var timestamp: Date

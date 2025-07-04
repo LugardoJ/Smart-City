@@ -19,6 +19,7 @@ struct Smart_CityApp: App {
             LoadTimeMetricEntity.self,
             SearchMetricEntity.self,
             VisitMetricEntity.self,
+            SearchLatencyEntity.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         do {

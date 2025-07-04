@@ -27,9 +27,23 @@ public final class AmplitudeMetricsAdapter: MetricsRecording {
         ])
     }
 
+    public func recordSearchLatency(query: String, duration: TimeInterval) {
+        amplitude.track(eventType: "searchLatency", eventProperties: [
+            "query": query,
+            "duration": duration,
+        ])
+    }
+
     public func recordCityVisit(cityId: Int) {
         amplitude.track(eventType: "cityVisit", eventProperties: [
             "city_id": cityId,
+        ])
+    }
+
+    public func recordTimeInScreen(name: String, duration: TimeInterval) {
+        amplitude.track(eventType: "screenTime", eventProperties: [
+            "screen": name,
+            "duration": duration,
         ])
     }
 }

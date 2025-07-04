@@ -53,6 +53,7 @@ public struct RootView: View {
         let toggleFavoriteUseCase = DefaultToggleFavCityUseCase(favoriteRepository: favoritesRepo)
         let searchUseCase = DefaultSearchCitiesUseCase(repository: cityRepo)
         let loadUseCase = DefaultLoadRemoteCitiesUseCase(repository: cityRepo)
+        let recordSearchLatencyUC = DefaultRecordSearchLatencyUseCase(recorder: recorder)
 
         _viewModel = State(wrappedValue:
             CitySearchViewModel(
@@ -65,6 +66,7 @@ public struct RootView: View {
                 recordLoadTimeUseCase: recordLoadTimeUseCase,
                 recordSearchTermUseCase: recordSearchTermUseCase,
                 recordCityVisitUseCase: recordCityVisitUseCase,
+                recordSearchLatencyUC: recordSearchLatencyUC,
                 coordinator: coordinator,
                 context: context
             )
@@ -72,68 +74,82 @@ public struct RootView: View {
     }
 
     public var body: some View {
-        NavigationSplitView(columnVisibility: $columnVisibility) {
-            CitySearchView(viewModel: viewModel)
-                .navigationTitle("Smart City")
-                .navigationBarTitleDisplayMode(.inline)
-        } detail: {
-            NavigationStack(path: $coordinator.path) {
-                if let city = coordinator.selectedCity {
-                    let bindingCity: Binding<City> = .init {
-                        city
-                    } set: {
-                        viewModel.toggleFavorite(item: $0)
-                        coordinator.selectedCity = $0
+        rootContent
+            .navigationSplitViewStyle(.balanced)
+            .searchable(text: $viewModel.query.animation(), isPresented: $isSearchActive, prompt: "Search for cities")
+            .searchScopes($viewModel.selectedFilter) {
+                ForEach(CityFilterType.allCases) { scope in
+                    Text(scope.title).tag(scope)
+                }
+            }
+            .onChange(of: orientation, initial: true) { _, newValue in
+                columnVisibility = (newValue == .landscapeLeft || newValue == .landscapeRight)
+                    || coordinator.selectedCity == nil
+                    ? .doubleColumn : .automatic
+            }
+            .onChange(of: viewModel.query, initial: false) { oldValue, newValue in
+                viewModel.search()
+                if !oldValue.isEmpty, !isSearchActive {
+                    viewModel.saveRecentQuery(oldValue)
+                }
+                if !isSearchActive, !newValue.isEmpty {
+                    withAnimation {
+                        isSearchActive = true
                     }
+                }
+            }
+            .onChange(of: isSearchActive, initial: false) { _, newValue in
+                if !newValue {
+                    withAnimation {
+                        viewModel.selectedFilter = .all
+                    }
+                }
+            }
+            .onSubmit(of: .search) {
+                viewModel.saveRecentQuery(viewModel.query)
+            }
+            .onRotate { newOrientation in
+                orientation = newOrientation
+            }
+            .modelContainer(sharedModelContainer)
+            .environmentObject(coordinator)
+    }
 
-                    CityDetailView(city: bindingCity)
-                        .onAppear { viewModel.saveSelect(city: city) }
-                } else {
-                    ContentUnavailableView(
-                        viewModel.isLoading ? "Loading data" : "Select a city",
-                        systemImage: viewModel.isLoading ? "externaldrive.fill.badge.icloud" : "globe",
-                        description: Text(viewModel.isLoading ? "Wait a minute" : "Tap a city to see more information.")
-                    )
+    private var rootContent: some View {
+        Group {
+            if UIDevice.current.supportsSplitView {
+                NavigationSplitView(columnVisibility: $columnVisibility) {
+                    CitySearchView(viewModel: viewModel)
+                        .navigationTitle("Smart City")
+                        .navigationBarTitleDisplayMode(.inline)
+                } detail: {
+                    navigationDetailContent
                 }
+            } else {
+                CompactLandscapeView(viewModel: viewModel)
             }
         }
-        .navigationSplitViewStyle(.balanced)
-        .searchable(text: $viewModel.query.animation(), isPresented: $isSearchActive, prompt: "Search for cities")
-        .searchScopes($viewModel.selectedFilter) {
-            ForEach(CityFilterType.allCases) { scope in
-                Text(scope.title).tag(scope)
-            }
-        }
-        .onChange(of: orientation, initial: true) { _, newValue in
-            columnVisibility = (newValue == .landscapeLeft || newValue == .landscapeRight)
-                || coordinator.selectedCity == nil
-                ? .doubleColumn : .automatic
-        }
-        .onChange(of: viewModel.query, initial: false) { oldValue, newValue in
-            viewModel.search()
-            if !oldValue.isEmpty, !isSearchActive {
-                viewModel.saveRecentQuery(oldValue)
-            }
-            if !isSearchActive, !newValue.isEmpty {
-                withAnimation {
-                    isSearchActive = true
+    }
+
+    private var navigationDetailContent: some View {
+        NavigationStack(path: $coordinator.path) {
+            if let city = coordinator.selectedCity {
+                let bindingCity: Binding<City> = .init {
+                    city
+                } set: {
+                    viewModel.toggleFavorite(item: $0)
+                    coordinator.selectedCity = $0
                 }
+
+                CityDetailView(city: bindingCity)
+                    .onAppear { viewModel.saveSelect(city: city) }
+            } else {
+                ContentUnavailableView(
+                    viewModel.isLoading ? "Loading data" : "Select a city",
+                    systemImage: viewModel.isLoading ? "externaldrive.fill.badge.icloud" : "globe",
+                    description: Text(viewModel.isLoading ? "Wait a minute" : "Tap a city to see more information.")
+                )
             }
         }
-        .onChange(of: isSearchActive, initial: false) { _, newValue in
-            if !newValue {
-                withAnimation {
-                    viewModel.selectedFilter = .all
-                }
-            }
-        }
-        .onSubmit(of: .search) {
-            viewModel.saveRecentQuery(viewModel.query)
-        }
-        .onRotate { newOrientation in
-            orientation = newOrientation
-        }
-        .modelContainer(sharedModelContainer)
-        .environmentObject(coordinator)
     }
 }

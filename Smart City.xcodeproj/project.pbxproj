@@ -47,6 +47,7 @@
 			membershipExceptions = (
 				App/AppCoordinator.swift,
 				App/AppRoute.swift,
+				App/CompactLandscapeView.swift,
 				App/RootView.swift,
 				Data/Repositories/City/CityRepository.swift,
 				Data/Repositories/City/InMemoryCityRepository.swift,
@@ -57,6 +58,8 @@
 				Domain/Entities/City.swift,
 				"Domain/Entities/City+Extensions.swift",
 				Domain/Entities/CityWikiSummary.swift,
+				Domain/Entities/LoadTime.swift,
+				Domain/Entities/SearchLatency.swift,
 				Domain/UseCases/City/FetchCitySummaryUseCase.swift,
 				Domain/UseCases/City/FetchRecentSearchesUseCase.swift,
 				Domain/UseCases/City/LoadRemoteCitiesUseCase.swift,
@@ -77,6 +80,7 @@
 			membershipExceptions = (
 				App/AppCoordinator.swift,
 				App/AppRoute.swift,
+				App/CompactLandscapeView.swift,
 				App/RootView.swift,
 				Data/Repositories/City/CityRepository.swift,
 				Data/Repositories/City/InMemoryCityRepository.swift,
@@ -87,6 +91,8 @@
 				Domain/Entities/City.swift,
 				"Domain/Entities/City+Extensions.swift",
 				Domain/Entities/CityWikiSummary.swift,
+				Domain/Entities/LoadTime.swift,
+				Domain/Entities/SearchLatency.swift,
 				Domain/UseCases/City/FetchCitySummaryUseCase.swift,
 				Domain/UseCases/City/FetchRecentSearchesUseCase.swift,
 				Domain/UseCases/City/LoadRemoteCitiesUseCase.swift,

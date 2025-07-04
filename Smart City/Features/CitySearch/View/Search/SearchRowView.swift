@@ -8,6 +8,7 @@ import SwiftUI
 
 struct SearchRowView: View {
     @Binding var city: City
+    @Binding var selected: Bool
 
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
@@ -29,12 +30,16 @@ struct SearchRowView: View {
                 .foregroundStyle(city.isFavorite ? .red : .secondary)
                 .contentTransition(.symbolEffect(.replace))
         }
+        .listRowBackground(
+            selected ? Color.blue : Color.white
+        )
     }
 }
 
 #Preview {
     @Previewable @State var isFavorite = false
-    SearchRowView(city:
+    SearchRowView(
+        city:
         .constant(.init(
             id: 0,
             name: "Tokyo",
@@ -42,5 +47,7 @@ struct SearchRowView: View {
             coord: .init(lon: 100.320, lat: 100.203),
             isFavorite: isFavorite
         )
-        ))
+        ),
+        selected: .constant(true)
+    )
 }
