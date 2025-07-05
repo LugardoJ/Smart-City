@@ -10,12 +10,12 @@ import Foundation
 /// Simula el protocolo de RemoteDataSource devolviendo siempre las mismas ciudades.
 final class StubCityRemoteDataSource: CityRemoteDataSourceProtocol {
     private let cities: [City]
-    
+
     init(cities: [City]) {
         self.cities = cities
     }
 
     func fetchCities() async throws -> [City] {
-        return cities
+        cities
     }
 }

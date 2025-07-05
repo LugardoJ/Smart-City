@@ -4,8 +4,8 @@
 //
 //  Created by Lugardo on 05/07/25.
 //
-import XCTest
 @testable import Smart_City
+import XCTest
 
 final class LoadRemoteCitiesUseCaseTests: XCTestCase {
     private var decoder: JSONDecoder!
@@ -32,15 +32,20 @@ final class LoadRemoteCitiesUseCaseTests: XCTestCase {
 
         // 4. Instancia el UseCase de producción
         //    Ajusta los parámetros de init según tu implementación real
-        
+
         let useCase = DefaultLoadRemoteCitiesUseCase(repository: repository)
-        
+
         // MARK: – Act
+
         try await useCase.execute()
 
         // MARK: – Assert
+
         let stored = repository.getCitites()
-        XCTAssertEqual(stored, fixtureCities,
-                       "Las ciudades cargadas en el repositorio deben coincidir con el fixture")
+        XCTAssertEqual(
+            stored,
+            fixtureCities,
+            "Las ciudades cargadas en el repositorio deben coincidir con el fixture"
+        )
     }
 }
