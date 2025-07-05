@@ -8,6 +8,7 @@ import SwiftData
 import SwiftUI
 
 // MARK: - ViewModel (Presentation Layer)
+
 @Observable
 final class CitySearchViewModel {
     private let searchUseCase: SearchCitiesUseCase

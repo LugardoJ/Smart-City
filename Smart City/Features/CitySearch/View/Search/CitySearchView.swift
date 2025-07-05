@@ -7,6 +7,7 @@
 import SwiftUI
 
 // MARK: - Views (Presentation Layer)
+
 struct CitySearchView: View {
     @State var viewModel: CitySearchViewModel
     @EnvironmentObject var coordinator: AppCoordinator

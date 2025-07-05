@@ -12,6 +12,7 @@ public final class SwiftDataMetricsRecorder: MetricsRecording {
     public init(context: ModelContext) { self.context = context }
 
     // MARK: – Load Time
+
     public func recordLoadTime(source: String, duration: TimeInterval) {
         let entity = LoadTimeMetricEntity(source: source, duration: duration)
         context.insert(entity)
@@ -19,6 +20,7 @@ public final class SwiftDataMetricsRecorder: MetricsRecording {
     }
 
     // MARK: – Watching Screen Time
+
     public func recordTimeInScreen(name: String, duration: TimeInterval) {
         let entity = LoadTimeMetricEntity(source: name, duration: duration)
         context.insert(entity)
@@ -26,6 +28,7 @@ public final class SwiftDataMetricsRecorder: MetricsRecording {
     }
 
     // MARK: – Search Term
+
     public func recordSearchTerm(_ term: String) {
         let desc = FetchDescriptor<SearchMetricEntity>(predicate: #Predicate { $0.term == term })
         if let existing = try? context.fetch(desc).first {
@@ -37,6 +40,7 @@ public final class SwiftDataMetricsRecorder: MetricsRecording {
     }
 
     // MARK: – Capture search time
+
     public func recordSearchLatency(query: String, duration: TimeInterval) {
         context.insert(SearchLatencyEntity(
             query: query,
@@ -46,6 +50,7 @@ public final class SwiftDataMetricsRecorder: MetricsRecording {
     }
 
     // MARK: – City Visits
+
     public func recordCityVisit(cityId: Int) {
         let desc = FetchDescriptor<VisitMetricEntity>(predicate: #Predicate { $0.cityId == cityId })
         if let existing = try? context.fetch(desc).first {
