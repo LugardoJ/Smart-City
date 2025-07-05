@@ -87,6 +87,7 @@ public struct RootView: View {
                     Text(scope.title).tag(scope)
                 }
             }
+            .loadingView(isPresented: viewModel.isLoading)
             .onChange(of: orientation, initial: true) { _, newValue in
                 columnVisibility = (newValue == .landscapeLeft || newValue == .landscapeRight)
                     || coordinator.selectedCity == nil

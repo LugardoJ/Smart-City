@@ -16,7 +16,6 @@ struct CitySearchView: View {
         VStack {
             listContainer
         }
-        .loadingView(isPresented: viewModel.isLoading)
         .if(!viewModel.isLoading, transform: { content in
             content.overlay(alignment: .center) {
                 if let searchMessage = viewModel.searchMessage {

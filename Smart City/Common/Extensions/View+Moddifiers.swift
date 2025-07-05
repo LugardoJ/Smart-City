@@ -19,10 +19,13 @@ extension View {
         zIndex(0)
             .overlay {
                 if isPresented {
-                    Color.secondary.opacity(0.3).ignoresSafeArea(.all)
+                    Color
+                        .secondary.opacity(0.8)
+                        .ignoresSafeArea(.all)
                         .zIndex(1)
                     ProgressView()
                         .zIndex(1)
+                        .tint(.white)
                 }
             }
             .animation(.easeInOut(duration: 1.5), value: isPresented)
