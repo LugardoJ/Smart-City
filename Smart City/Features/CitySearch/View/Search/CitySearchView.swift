@@ -32,7 +32,7 @@ struct CitySearchView: View {
                 Button {
                     coordinator.navigate(to: .metricsDashboard)
                 } label: {
-                    Image(systemName: "gearshape.fill")
+                    Image(systemName: "chart.pie.fill")
                 }
             }
         }
@@ -117,13 +117,17 @@ struct CitySearchView: View {
     private func citiesSection(for cities: Binding<[City]>) -> some View {
         Section {
             ForEach(cities, id: \.id) { city in
-                NavigationLink(value: city.wrappedValue) {
-                    SearchRowView(city: city, selected: .constant(city.wrappedValue.id == coordinator.selectedCity?.id))
-                        .onAppear {
-                            viewModel.loadMoreIfNeeded(currentItem: city.wrappedValue)
+                SearchRowView(city: city, selected: .constant(city.wrappedValue.id == coordinator.selectedCity?.id))
+                    .contentShape(.buttonBorder)
+                    .onAppear {
+                        viewModel.loadMoreIfNeeded(currentItem: city.wrappedValue)
+                    }
+                    .onTapGesture {
+                        coordinator.selectedCity = city.wrappedValue
+                        if UIDevice.isPad {
+                            coordinator.navigate(to: .cityDetail)
                         }
-                }
-                .isDetailLink(true)
+                    }
             }
         } header: {
             Text("Cities").font(.headline)

@@ -101,7 +101,7 @@ struct MetricsDashboardView: View {
                     }
                 }
 
-                ChartCard(title: "⭐️ Favorites by Country") {
+                ChartCard(title: "❤️ Favorites by Country") {
                     Chart(viewModel.favoritesByCountry, id: \.0) { entry in
                         BarMark(
                             x: .value("Shape Type", entry.country),

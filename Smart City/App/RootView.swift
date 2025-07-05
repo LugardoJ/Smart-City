@@ -53,7 +53,7 @@ public struct RootView: View {
         let toggleFavoriteUseCase = DefaultToggleFavCityUseCase(favoriteRepository: favoritesRepo)
         let searchUseCase = DefaultSearchCitiesUseCase(repository: cityRepo)
         let loadUseCase = DefaultLoadRemoteCitiesUseCase(repository: cityRepo)
-        let recordSearchLatencyUC = DefaultRecordSearchLatencyUseCase(recorder: recorder)
+        let recordSearchLatencyUC = DefaultRecordSearchLatencyUC(recorder: recorder)
 
         _viewModel = State(wrappedValue:
             CitySearchViewModel(
@@ -76,7 +76,12 @@ public struct RootView: View {
     public var body: some View {
         rootContent
             .navigationSplitViewStyle(.balanced)
-            .searchable(text: $viewModel.query.animation(), isPresented: $isSearchActive, prompt: "Search for cities")
+            .searchable(
+                text: $viewModel.query.animation(),
+                isPresented: $isSearchActive,
+                placement: .sidebar,
+                prompt: "Search for cities"
+            )
             .searchScopes($viewModel.selectedFilter) {
                 ForEach(CityFilterType.allCases) { scope in
                     Text(scope.title).tag(scope)
@@ -117,7 +122,7 @@ public struct RootView: View {
 
     private var rootContent: some View {
         Group {
-            if UIDevice.current.supportsSplitView {
+            if UIDevice.isPad {
                 NavigationSplitView(columnVisibility: $columnVisibility) {
                     CitySearchView(viewModel: viewModel)
                         .navigationTitle("Smart City")
@@ -132,7 +137,26 @@ public struct RootView: View {
     }
 
     private var navigationDetailContent: some View {
-        NavigationStack(path: $coordinator.path) {
+        Group {
+            if let lastRoute = coordinator.path.last {
+                switch lastRoute {
+                case .cityDetail:
+                    wrapperCity
+                case .metricsDashboard:
+                    MetricsDashboardView(viewModel: viewModel.metricsDashboardViewModel)
+                }
+            } else {
+                ContentUnavailableView(
+                    viewModel.isLoading ? "Loading data" : "Select a city",
+                    systemImage: viewModel.isLoading ? "externaldrive.fill.badge.icloud" : "globe",
+                    description: Text(viewModel.isLoading ? "Wait a minute" : "Tap a city to see more information.")
+                )
+            }
+        }
+    }
+
+    private var wrapperCity: some View {
+        Group {
             if let city = coordinator.selectedCity {
                 let bindingCity: Binding<City> = .init {
                     city

@@ -19,13 +19,21 @@ struct DeviceRotationViewModifier: ViewModifier {
 }
 
 extension UIDevice {
+    static var isPhone: Bool {
+        current.userInterfaceIdiom == .phone
+    }
+
+    static var isPad: Bool {
+        current.userInterfaceIdiom == .pad
+    }
+
     var supportsSplitView: Bool {
         if userInterfaceIdiom == .pad {
             return true
         } else if userInterfaceIdiom == .phone {
             let size = UIScreen.main.bounds.size
             let maxDimension = max(size.width, size.height)
-            return maxDimension >= 896 // iPhone XS Max, 11 Pro Max, 12 Pro Max y superiores
+            return maxDimension >= 896
         } else {
             return false
         }
