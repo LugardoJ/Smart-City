@@ -1,3 +1,30 @@
+
+# 📐 Architecture Deep Dive
+
+## 1. Layers & Responsibility
+
+(UI) View  ⇄  ViewModel  ⇆  UseCases  ⇆  Repositories  ⇆  SwiftData / Remote
+
+
+* **View / ViewModel** – SwiftUI + Combine, no lógica de negocio.  
+* **Use Case** – orquesta reglas, una responsabilidad única.  
+* **Repository** – abstrae la fuente de datos (SwiftData, Network).  
+* **Data Source** – implementa llamadas a red / cache.  
+
+## 2. Data-flow Diagram
+
+```mermaid
+graph TD
+UI[CitySearchView] --> VM[CitySearchViewModel]
+VM -->|debounced query| SearchUC[SearchCitiesUseCase]
+SearchUC --> Repo[CityRepository]
+Repo -->|Cache hit| SwiftData[(SwiftData)]
+Repo -->|Cache miss| RemoteDS[CityRemoteDataSource]
+RemoteDS --> Repo
+Repo --> VM
+VM --> UI
+
+
 # 🧱 Clean Architecture – Full Diagram
 
 ```

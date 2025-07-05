@@ -32,7 +32,12 @@ Develop a feature called **Smart City**, which enables:
 
 ---
 
+
 ### 🧭 Architecture Diagram (Clean Architecture)
+
+👉  For the full deep-dive, see [docs/architecture.md](docs/architecture.md)
+
+
 
 ```
   ### 🧭 High-Level Architecture

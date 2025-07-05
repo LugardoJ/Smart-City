@@ -4,11 +4,9 @@
 //
 //  Created by Lugardo on 27/06/25.
 //
-import SwiftData
 import SwiftUI
 
 // MARK: - Views (Presentation Layer)
-
 struct CitySearchView: View {
     @State var viewModel: CitySearchViewModel
     @EnvironmentObject var coordinator: AppCoordinator
@@ -21,11 +19,40 @@ struct CitySearchView: View {
         .if(!viewModel.isLoading, transform: { content in
             content.overlay(alignment: .center) {
                 if let searchMessage = viewModel.searchMessage {
-                    ContentUnavailableView("Search", systemImage: "magnifyingglass", description: Text(searchMessage))
-                        .transition(.opacity)
-                        .animation(.easeInOut, value: searchMessage)
+                    ContentUnavailableView(
+                        "Search",
+                        systemImage: "magnifyingglass",
+                        description: Text(searchMessage)
+                    )
+                    .transition(.opacity)
+                    .animation(.easeInOut, value: searchMessage)
                 }
             }
+        })
+        .overlay(alignment: .bottomTrailing, content: {
+            Button {
+                withAnimation {
+                    viewModel.selectedFilter =
+                        viewModel.selectedFilter == .favorites
+                            ? .all : .favorites
+                }
+            } label: {
+                Image(systemName: viewModel.selectedFilter == .favorites ? "heart.fill" : "heart")
+                    .font(.title.weight(.semibold))
+                    .padding(5)
+                    .symbolRenderingMode(.palette)
+                    .foregroundStyle(
+                        viewModel.selectedFilter == .favorites
+                            ? .red : .secondary,
+                        .white
+                    )
+                    .background(.white)
+                    .clipShape(.circle)
+                    .shadow(radius: 3)
+            }
+            .padding()
+            .contentTransition(.symbolEffect(.replace))
+
         })
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -129,9 +156,24 @@ struct CitySearchView: View {
                             coordinator.navigate(to: .cityDetail)
                         }
                     }
+                    .swipeActions(edge: .trailing) {
+                        Button {
+                            withAnimation {
+                                viewModel.toggleFavorite(item: city.wrappedValue)
+                            }
+                        } label: {
+                            Image(systemName:
+                                city.wrappedValue.isFavorite
+                                    ? "heart.slash" : "heart.fill")
+                        }
+                        .tint(.red)
+                        .sensoryFeedback(.success, trigger: city.wrappedValue.isFavorite)
+                    }
             }
         } header: {
-            Text("Cities").font(.headline)
+            Text("Cities")
+                .bold()
+                .font(.headline)
         }
     }
 }

@@ -79,7 +79,7 @@ public struct RootView: View {
             .searchable(
                 text: $viewModel.query.animation(),
                 isPresented: $isSearchActive,
-                placement: .sidebar,
+                placement: .toolbar,
                 prompt: "Search for cities"
             )
             .searchScopes($viewModel.selectedFilter) {
@@ -93,7 +93,6 @@ public struct RootView: View {
                     ? .doubleColumn : .automatic
             }
             .onChange(of: viewModel.query, initial: false) { oldValue, newValue in
-                viewModel.search()
                 if !oldValue.isEmpty, !isSearchActive {
                     viewModel.saveRecentQuery(oldValue)
                 }
