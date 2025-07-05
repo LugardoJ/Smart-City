@@ -7,7 +7,7 @@
 
 // MARK: - Repository (Data Layer)
 
-protocol CityRepository {
+public protocol CityRepository {
     func searchCities(matching query: String) -> [City]
     func setCities(_ cities: [City])
     func getCitites() -> [City]

@@ -26,7 +26,13 @@ final class CitySearchViewModel {
     let context: ModelContext
     private unowned let coordinator: AppCoordinator
 
-    var query: String = ""
+    var query: String = "" {
+        didSet { scheduleDebouncedSearch() }
+    }
+
+    @ObservationIgnored
+    private var debounceTask: Task<Void, Never>?
+
     var isLoading: Bool = true
     @ObservationIgnored var fullResults: [City] = []
     @ObservationIgnored var fullFavorites: [City] = []
@@ -120,13 +126,25 @@ final class CitySearchViewModel {
             let cached = context.fetchCachedCities()
             inMemoryRepository.setCities(cached)
         }
-
         loadFavorites()
         search()
         isLoading = false
         loadRecentQueries()
         let duration = Date().timeIntervalSince(start)
         recordLoadTimeUseCase.execute(source: fromRemote ? "network" : "local", duration: duration)
+    }
+
+    private func scheduleDebouncedSearch() {
+        debounceTask?.cancel()
+        debounceTask = Task(priority: .userInitiated) { [weak self] in
+            guard let self else { return }
+            do {
+                try await Task.sleep(for: .milliseconds(250))
+                search()
+            } catch {
+                print("Last search stop")
+            }
+        }
     }
 
     func search() {

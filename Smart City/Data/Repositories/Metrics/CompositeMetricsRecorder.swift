@@ -4,7 +4,6 @@
 //
 //  Created by Lugardo on 02/07/25.
 //
-import AmplitudeSwift
 import Foundation
 
 public final class CompositeMetricsRecorder: MetricsRecording {
