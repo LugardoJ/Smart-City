@@ -32,7 +32,6 @@ Develop a feature called **Smart City**, which enables:
 
 ---
 
-
 ### 🧭 Architecture Diagram (Clean Architecture)
 
 👉  For the full deep-dive, see [docs/architecture.md](docs/architecture.md)
@@ -244,7 +243,7 @@ Smart City
 - [x] Interactive map view (✅)
 + [x] 📊 **Metrics dashboard**: load time, search latency, top searches & visits
 + [x] 📱 **CompactLandscapeView** for iPhone (portrait push / landscape split)
-- [ ] Unit and integration testing (coming soon)
+- [ ] Unit and integration testing (In progress)
 
 
 ---
