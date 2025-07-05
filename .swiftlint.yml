@@ -7,10 +7,10 @@ disabled_rules:
   - nesting
   - trailing_whitespace
   - todo
-  #- line_length
   - function_parameter_count
   - trailing_comma
   - comment_spacing
+  - opening_brace
 
 opt_in_rules:
   - empty_count

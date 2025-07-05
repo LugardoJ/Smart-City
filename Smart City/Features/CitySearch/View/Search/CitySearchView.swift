@@ -4,7 +4,6 @@
 //
 //  Created by Lugardo on 27/06/25.
 //
-import SwiftData
 import SwiftUI
 
 // MARK: - Views (Presentation Layer)
@@ -21,12 +20,51 @@ struct CitySearchView: View {
         .if(!viewModel.isLoading, transform: { content in
             content.overlay(alignment: .center) {
                 if let searchMessage = viewModel.searchMessage {
-                    ContentUnavailableView("Search", systemImage: "magnifyingglass", description: Text(searchMessage))
-                        .transition(.opacity)
-                        .animation(.easeInOut, value: searchMessage)
+                    ContentUnavailableView(
+                        "Search",
+                        systemImage: "magnifyingglass",
+                        description: Text(searchMessage)
+                    )
+                    .transition(.opacity)
+                    .animation(.easeInOut, value: searchMessage)
                 }
             }
         })
+        .overlay(alignment: .bottomTrailing, content: {
+            Button {
+                withAnimation {
+                    viewModel.selectedFilter =
+                        viewModel.selectedFilter == .favorites
+                            ? .all : .favorites
+                }
+            } label: {
+                Image(systemName: viewModel.selectedFilter == .favorites ? "heart.fill" : "heart")
+                    .font(.title.weight(.semibold))
+                    .padding(5)
+                    .symbolRenderingMode(.palette)
+                    .foregroundStyle(
+                        viewModel.selectedFilter == .favorites
+                            ? .red : .secondary,
+                        .white
+                    )
+                    .background(.white)
+                    .clipShape(.circle)
+                    .shadow(radius: 3)
+            }
+            .padding()
+            .contentTransition(.symbolEffect(.replace))
+
+        })
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    coordinator.navigate(to: .metricsDashboard)
+                } label: {
+                    Image(systemName: "chart.pie.fill")
+                }
+                .tint(.green)
+            }
+        }
         .task {
             if viewModel.fullResults.isEmpty {
                 await viewModel.loadCities()
@@ -34,14 +72,15 @@ struct CitySearchView: View {
         }
     }
 
-    @ViewBuilder
     private var listContainer: some View {
-        switch viewModel.selectedFilter {
-        case .all:
-            fullResults
-        case .favorites:
-            SearchFavoriteListView(citiesGroup: $viewModel.groupedFavorites) { city in
-                viewModel.loadMoreIfNeeded(currentItem: city)
+        Group {
+            switch viewModel.selectedFilter {
+            case .all:
+                fullResults
+            case .favorites:
+                SearchFavoriteListView(citiesGroup: $viewModel.groupedFavorites) { city in
+                    viewModel.loadMoreIfNeeded(currentItem: city)
+                }
             }
         }
     }
@@ -50,18 +89,12 @@ struct CitySearchView: View {
         cityList(for: $viewModel.results)
     }
 
-    private var favoriteResults: some View {
-        cityList(for: $viewModel.favorites)
-    }
-
     private func cityList(for cities: Binding<[City]>) -> some View {
         List(selection: $coordinator.selectedCity) {
             if !viewModel.filteredRecentQueries.isEmpty {
                 recentSearchSection
             }
-            if !viewModel.fullFavorites.isEmpty {
-                citiesSection(for: cities)
-            }
+            citiesSection(for: cities)
         }
         .listStyle(.insetGrouped)
         .refreshable {
@@ -113,16 +146,35 @@ struct CitySearchView: View {
     private func citiesSection(for cities: Binding<[City]>) -> some View {
         Section {
             ForEach(cities, id: \.id) { city in
-                NavigationLink(value: city.wrappedValue) {
-                    SearchRowView(city: city)
-                        .onAppear {
-                            viewModel.loadMoreIfNeeded(currentItem: city.wrappedValue)
+                SearchRowView(city: city, selected: .constant(city.wrappedValue.id == coordinator.selectedCity?.id))
+                    .contentShape(.buttonBorder)
+                    .onAppear {
+                        viewModel.loadMoreIfNeeded(currentItem: city.wrappedValue)
+                    }
+                    .onTapGesture {
+                        coordinator.selectedCity = city.wrappedValue
+                        if UIDevice.isPad {
+                            coordinator.navigate(to: .cityDetail)
                         }
-                }
-                .isDetailLink(true)
+                    }
+                    .swipeActions(edge: .trailing) {
+                        Button {
+                            withAnimation {
+                                viewModel.toggleFavorite(item: city.wrappedValue)
+                            }
+                        } label: {
+                            Image(systemName:
+                                city.wrappedValue.isFavorite
+                                    ? "heart.slash" : "heart.fill")
+                        }
+                        .tint(.red)
+                        .sensoryFeedback(.success, trigger: city.wrappedValue.isFavorite)
+                    }
             }
         } header: {
-            Text("Cities").font(.headline)
+            Text("Cities")
+                .bold()
+                .font(.headline)
         }
     }
 }

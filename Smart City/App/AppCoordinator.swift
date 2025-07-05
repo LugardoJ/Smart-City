@@ -8,16 +8,16 @@ import SwiftUI
 
 @MainActor
 public final class AppCoordinator: ObservableObject {
-    @Published var path = NavigationPath()
+    @Published var path: [AppRoute] = []
     @Published var selectedCity: City?
 
     func navigate(to route: AppRoute) {
         switch route {
-        case let .cityDetail(city):
-            selectedCity = city
-            path.append(city)
+        case .cityDetail:
+            path = [route]
         case .metricsDashboard:
-            path.append(route)
+            selectedCity = nil
+            path = [route]
         }
     }
 
@@ -26,8 +26,16 @@ public final class AppCoordinator: ObservableObject {
         selectedCity = nil
     }
 
+    func current() -> AppRoute? {
+        path.last
+    }
+
     func reset() {
         path.removeLast(path.count)
         selectedCity = nil
+    }
+
+    func setCity(_ city: City) {
+        selectedCity = city
     }
 }

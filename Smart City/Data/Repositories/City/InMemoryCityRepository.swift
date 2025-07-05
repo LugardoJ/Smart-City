@@ -46,6 +46,17 @@ final class InMemoryCityRepository: CityRepository {
         }
     }
 
+    func appendCities(_ newCities: [City]) {
+        cities.append(contentsOf: newCities)
+        cities.sort(by: citySort)
+
+        for city in newCities {
+            let prefix = String(city.name.prefix(1)).lowercased()
+            indexedCities[prefix, default: []].append(city)
+            indexedCities[prefix]?.sort(by: citySort)
+        }
+    }
+
     func searchCities(matching query: String) -> [City] {
         let qry = query.trimmingCharacters(in: .newlines).lowercased()
         guard !qry.isEmpty else { return cities }
@@ -54,6 +65,11 @@ final class InMemoryCityRepository: CityRepository {
         return indexedCities[String(firstChar), default: []]
             .filter { $0.name.lowercased().hasPrefix(qry) }
             .sorted(by: citySort)
+    }
+
+    func clearCities() {
+        cities.removeAll()
+        indexedCities.removeAll()
     }
 
     private func citySort(lhs: City, rhs: City) -> Bool {

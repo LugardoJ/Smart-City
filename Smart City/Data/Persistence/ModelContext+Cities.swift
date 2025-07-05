@@ -4,8 +4,10 @@
 //
 //  Created by Lugardo on 28/06/25.
 //
+import Foundation
 import SwiftData
 
+@MainActor
 extension ModelContext {
     func cacheCities(_ cities: [City]) throws {
         let old = try fetch(FetchDescriptor<CityEntity>())
@@ -15,8 +17,31 @@ extension ModelContext {
     }
 
     func fetchCachedCities() -> [City] {
-        let entities = (try? fetch(FetchDescriptor<CityEntity>())) ?? []
+        let descriptor = FetchDescriptor<CityEntity>()
+        let entities = (try? fetch(descriptor)) ?? []
         return entities.map(\.toDomain)
+    }
+
+    func fetchBackgroundCachedCities() -> [City] {
+        let descriptor = FetchDescriptor<CityEntity>()
+        let entities = (try? fetch(descriptor)) ?? []
+        return entities.map(\.toDomain)
+    }
+
+    func fetchCachedCities(offset: Int = 0, limit: Int = 10000) -> [City] {
+        var descriptor = FetchDescriptor<CityEntity>(
+            sortBy: [SortDescriptor(\.name)]
+        )
+        descriptor.fetchOffset = offset
+        descriptor.fetchLimit = limit
+
+        do {
+            let entities = try fetch(descriptor)
+            return entities.map(\.toDomain)
+        } catch {
+            print("🔴 Error fetching cached cities: \(error)")
+            return []
+        }
     }
 
     func isCityCacheEmpty() -> Bool {

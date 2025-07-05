@@ -16,4 +16,13 @@ enum CityFilterType: CaseIterable, Identifiable {
         case .favorites: "Favorites"
         }
     }
+
+    var symbolIcon: String {
+        switch self {
+        case .all:
+            "list.bullet"
+        case .favorites:
+            "list.star"
+        }
+    }
 }

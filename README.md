@@ -32,7 +32,12 @@ Develop a feature called **Smart City**, which enables:
 
 ---
 
+
 ### 🧭 Architecture Diagram (Clean Architecture)
+
+👉  For the full deep-dive, see [docs/architecture.md](docs/architecture.md)
+
+
 
 ```
   ### 🧭 High-Level Architecture
@@ -105,106 +110,121 @@ Develop a feature called **Smart City**, which enables:
 ## 🗂 Project Structure
 
 ```
-Smart_City
+Smart City
 │
-├── App/
+├── App
 │   ├── AppCoordinator.swift
 │   ├── AppRoute.swift
+│   ├── CompactLandscapeView.swift 
 │   ├── RootView.swift
 │   └── Smart_CityApp.swift
 │
-├── Common/
-│   └── Extensions/
+├── Common
+│   └── Extensions
 │       ├── Device+Extensions.swift
 │       ├── String+Extensions.swift
 │       └── View+Modifiers.swift
 │
-├── Data/
-│   ├── Persistence/
+├── Data
+│   ├── Persistence
 │   │   ├── CityEntity.swift
+│   │   ├── LoadTimeMetricEntity.swift
 │   │   ├── SearchHistoryEntity.swift
-│   │   ├── LoadTimeEntity.swift
-│   │   ├── VisitMetricEntity.swift
+│   │   ├── SearchLatencyEntity.swift
 │   │   ├── SearchMetricEntity.swift
+│   │   ├── VisitMetricEntity.swift
 │   │   └── ModelContext+Cities.swift
 │   │
-│   └── Repositories/
-│       ├── City/
+│   └── Repositories
+│       ├── City
 │       │   ├── CityRepository.swift
 │       │   ├── InMemoryCityRepository.swift
 │       │   └── SwiftDataFavoritesRepository.swift
 │       │
-│       ├── Favorites/
+│       ├── Favorites
 │       │   └── FavoritesRepository.swift
 │       │
-│       ├── History/
+│       ├── History
 │       │   ├── SearchHistoryRepository.swift
-│       │   └── SwiftDataSearchHistoryRepository.swift
+│       │   └── SwiftDataSearchHistoryRepo.swift
 │       │
-│       ├── Metrics/
+│       ├── Metrics
+│       │   ├── AmplitudeMetricsAdapter.swift
+│       │   ├── CompositeMetricsRecorder.swift
 │       │   ├── MetricsRepository.swift
-│       │   └── SwiftDataMetricsRepository.swift
+│       │   ├── SwiftDataMetricsRecorder.swift
+│       │   └── SwiftDataMetricsQueryRepository.swift
 │       │
-│       └── Summary/
+│       └── Summary
 │           ├── CitySummaryRepository.swift
 │           └── DefaultCitySummaryRepository.swift
 │
-├── Domain/
-│   ├── Entities/
+├── Domain
+│   ├── Entities
 │   │   ├── City.swift
 │   │   ├── City+Extensions.swift
-│   │   └── CityWikiSummary.swift
+│   │   ├── CityWikiSummary.swift
+│   │   ├── LoadTime.swift
+│   │   └── SearchLatency.swift
 │   │
-│   └── UseCases/
-│       ├── City/
+│   └── UseCases
+│       ├── City
 │       │   ├── FetchCitySummaryUseCase.swift
 │       │   ├── FetchRecentSearchesUseCase.swift
 │       │   ├── LoadRemoteCitiesUseCase.swift
 │       │   ├── SearchCitiesUseCase.swift
 │       │   └── ToggleFavoriteCityUseCase.swift
 │       │
-│       ├── History/
-│       │   └── RecordSearchTermUseCase.swift
+│       ├── History
+│       │   └── DefaultRecordSearchMetricUseCase.swift
 │       │
-│       └── Metrics/
-│           ├── FetchTopSearchedTermsUseCase.swift
+│       └── Metrics
+│           ├── FetchLoadTimeUseCase.swift
+│           ├── FetchSearchLatenciesUseCase.swift
+│           ├── FetchTopSearchTermsUseCase.swift
 │           ├── FetchTopVisitedCitiesUseCase.swift
 │           ├── RecordCityVisitUseCase.swift
 │           └── RecordLoadTimeUseCase.swift
 │
-├── Features/
-│   └── CitySearch/
-│       ├── Enums/
+├── Features
+│   └── CitySearch
+│       ├── Enums
 │       │   └── CityFilterType.swift
 │       │
-│       ├── View/
-│       │   ├── Detail/
+│       ├── View
+│       │   ├── Detail
 │       │   │   ├── CityDetailView.swift
 │       │   │   └── CityInfoCard.swift
 │       │   │
-│       │   └── Search/
+│       │   └── Search
 │       │       ├── CitySearchView.swift
 │       │       ├── SearchFavoriteListView.swift
 │       │       └── SearchRowView.swift
 │       │
-│       └── ViewModels/
-│           ├── CityDetailViewModel.swift
-│           └── CitySearchViewModel.swift
+│       ├── ViewModels
+│       │   ├── CityDetailViewModel.swift
+│       │   └── CitySearchViewModel.swift
+│       │
+│       └── Metrics                      
+│           ├── View
+│           │   └── MetricsDashboardView.swift
+│           │
+│           └── ViewModels
+│               └── MetricsDashboardViewModel.swift
 │
-├── Network/
-│   ├── Implementations/
-│   │   ├── CityRemoteDataSource.swift
-│   │   ├── WikipediaRemoteDataSource.swift
-│   │   └── SessionRequest.swift
-│   │
-│   ├── Models/
-│   └── Protocols/
+├── Network
+│   ├── Protocols
+│   ├── Models
+│   └── Implementations
+│       ├── CityRemoteDataSource.swift
+│       ├── SessionRequest.swift
+│       └── WikipediaRemoteDataSource.swift
 │
-├── Resources/
+├── Resources
 │   └── Assets.xcassets
 │
-├── Smart_CityTests/
-└── Smart_CityUITests/
+├── Smart_CityTests
+└── Smart_CityUITests
 
 ```
 
@@ -221,9 +241,11 @@ Smart_City
 - [x] Reactive UI with SwiftUI
 - [x] Favorites saved locally (SwiftData).
 - [x] Visual indicators: country flags, full country names, favorite stars.
-- [x] UI adaptable to orientation (WIP with SplitView).
 - [x] Interactive map view (✅)
++ [x] 📊 **Metrics dashboard**: load time, search latency, top searches & visits
++ [x] 📱 **CompactLandscapeView** for iPhone (portrait push / landscape split)
 - [ ] Unit and integration testing (coming soon)
+
 
 ---
 
@@ -244,21 +266,11 @@ City data is fetched from the following JSON:
 
 ---
 
-## 📦 Delivery Plan
-
-1. ✅ Base structure and README.
-2. ✅ Search optimization and JSON fetch.
-3. ✅ SwiftData integration and favorites logic.
-4. ✅ Map interface and orientation support.
-5. 🔜 Final metrics, testing, and polish.
-
----
-
 ## 📈 Product Success Observability
 
 To ensure the success and usability of the **Smart City** feature, the following **key metrics** will be tracked:
 
-### ✅ Key Metrics (TODO)
+### ✅ Key Metrics (IN PROGRESS)
 
 - ⏱️ **Search performance time** – Track how long it takes to get search results.
 - ❤️ **Number of favorited cities** – Understand user engagement with the feature.
@@ -374,7 +386,7 @@ If any file is not properly formatted, the PR check will fail.
 
 Workflow file:
 ```
-.github/workflows/format-check.yml
+.github/workflows/CI.yml
 ```
 
 ---
