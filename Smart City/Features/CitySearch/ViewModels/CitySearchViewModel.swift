@@ -92,7 +92,7 @@ final class CitySearchViewModel {
 
     @MainActor
     public func loadRecentQueries(limit: Int = 5) {
-        recentQueries = fetchRecentsUseCase.execute(limit: recentQueries.isEmpty ? 20 : limit)
+        recentQueries = fetchRecentsUseCase.execute(limit: limit)
     }
 
     public func recordCurrentQueryIfNeeded() {

@@ -14,9 +14,10 @@ public final class AppCoordinator: ObservableObject {
     func navigate(to route: AppRoute) {
         switch route {
         case .cityDetail:
-            path.append(.cityDetail)
+            path = [route]
         case .metricsDashboard:
-            path.append(route)
+            selectedCity = nil
+            path = [route]
         }
     }
 

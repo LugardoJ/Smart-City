@@ -8,8 +8,9 @@ import SwiftUI
 
 struct CompactLandscapeView: View {
     @State var viewModel: CitySearchViewModel
-    @State private var orientation = UIDeviceOrientation.unknown
     @EnvironmentObject var coordinator: AppCoordinator
+    @Environment(\.horizontalSizeClass) var hSizeClass
+    @Environment(\.verticalSizeClass) var vSizeClass
 
     var body: some View {
         NavigationStack(path: $coordinator.path) {
@@ -26,18 +27,11 @@ struct CompactLandscapeView: View {
                     }
                 }
         }
-        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-            orientation = UIDevice.current.orientation
-        }
-        .onAppear {
-            let oriented = UIDevice.current.orientation
-            orientation = oriented == .unknown ? .portrait : oriented
-        }
     }
 
     private var compactView: some View {
         Group {
-            if orientation.isPortrait {
+            if hSizeClass == .compact, !isCompactIphoneLandscape {
                 citySearchContent
                     .onChange(of: coordinator.selectedCity, initial: false) { _, newValue in
                         if newValue != nil, coordinator.current() != .cityDetail {
@@ -80,5 +74,9 @@ struct CompactLandscapeView: View {
                 )
             }
         }
+    }
+
+    private var isCompactIphoneLandscape: Bool {
+        hSizeClass == .compact && vSizeClass == .compact
     }
 }
