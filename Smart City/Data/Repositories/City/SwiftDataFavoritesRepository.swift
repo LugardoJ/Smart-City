@@ -5,7 +5,7 @@
 //  Created by Lugardo on 28/06/25.
 //
 import SwiftData
-import SwiftUICore
+import SwiftUI
 
 final class SwiftDataFavoritesRepository: FavoriteCityRepository {
     private let context: ModelContext
