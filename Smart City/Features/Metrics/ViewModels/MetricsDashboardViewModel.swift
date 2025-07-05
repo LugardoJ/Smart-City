@@ -59,6 +59,6 @@ final class MetricsDashboardViewModel {
             .map { (country: $0.key, count: $0.value.count) }
             .sorted(by: { $0.country < $1.country })
 
-        searchLatencies = fetchLatenciesUC.execute(limit: 30)
+        searchLatencies = fetchLatenciesUC.execute(limit: 130)
     }
 }

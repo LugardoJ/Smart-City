@@ -34,6 +34,7 @@ struct CitySearchView: View {
                 } label: {
                     Image(systemName: "chart.pie.fill")
                 }
+                .tint(.green)
             }
         }
         .task {
