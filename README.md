@@ -121,8 +121,8 @@ swiftformat .
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/smart-city-exploration.git
-cd smart-city-exploration
+git clone https://github.com/your-username/Smart-City.git
+cd Smart-City
 
 # Open in Xcode
 xed .
