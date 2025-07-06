@@ -29,6 +29,39 @@ Smart City Exploration allows users to:
 
 ---
 
+### 📸 App UI Showcase
+
+> Here's a visual walkthrough of the Smart City iOS experience:
+
+| 🔍 Search | 📌 Detail | 🗺️ Landscape | ⭐ Favorites |
+|----------|-----------|--------------|--------------|
+| ![](docs/img/SearchView.PNG) | ![](docs/img/CityDetailView.PNG) | ![](docs/img/LandscapeView.PNG) | ![](docs/img/SearchFavorites.PNG) |
+
+| 💳 Swipe | 🔄 Toggle | 🧾 Info Card | ⌛ Debounce |
+|----------|-----------|--------------|--------------|
+| ![](docs/img/SwipeFavorites.PNG) | ![](docs/img/ToggleFavorite.PNG) | ![](docs/img/InfoCardView.PNG) | ![](docs/img/SearchingView.PNG) |
+
+| 📊 Metrics | 🧭 Split Favorites |
+|------------|-------------------|
+| ![](docs/img/MetricsView.PNG) | ![](docs/img/LandscapeFavorites.PNG) |
+
+---
+
+### 💻 iPad UI Highlights
+
+Smart City is fully adaptive and optimized for large-screen layouts using `NavigationSplitView`.
+
+| 🧭 First Launch | 🔍 First Search |
+|----------------|----------------|
+| ![](docs/img/iPadFirstLaunch.png) | ![](docs/img/iPadFirstSearch.png) |
+
+| 📍 Detail View | 🧾 Info Card | ⭐ Favorites |
+|---------------|--------------|--------------|
+| ![](docs/img/iPadDetailView.png) | ![](docs/img/iPadInfoCardView.png) | ![](docs/img/iPadFavoriteSwipe.png) |
+
+---
+
+
 ## ⚙️ Completed Features
 
 This implementation includes:

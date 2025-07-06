@@ -5,6 +5,7 @@
 //  Created by Lugardo on 27/06/25.
 //
 import SwiftUI
+import TipKit
 
 // MARK: - Views (Presentation Layer)
 
@@ -39,7 +40,8 @@ struct CitySearchView: View {
                 }
             } label: {
                 Image(systemName: viewModel.selectedFilter == .favorites ? "heart.fill" : "heart")
-                    .font(.title.weight(.semibold))
+                    .font(.title2)
+                    .aspectRatio(contentMode: .fit)
                     .padding(5)
                     .symbolRenderingMode(.palette)
                     .foregroundStyle(
@@ -50,20 +52,20 @@ struct CitySearchView: View {
                     .background(.white)
                     .clipShape(.circle)
                     .shadow(radius: 3)
+                    .padding(.trailing, 5)
             }
             .padding()
             .contentTransition(.symbolEffect(.replace))
             .accessibilityIdentifier("floatingFavoritesButton")
-
         })
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
                     coordinator.navigate(to: .metricsDashboard)
                 } label: {
-                    Image(systemName: "chart.pie.fill")
+                    Image(systemName: "chart.bar.xaxis")
                 }
-                .tint(.green)
+                .tint(.accentColor)
                 .accessibilityIdentifier("metricDashboard")
             }
         }
@@ -71,6 +73,9 @@ struct CitySearchView: View {
             if viewModel.fullResults.isEmpty {
                 await viewModel.loadCities()
             }
+        }
+        .onAppear {
+            coordinator.selectedCity = nil
         }
     }
 
@@ -176,6 +181,7 @@ struct CitySearchView: View {
                     .sensoryFeedback(.success, trigger: city.wrappedValue.isFavorite)
                     .accessibilityIdentifier("favoriteSwipeButton_\(city.wrappedValue.id)")
                 }
+                .foregroundStyle(.primary)
             }
         } header: {
             Text("Cities")
