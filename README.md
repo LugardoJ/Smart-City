@@ -361,12 +361,20 @@ This ensures that any staged Swift files are formatted before being committed.
 
 ### 🚦 CI Integration
 
-Every pull request triggers a GitHub Actions workflow that runs SwiftFormat in dry-run mode.  
-If any file is not properly formatted, the PR check will fail.
+Every pull request targeting `develop` or `main` triggers a comprehensive GitHub Actions pipeline.
+
+The pipeline performs the following steps:
+
+- ✅ Runs **SwiftLint** using `.swiftlint.yml` configuration.
+- ✅ Checks **SwiftFormat** using `--dryrun` to ensure code style consistency.
+- ✅ Executes **Unit Tests** (`Smart_CityTests`) with **code coverage enabled**.
+- ✅ Executes **UI Tests** (`Smart_CityUITests`) on an iPhone 16 simulator.
+- ✅ Uploads `.xcresult` logs for both unit and UI tests as GitHub Actions artifacts.
 
 Workflow file:
-```
+```plaintext
 .github/workflows/CI.yml
+
 ```
 
 ---
