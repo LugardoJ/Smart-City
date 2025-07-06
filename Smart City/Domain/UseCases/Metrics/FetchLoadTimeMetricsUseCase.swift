@@ -12,9 +12,9 @@ public protocol FetchLoadTimeMetricsUseCase {
 }
 
 public final class DefaultFetchLoadTimeMetricsUseCase: FetchLoadTimeMetricsUseCase {
-    private let context: ModelContext
+    private let context: ModelContextProtocol
 
-    public init(context: ModelContext) {
+    public init(context: ModelContextProtocol) {
         self.context = context
     }
 

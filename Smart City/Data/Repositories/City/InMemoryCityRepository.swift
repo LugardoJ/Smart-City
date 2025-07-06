@@ -38,6 +38,10 @@ final class InMemoryCityRepository: CityRepository {
         cities
     }
 
+    func fetchIndex() -> [String: [City]] {
+        indexedCities
+    }
+
     func mergeFavorites(from persistedFavorites: [City]) {
         let favoriteIDs = Set(persistedFavorites.map(\.id))
 

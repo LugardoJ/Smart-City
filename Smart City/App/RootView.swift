@@ -85,6 +85,8 @@ public struct RootView: View {
             .searchScopes($viewModel.selectedFilter) {
                 ForEach(CityFilterType.allCases) { scope in
                     Text(scope.title).tag(scope)
+                        .id(scope.id)
+                        .accessibilityIdentifier("scope_\(scope.title.lowercased())")
                 }
             }
             .loadingView(isPresented: viewModel.isLoading)

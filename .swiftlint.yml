@@ -32,8 +32,6 @@ opt_in_rules:
 
 included:
   - "Smart City"
-  - "Smart CityTests"
-  - "Smart CityUITests"
 
 excluded:
   - "**/*.g.swift"
@@ -44,6 +42,8 @@ excluded:
   - /var/folders
   - "**/swift-generated-sources/*"
   - "**/@__swiftmacro_*"
+  - "Smart CityTests"
+  - "Smart CityUITests"
 
 force_cast: error
 force_try:

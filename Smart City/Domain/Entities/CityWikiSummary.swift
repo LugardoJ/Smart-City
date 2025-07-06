@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct CityWikiSummary: Codable {
+public struct CityWikiSummary: Codable {
     public let title: String
     public let description: String?
     public let extract: String
@@ -27,7 +27,7 @@ struct CityWikiSummary: Codable {
         originalimage = thumbnail
     }
 
-    struct WikiSummaryThumbnail: Codable {
+    public struct WikiSummaryThumbnail: Codable {
         public let source: String
         public let width: Int
         public let height: Int

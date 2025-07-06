@@ -6,7 +6,7 @@
 //
 import Foundation
 
-extension String {
+public extension String {
     var countryName: String? {
         Locale.current.localizedString(forRegionCode: uppercased())
     }

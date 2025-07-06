@@ -29,6 +29,7 @@ struct SearchRowView: View {
                 .imageScale(.small)
                 .foregroundStyle(city.isFavorite ? .red : .secondary)
                 .contentTransition(.symbolEffect(.replace))
+                .accessibilityIdentifier(city.isFavorite ? "favoriteOn" : "favoriteOff")
         }
         .listRowBackground(
             selected ? Color.blue : Color.white

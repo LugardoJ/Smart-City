@@ -9,7 +9,10 @@ import SwiftUI
 
 public final class SwiftDataMetricsRecorder: MetricsRecording {
     private let context: ModelContext
-    public init(context: ModelContext) { self.context = context }
+
+    public init(context: ModelContext) {
+        self.context = context
+    }
 
     // MARK: – Load Time
 
@@ -63,9 +66,9 @@ public final class SwiftDataMetricsRecorder: MetricsRecording {
 }
 
 public final class SwiftDataMetricsQueryRepository: MetricsQuerying {
-    private let context: ModelContext
+    private let context: ModelContextProtocol
 
-    public init(context: ModelContext) {
+    public init(context: ModelContextProtocol) {
         self.context = context
     }
 

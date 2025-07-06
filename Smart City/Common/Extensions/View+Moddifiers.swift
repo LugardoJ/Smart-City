@@ -26,6 +26,7 @@ extension View {
                     ProgressView()
                         .zIndex(1)
                         .tint(.white)
+                        .accessibilityIdentifier("loadingSpinner")
                 }
             }
             .animation(.easeInOut(duration: 1.5), value: isPresented)

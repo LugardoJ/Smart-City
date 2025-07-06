@@ -6,7 +6,7 @@
 //
 import Foundation
 
-public struct LoadTime: Identifiable {
+public struct LoadTime: Identifiable, Equatable {
     public let id = UUID()
     public let source: String
     public let duration: TimeInterval

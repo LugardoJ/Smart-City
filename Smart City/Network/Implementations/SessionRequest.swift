@@ -6,13 +6,13 @@
 //
 import Foundation
 
-enum NetworkRequestType: String {
+public enum NetworkRequestType: String {
     case GET
     case POST
     case PUT
 }
 
-struct NetworkRequest {
+public struct NetworkRequest {
     let url: URL
     let method: NetworkRequestType
     let headers: [String: String]
@@ -24,12 +24,12 @@ struct NetworkRequest {
     }
 }
 
-protocol NetworkSession {
+public protocol NetworkSession {
     func data(for request: NetworkRequest) async throws -> (Data, URLResponse)
 }
 
 extension URLSession: NetworkSession {
-    func data(for request: NetworkRequest) async throws -> (Data, URLResponse) {
+    public func data(for request: NetworkRequest) async throws -> (Data, URLResponse) {
         var urlRequest = URLRequest(url: request.url)
         urlRequest.httpMethod = request.method.rawValue
 
