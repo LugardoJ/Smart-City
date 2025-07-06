@@ -41,8 +41,8 @@ This implementation includes:
 - ✅ Fully reactive UI built with SwiftUI
 - ✅ Favorites system with star indicators and flag support
 - ✅ Interactive `MapKit` view to visualize selected cities
-- ✅ 📊 Metrics system with load time, latency, top searches & visits
-- ✅ 📱 Adaptive UI with `CompactLandscapeView` and `NavigationSplitView`
+- ✅ Metrics system with load time, latency, top searches & visits
+- ✅ Adaptive UI with `CompactLandscapeView` and `NavigationSplitView`
 - ✅ Unit & integration testing with fixture support
 
 ---
@@ -56,7 +56,7 @@ The project includes comprehensive testing coverage:
 - ✅ ViewModel + SwiftUI snapshot testing
 - ✅ SwiftData persistence tests for favorites
 
-> See [TESTING.md](docs/Testing.md) for complete test plan and implementation details.
+> See [TESTING.md](docs/testing.md) for complete test plan and implementation details.
 
 ---
 
@@ -70,7 +70,7 @@ To ensure the success and usability of the Smart City feature, the following **k
 - 🧭 **Visited city IDs** – Capture which cities are tapped/viewed
 - 📊 **Session duration** – Time spent interacting with the feature
 
-> Full details in [OBSERVABILITY.md](docs/Observability.md)
+> Full details in [OBSERVABILITY.md](docs/observability.md)
 
 ---
 
@@ -92,7 +92,7 @@ bash run-swiftlint.sh
 swiftformat .
 ```
 
-> See [CI_CD.md](docs/CI_CD.md) for full setup, log structure, and Git hooks.
+> See [CI_CD.md](docs/ci_cd.md) for full setup, log structure, and Git hooks.
 
 ---
 
@@ -100,20 +100,21 @@ swiftformat .
 
 | Topic | Description |
 |-------|-------------|
-| [ARCHITECTURE.md](docs/Architecture.md) | 📐 Describes the overall system architecture using Clean Architecture and SOLID principles, with diagrams and flow details |
-| [MODULES.md](docs/Modules.md) | 📦 Lists and explains each app module: Search, Favorites, Metrics, Detail, Coordinator, Summary, etc. |
-| [PERFORMANCE.md](docs/Performance.md) | ⚡ Covers optimizations for search latency, async loading, and debounce strategies |
-| [NAVIGATION.md](docs/Navigation.md) | 🗺️ Explains the use of `AppCoordinator`, `NavigationStack`, `NavigationSplitView`, and `CompactLandscapeView` |
-| [FAVORITES.md](docs/Favorites.md) | ❤️ Shows how favorite cities are selected, persisted using SwiftData, and integrated into the search experience |
-| [WIKIPEDIA_INTEGRATION.md](docs/Wikipedia_Integration.md) | 📚 Explains how Wikipedia summaries are fetched and rendered for each selected city |
-| [OBSERVABILITY.md](docs/Observability.md) | 📊 Explains how metrics are captured via `AmplitudeMetricsAdapter` and persisted locally using `MetricsRecording` |
-| [STYLE_GUIDE.md](docs/Style_Guide.md) | ✍️ Coding conventions, SwiftLint rules, PR process, and naming standards |
-| [TESTING.md](docs/Testing.md) | 🧪 Describes the testing strategy for view models, repositories, use cases, and fixtures used |
-| [IMPLEMENTATION_STRATEGY.md](docs/Implementation_Strategy.md) | 🚀 Outlines the platform stack, team workload distribution, and quality assurance processes |
-| [CI_CD.md](docs/CI_CD.md) | 🧹 Details the GitHub Actions pipeline: linting, formatting, building, testing, and deployment checks |
-| [DELIVERY.md](docs/Delivery.md) | 🚚 Documents the rollout strategy using TestFlight, environment toggles, and phased deployment |
+| [ARCHITECTURE.md](docs/architecture.md) | 📐 Describes the overall system architecture using Clean Architecture and SOLID principles, with diagrams and flow details |
+| [MODULES.md](docs/modules.md) | 📦 Lists and explains each app module: Search, Favorites, Metrics, Detail, Coordinator, Summary, etc. |
+| [STYLE_GUIDE.md](docs/style_guide.md) | ✍️ Coding conventions, SwiftLint rules, PR process, and naming standards |
+| [PERFORMANCE.md](docs/performance.md) | ⚡ Covers optimizations for search latency, async loading, and debounce strategies |
+| [FAVORITES.md](docs/favorites.md) | ❤️ Shows how favorite cities are selected, persisted using SwiftData, and integrated into the search experience |
+| [WIKIPEDIA_INTEGRATION.md](docs/wikipedia_integration.md) | 📚 Explains how Wikipedia summaries are fetched and rendered for each selected city |
+| [NAVIGATION.md](docs/navigation.md) | 🗺️ Explains the use of `AppCoordinator`, `NavigationStack`, `NavigationSplitView`, and `CompactLandscapeView` |
+| [OBSERVABILITY.md](docs/observability.md) | 📊 Explains how metrics are captured via `AmplitudeMetricsAdapter` and persisted locally using `MetricsRecording` |
+| [TESTING.md](docs/testing.md) | 🧪 Describes the testing strategy for view models, repositories, use cases, and fixtures used |
+| [IMPLEMENTATION_STRATEGY.md](docs/implementation_strategy.md) | 🚀 Outlines the platform stack, team workload distribution, and quality assurance processes |
+| [CI_CD.md](docs/ci_cd.md) | 🧹 Details the GitHub Actions pipeline: linting, formatting, building, testing, and deployment checks |
+| [DELIVERY.md](docs/delivery.md) | 🚚 Documents the rollout strategy using TestFlight, environment toggles, and phased deployment |
 
 ---
+
 
 ## 🛠 Setup Instructions
 
