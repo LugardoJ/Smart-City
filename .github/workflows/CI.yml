@@ -26,14 +26,17 @@ jobs:
         run: swiftformat . --dryrun --swiftversion 6.0
 
   unit-test:
-    name: ✅ Unit Tests
+    name: 🧪 Unit Tests
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Install xcpretty
         run: gem install xcpretty --no-document
+
       - name: Show Xcode Version
         run: xcodebuild -version
+
       - name: Run Unit Tests
         run: |
           xcodebuild test \
@@ -45,16 +48,32 @@ jobs:
             -enableCodeCoverage YES \
           | xcpretty --color
 
+      - name: Save Unit Test logs
+        if: always()
+        run: |
+          mkdir -p Logs
+          cp -R ~/Library/Developer/Xcode/DerivedData/*/Logs/Test/*.xcresult Logs/ || true
+
+      - name: Upload Unit Test result as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: UnitTestResults
+          path: Logs
+
   ui-test:
     name: 🧪 UI Tests
     runs-on: macos-latest
     needs: unit-test
     steps:
       - uses: actions/checkout@v4
+
       - name: Install xcpretty
         run: gem install xcpretty --no-document
+
       - name: Show Xcode Version
         run: xcodebuild -version
+
       - name: Run UI Tests
         run: |
           xcodebuild test \
@@ -64,3 +83,16 @@ jobs:
             -only-testing:Smart_CityUITests \
             ONLY_ACTIVE_ARCH=NO \
           | xcpretty --color
+
+      - name: Save UI Test logs
+        if: always()
+        run: |
+          mkdir -p Logs
+          cp -R ~/Library/Developer/Xcode/DerivedData/*/Logs/Test/*.xcresult Logs/ || true
+
+      - name: Upload UI Test result as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: UITestResults
+          path: Logs
