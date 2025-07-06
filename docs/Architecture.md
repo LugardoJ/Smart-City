@@ -196,3 +196,4 @@ This architecture supports:
 - ✅ Seamless CI/CD integration
 
 > See `/docs/img/architecture-diagram.png` for full system diagram.
+
