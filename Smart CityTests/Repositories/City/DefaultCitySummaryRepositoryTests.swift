@@ -4,13 +4,13 @@
 //
 //  Created by Lugardo on 05/07/25.
 //
-import XCTest
 @testable import Smart_City
+import XCTest
 
 final class DefaultCitySummaryRepositoryTests: XCTestCase {
     // MARK: - Mock WikipediaRemoteDataSource
+
     final class MockWikipediaRemoteDataSource: WikipediaDataSourceProtocol {
-        
         var result: Result<CityWikiSummary, Error> = .success(
             CityWikiSummary(
                 title: "London",
@@ -23,13 +23,12 @@ final class DefaultCitySummaryRepositoryTests: XCTestCase {
 
         func fetchSummary(for cityName: String) async throws -> CityWikiSummary {
             switch result {
-            case .success(let summary):
+            case let .success(summary):
                 return summary
-            case .failure(let error):
+            case let .failure(error):
                 throw error
             }
         }
-        
     }
 
     private var repository: DefaultCitySummaryRepository!
