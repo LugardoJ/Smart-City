@@ -1,8 +1,6 @@
 name: CI Pipeline
 
 on:
-   push:
-    branches: [develop, main]
   pull_request:
     branches: [develop, main]
 
@@ -27,8 +25,8 @@ jobs:
       - name: Run SwiftFormat dry-run
         run: swiftformat . --dryrun --swiftversion 6.0
 
-  build-and-unit-test:
-    name: 🧪 Unit Tests
+  test:
+    name: 🧪 Build & Test
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
@@ -39,36 +37,12 @@ jobs:
       - name: Show Xcode Version
         run: xcodebuild -version
 
-      - name: Run Unit Tests
+      - name: Build & Run All Tests
         run: |
           xcodebuild test \
             -workspace "Smart City.xcworkspace" \
             -scheme "Smart City" \
             -destination "platform=iOS Simulator,name=iPhone 16,OS=latest" \
-            -only-testing:Smart_CityTests \
             ONLY_ACTIVE_ARCH=NO \
             -enableCodeCoverage YES \
-          | xcpretty --color
-
-  ui-tests:
-    name: 🧪 UI Tests
-    runs-on: macos-latest
-    needs: build-and-unit-test
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install xcpretty
-        run: gem install xcpretty --no-document
-
-      - name: Show Xcode Version
-        run: xcodebuild -version
-
-      - name: Run UI Tests
-        run: |
-          xcodebuild test \
-            -workspace "Smart City.xcworkspace" \
-            -scheme "Smart City" \
-            -destination "platform=iOS Simulator,name=iPhone 16,OS=latest" \
-            -only-testing:Smart_CityUITests \
-            ONLY_ACTIVE_ARCH=NO \
           | xcpretty --color
