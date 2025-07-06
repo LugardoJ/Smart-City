@@ -111,7 +111,7 @@ swiftformat .
 | [TESTING.md](docs/TESTING.md) | 🧪 Describes the testing strategy for view models, repositories, use cases, and fixtures used |
 | [IMPLEMENTATION_STRATEGY.md](docs/IMPLEMENTATION_STRATEGY.md) | 🚀 Outlines the platform stack, team workload distribution, and quality assurance processes |
 | [CI_CD.md](docs/CI_CD.md) | 🧹 Details the GitHub Actions pipeline: linting, formatting, building, testing, and deployment checks |
-| [DELIVERY.md](docs/DELIVERY.md) | 🚚 Documents the rollout strategy using TestFlight, environment toggles, and phased deployment |
+| [DELIVERY.md](docs/Delivery.md) | 🚚 Documents the rollout strategy using TestFlight, environment toggles, and phased deployment |
 
 ---
 
