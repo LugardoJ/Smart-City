@@ -28,6 +28,7 @@ struct CitySearchView: View {
                     .animation(.easeInOut, value: searchMessage)
                 }
             }
+            .accessibilityIdentifier("emptySearchView")
         })
         .overlay(alignment: .bottomTrailing, content: {
             Button {
@@ -52,6 +53,7 @@ struct CitySearchView: View {
             }
             .padding()
             .contentTransition(.symbolEffect(.replace))
+            .accessibilityIdentifier("floatingFavoritesButton")
 
         })
         .toolbar {
@@ -62,6 +64,7 @@ struct CitySearchView: View {
                     Image(systemName: "chart.pie.fill")
                 }
                 .tint(.green)
+                .accessibilityIdentifier("metricDashboard")
             }
         }
         .task {
@@ -95,6 +98,7 @@ struct CitySearchView: View {
             }
             citiesSection(for: cities)
         }
+        .accessibilityIdentifier("cityList")
         .listStyle(.insetGrouped)
         .refreshable {
             Task.detached(priority: .userInitiated) {
@@ -145,30 +149,33 @@ struct CitySearchView: View {
     private func citiesSection(for cities: Binding<[City]>) -> some View {
         Section {
             ForEach(cities, id: \.id) { city in
-                SearchRowView(city: city, selected: .constant(city.wrappedValue.id == coordinator.selectedCity?.id))
-                    .contentShape(.buttonBorder)
-                    .onAppear {
-                        viewModel.loadMoreIfNeeded(currentItem: city.wrappedValue)
+                Button {
+                    coordinator.selectedCity = city.wrappedValue
+                    if UIDevice.isPad {
+                        coordinator.navigate(to: .cityDetail)
                     }
-                    .onTapGesture {
-                        coordinator.selectedCity = city.wrappedValue
-                        if UIDevice.isPad {
-                            coordinator.navigate(to: .cityDetail)
+                } label: {
+                    SearchRowView(city: city, selected: .constant(city.wrappedValue.id == coordinator.selectedCity?.id))
+                }
+                .contentShape(.buttonBorder)
+                .onAppear {
+                    viewModel.loadMoreIfNeeded(currentItem: city.wrappedValue)
+                }
+                .accessibilityIdentifier("cityRow_\(city.wrappedValue.id)")
+                .swipeActions(edge: .trailing) {
+                    Button {
+                        withAnimation {
+                            viewModel.toggleFavorite(item: city.wrappedValue)
                         }
+                    } label: {
+                        Image(systemName:
+                            city.wrappedValue.isFavorite
+                                ? "heart.slash" : "heart.fill")
                     }
-                    .swipeActions(edge: .trailing) {
-                        Button {
-                            withAnimation {
-                                viewModel.toggleFavorite(item: city.wrappedValue)
-                            }
-                        } label: {
-                            Image(systemName:
-                                city.wrappedValue.isFavorite
-                                    ? "heart.slash" : "heart.fill")
-                        }
-                        .tint(.red)
-                        .sensoryFeedback(.success, trigger: city.wrappedValue.isFavorite)
-                    }
+                    .tint(.red)
+                    .sensoryFeedback(.success, trigger: city.wrappedValue.isFavorite)
+                    .accessibilityIdentifier("favoriteSwipeButton_\(city.wrappedValue.id)")
+                }
             }
         } header: {
             Text("Cities")

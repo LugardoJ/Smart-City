@@ -58,6 +58,7 @@ struct CityDetailView: View {
             CityInfoCard(city: $city, isMaximized: .constant(true), viewModel: cityDetailViewModel())
                 .inspectorColumnWidth(min: 150, ideal: 400, max: 400)
                 .presentationDetents([.large])
+                .presentationDragIndicator(.visible)
         })
         .task {
             showDelayMarker()
@@ -88,6 +89,7 @@ struct CityDetailView: View {
             MapScaleView()
             MapPitchToggle()
         }
+        .accessibilityIdentifier("cityMapView")
     }
 
     @ToolbarContentBuilder
@@ -103,6 +105,7 @@ struct CityDetailView: View {
                     .aspectRatio(contentMode: .fit)
                     .foregroundStyle(.white, .blue)
             }
+            .accessibilityIdentifier("infoButton")
 
             Button {
                 withAnimation {
@@ -114,6 +117,7 @@ struct CityDetailView: View {
             }
             .tint(city.isFavorite ? .red : .accentColor)
             .sensoryFeedback(.success, trigger: city.isFavorite)
+            .accessibilityIdentifier("favoriteButton_\(city.id)")
         }
     }
 

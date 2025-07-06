@@ -8,13 +8,14 @@ import SwiftUI
 import Translation
 
 struct CityInfoCard: View {
+    @Environment(\.presentationMode) private var presentationMode
     @Binding var city: City
     @Binding var isMaximized: Bool
-    @State var viewModel: CityDetailViewModel
+    @State var viewModel: CityDetailViewModelProtocol
     @State var translate: Bool = false
     @State var extractValue: String = ""
 
-    public init(city: Binding<City>, isMaximized: Binding<Bool>, viewModel: CityDetailViewModel) {
+    public init(city: Binding<City>, isMaximized: Binding<Bool>, viewModel: CityDetailViewModelProtocol) {
         _city = city
         _isMaximized = isMaximized
         _viewModel = State(wrappedValue: viewModel)
@@ -30,6 +31,7 @@ struct CityInfoCard: View {
                         description:
                         Text("We were unable to retrieve the information from (wikipedia.org)")
                     )
+                    .accessibilityIdentifier("cityInfoErrorView")
                     minimizedView
                 }
                 .fixedSize(horizontal: false, vertical: true)
@@ -43,6 +45,7 @@ struct CityInfoCard: View {
                 await viewModel.loadSummary(for: newValue)
             }
         }
+        .accessibilityIdentifier("cityInfoCard")
     }
 
     private var maximizedView: some View {
@@ -51,13 +54,14 @@ struct CityInfoCard: View {
                 ZStack {
                     if let image = summary.originalimage?.source {
                         AsyncImage(url: URL(string: image)) { image in
-                            image.resizable().aspectRatio(contentMode: .fill)
+                            image.resizable().aspectRatio(contentMode: .fit)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .clipped()
 
                         } placeholder: {
                             ProgressView()
                         }
+                        .accessibilityIdentifier("cityImage")
                     } else {
                         ContentUnavailableView(
                             "Image not found",
@@ -65,7 +69,7 @@ struct CityInfoCard: View {
                         )
                     }
                 }
-                .aspectRatio(contentMode: .fill)
+                .aspectRatio(contentMode: .fit)
                 .frame(maxWidth: .infinity)
                 .frame(
                     height: UIScreen.main.bounds.size.height * 0.3
@@ -86,6 +90,7 @@ struct CityInfoCard: View {
                         .toggleStyle(.button)
                         .tint(.red)
                         .sensoryFeedback(.success, trigger: city.isFavorite)
+                        .accessibilityIdentifier("cardFavoriteToggle_\(city.id)")
                     }
 
                     HStack(spacing: 20) {
@@ -94,7 +99,7 @@ struct CityInfoCard: View {
                                 .font(.caption)
                                 .padding(1)
                                 .background(.regularMaterial)
-                                .clipShape(.buttonBorder)
+                                // .clipShape(.buttonBorder)
                                 .shadow(radius: 1)
 
                             Text(city.countryName)
@@ -109,7 +114,7 @@ struct CityInfoCard: View {
                                 .foregroundStyle(.secondary)
                                 .padding(2)
                                 .background(.regularMaterial)
-                                .clipShape(.buttonBorder)
+                                // .clipShape(.buttonBorder)
                                 .shadow(radius: 1)
 
                             Text(city.coordinateDescription)
@@ -126,14 +131,17 @@ struct CityInfoCard: View {
                                 translate.toggle()
                             }
                             .tint(.teal)
+                            .accessibilityIdentifier("translateButton")
                         }
 
                         Text(summary.description ?? "")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
+                            .accessibilityIdentifier("cityInfo")
                         Text(extractValue)
                             .font(.caption)
                             .foregroundStyle(.primary)
+                            .accessibilityIdentifier("cityDescription")
                     }
                 }
                 .padding(.horizontal, 20)
@@ -157,7 +165,7 @@ struct CityInfoCard: View {
                         .font(.headline)
                         .padding(1)
                         .background(.regularMaterial)
-                        .clipShape(.buttonBorder)
+                        // .clipShape(.buttonBorder)
                         .shadow(radius: 1)
 
                     VStack(alignment: .leading) {
@@ -175,7 +183,7 @@ struct CityInfoCard: View {
                         .foregroundStyle(.secondary)
                         .padding(2)
                         .background(.regularMaterial)
-                        .clipShape(.buttonBorder)
+                        // .clipShape(.buttonBorder)
                         .shadow(radius: 1)
 
                     Text(city.coordinateDescription)

@@ -6,14 +6,20 @@
 //
 import SwiftUI
 
-@MainActor
+public protocol CityDetailViewModelProtocol {
+    var summary: CityWikiSummary? { get }
+    var error: String? { get }
+    func loadSummary(for city: City) async
+}
+
+// @MainActor
 @Observable
-final class CityDetailViewModel {
+final class CityDetailViewModel: CityDetailViewModelProtocol {
+    private let fetchSummaryUseCase: FetchCitySummaryUseCase
+
     var summary: CityWikiSummary?
     var isLoading = false
     var error: String?
-
-    private let fetchSummaryUseCase: FetchCitySummaryUseCase
 
     init(fetchSummaryUseCase: FetchCitySummaryUseCase) {
         self.fetchSummaryUseCase = fetchSummaryUseCase
@@ -25,7 +31,7 @@ final class CityDetailViewModel {
             summary = try await fetchSummaryUseCase.execute(for: city.name)
             error = nil
         } catch {
-            self.error = "Failed to load summary"
+            self.error = error.localizedDescription
         }
         isLoading = false
     }

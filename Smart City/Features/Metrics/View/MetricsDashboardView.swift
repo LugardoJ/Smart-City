@@ -82,6 +82,7 @@ struct MetricsDashboardView: View {
             .chartYAxis {
                 AxisMarks(position: .leading)
             }
+            .accessibilityIdentifier("metricChart_loadTime")
         }
     }
 
@@ -106,6 +107,7 @@ struct MetricsDashboardView: View {
             }
             .chartLegend(.visible)
             .frame(height: 240)
+            .accessibilityIdentifier("favoritesByCountry")
         }
     }
 
@@ -121,6 +123,7 @@ struct MetricsDashboardView: View {
             }
             .chartYAxis { AxisMarks(position: .leading) }
             .frame(height: 180)
+            .accessibilityIdentifier("searchLatencies")
         }
     }
 
@@ -137,6 +140,7 @@ struct MetricsDashboardView: View {
                 }
             }
             .chartXAxis(.hidden)
+            .accessibilityIdentifier("topSearchTermsList")
         }
     }
 
@@ -161,6 +165,7 @@ struct MetricsDashboardView: View {
                     AxisValueLabel()
                 }
             }
+            .accessibilityIdentifier("topVisitedCitiesList")
         }
     }
 }

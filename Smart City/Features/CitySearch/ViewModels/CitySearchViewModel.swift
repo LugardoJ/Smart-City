@@ -23,8 +23,8 @@ final class CitySearchViewModel {
     private let recordCityVisitUseCase: RecordCityVisitUseCase
     private let recordSearchLatencyUC: RecordSearchLatencyUseCase
 
-    let context: ModelContext
-    private unowned let coordinator: AppCoordinator
+    let context: ModelContextProtocol
+    private unowned let coordinator: AppCoordinatorProtocol
 
     var query: String = "" {
         didSet { scheduleDebouncedSearch() }
@@ -77,8 +77,8 @@ final class CitySearchViewModel {
         recordSearchTermUseCase: RecordSearchTermUseCase,
         recordCityVisitUseCase: RecordCityVisitUseCase,
         recordSearchLatencyUC: RecordSearchLatencyUseCase,
-        coordinator: AppCoordinator,
-        context: ModelContext
+        coordinator: AppCoordinatorProtocol,
+        context: ModelContextProtocol
     ) {
         self.searchUseCase = searchUseCase
         self.loadUseCase = loadUseCase

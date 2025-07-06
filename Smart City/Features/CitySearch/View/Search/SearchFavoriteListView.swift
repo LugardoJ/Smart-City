@@ -23,6 +23,7 @@ struct SearchFavoriteListView: View {
                                 }
                         }
                         .isDetailLink(true)
+                        .accessibilityIdentifier("cityRow_\(city.id)")
                     }
                 }
                 .headerProminence(.increased)

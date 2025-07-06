@@ -5,9 +5,9 @@
 //  Created by Lugardo on 01/07/25.
 //
 final class DefaultCitySummaryRepository: CitySummaryRepository {
-    private let dataSource: WikipediaRemoteDataSource
+    private let dataSource: WikipediaDataSourceProtocol
 
-    init(dataSource: WikipediaRemoteDataSource = WikipediaRemoteDataSource()) {
+    init(dataSource: WikipediaDataSourceProtocol = WikipediaRemoteDataSource()) {
         self.dataSource = dataSource
     }
 
