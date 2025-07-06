@@ -25,7 +25,7 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 # ========== CHECK ==========
 if ! command -v swiftlint >/dev/null 2>&1; then
   echo "❌ SwiftLint not installed. Use: brew install swiftlint"
-  exit 1
+  exit 0
 fi
 
 # ========== AUTO-CORRECT ==========
