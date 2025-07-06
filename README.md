@@ -107,7 +107,7 @@ swiftformat .
 | [FAVORITES.md](docs/FAVORITES.md) | ❤️ Shows how favorite cities are selected, persisted using SwiftData, and integrated into the search experience |
 | [WIKIPEDIA_INTEGRATION.md](docs/WIKIPEDIA_INTEGRATION.md) | 📚 Explains how Wikipedia summaries are fetched and rendered for each selected city |
 | [OBSERVABILITY.md](docs/Observability.md) | 📊 Explains how metrics are captured via `AmplitudeMetricsAdapter` and persisted locally using `MetricsRecording` |
-| [STYLE_GUIDE.md](docs/STYLE_GUIDE.md) | ✍️ Coding conventions, SwiftLint rules, PR process, and naming standards |
+| [STYLE_GUIDE.md](docs/Style_Guide.md) | ✍️ Coding conventions, SwiftLint rules, PR process, and naming standards |
 | [TESTING.md](docs/TESTING.md) | 🧪 Describes the testing strategy for view models, repositories, use cases, and fixtures used |
 | [IMPLEMENTATION_STRATEGY.md](docs/IMPLEMENTATION_STRATEGY.md) | 🚀 Outlines the platform stack, team workload distribution, and quality assurance processes |
 | [CI_CD.md](docs/CI_CD.md) | 🧹 Details the GitHub Actions pipeline: linting, formatting, building, testing, and deployment checks |
