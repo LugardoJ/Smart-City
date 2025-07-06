@@ -124,3 +124,10 @@ All flows use the same view models and state logic, ensuring consistency and tes
 ## ✅ Summary
 
 The navigation system is responsive, testable, and adapts seamlessly to screen size and orientation. Coordinators provide centralization, while SwiftUI patterns offer flexibility and clarity.
+
+
+### 🎥 Navigation in Landscape
+
+▶️ [Watch: Landscape view demo](vid/LandscapeView.mp4) – Shows `NavigationSplitView` adapting to horizontal orientation
+
+

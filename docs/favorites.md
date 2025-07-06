@@ -100,3 +100,9 @@ Smart City handles favorites using:
 
 This design avoids the need for a separate favorites structure and improves maintainability and consistency.
 
+---
+
+### 🎥 Swipe-to-Favorite
+
+▶️ [Watch: Favorite toggle interaction](vid/SwipeAction.MP4) – Shows how users can mark cities as favorites using swipe gestures
+

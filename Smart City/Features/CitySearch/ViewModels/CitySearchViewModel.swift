@@ -152,13 +152,22 @@ final class CitySearchViewModel {
 
         Task.detached(priority: .userInitiated) {
             let filtered = self.searchUseCase.execute(query: self.query)
-            let prefixSlice = Array(filtered.prefix(self.pageSize))
-            let favoriteSlice = Array(filtered.filter(\.isFavorite).prefix(self.pageSize))
+            
+            let favoriteIDs = Set(self.fullFavorites.map(\.id))
+            let updatedFiltered = filtered.map { city -> City in
+                var updated = city
+                updated.isFavorite = favoriteIDs.contains(city.id)
+                return updated
+            }
+            
+            let prefixSlice = Array(updatedFiltered.prefix(self.pageSize))
+            let favoriteSlice = Array(updatedFiltered.filter(\.isFavorite).prefix(self.pageSize))
             let duration = Date.now.timeIntervalSince1970 - start
 
+            
             self.recordCurrentQueryIfNeeded()
             await MainActor.run {
-                self.fullResults = filtered
+                self.fullResults = updatedFiltered
                 self.results = prefixSlice
                 self.favorites = self.query.isEmpty ? self.fullFavorites : favoriteSlice
                 self.recordSearchLatencyUC.execute(
@@ -231,6 +240,8 @@ final class CitySearchViewModel {
         } else {
             favorites.append(item)
         }
+
+        print(item.name)
 
         updateGroupedFavorites()
     }

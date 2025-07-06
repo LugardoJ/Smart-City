@@ -18,6 +18,7 @@ struct SearchRowView: View {
                 Text(city.name)
                     .font(.subheadline)
                     .fontWeight(.semibold)
+                    .foregroundStyle(.primary)
                 Text(city.countryName)
                     .font(.caption)
                     .fontWeight(.medium)
@@ -31,9 +32,9 @@ struct SearchRowView: View {
                 .contentTransition(.symbolEffect(.replace))
                 .accessibilityIdentifier(city.isFavorite ? "favoriteOn" : "favoriteOff")
         }
-        .listRowBackground(
-            selected ? Color.blue : Color.white
-        )
+        .if(selected, transform: { content in
+            content.listRowBackground( Color.blue )
+        })
     }
 }
 

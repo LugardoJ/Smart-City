@@ -121,3 +121,8 @@ This metrics system allows:
 - Seamless testing with mock adapters
 - Visual feedback via in-app dashboard
 
+---
+
+### 🎥 Metrics Dashboard
+
+▶️ [Watch: Metrics overview](vid/Metrics.mp4) – Demonstrates `MetricsDashboardView` with real-time usage statistics
