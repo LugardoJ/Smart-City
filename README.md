@@ -25,7 +25,7 @@ Smart City Exploration allows users to:
 - **Amplitude + Local Metrics Adapter** for tracking behavior
 - CI pipeline with **SwiftLint**, **SwiftFormat**, and **unit testing**
 - Fully responsive layout with `NavigationSplitView` and `CompactLandscapeView`
-- Built with **Swift 6**, **SwiftUI**, targeting **iOS 17+**
+- Built with **Swift 6**, **SwiftUI**, targeting **iOS 18+**
 
 ---
 
@@ -117,7 +117,7 @@ swiftformat .
 
 ## 🛠 Setup Instructions
 
-> Requirements: macOS Sonoma+, Xcode 16+, Swift 6, iOS 17 SDK
+> Requirements: macOS Sonoma+, Xcode 16+, Swift 6, iOS 18 SDK
 
 ```bash
 # Clone the repo
@@ -141,7 +141,7 @@ xed .
 ## 🧪 Running Tests
 
 ```bash
-xcodebuild test -scheme "Smart City" -destination 'platform=iOS Simulator,name=iPhone 15'
+xcodebuild test -scheme "Smart City" -destination 'platform=iOS Simulator,name=iPhone 16'
 ```
 
 ---
