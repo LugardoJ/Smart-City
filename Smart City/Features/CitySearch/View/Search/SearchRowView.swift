@@ -33,7 +33,7 @@ struct SearchRowView: View {
                 .accessibilityIdentifier(city.isFavorite ? "favoriteOn" : "favoriteOff")
         }
         .if(selected, transform: { content in
-            content.listRowBackground( Color.blue )
+            content.listRowBackground(Color.blue)
         })
     }
 }

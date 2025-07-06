@@ -12,7 +12,7 @@ import TipKit
 struct CitySearchView: View {
     @State var viewModel: CitySearchViewModel
     @EnvironmentObject var coordinator: AppCoordinator
-    
+
     var body: some View {
         VStack {
             listContainer
@@ -52,7 +52,7 @@ struct CitySearchView: View {
                     .background(.white)
                     .clipShape(.circle)
                     .shadow(radius: 3)
-                    .padding(.trailing,5)
+                    .padding(.trailing, 5)
             }
             .padding()
             .contentTransition(.symbolEffect(.replace))
@@ -74,7 +74,7 @@ struct CitySearchView: View {
                 await viewModel.loadCities()
             }
         }
-        .onAppear{
+        .onAppear {
             coordinator.selectedCity = nil
         }
     }
