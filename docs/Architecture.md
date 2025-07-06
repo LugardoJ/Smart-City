@@ -1,3 +1,4 @@
+
 # 🧱 Architecture Overview
 
 This document provides a full technical breakdown of the architecture for the **Smart City Exploration** feature. It maps real Swift classes and modules to the layers of **Clean Architecture**, while explaining their purpose, SOLID adherence, and runtime interactions.
@@ -116,6 +117,20 @@ Use cases:
 - `LoadTimeEntity`
 
 All model data is persistently stored using `@Model` entities and queried with `ModelContext`.
+
+---
+
+### 🔄 Entity Abstraction Note
+
+Although SwiftData's `@Model` entities like `CityEntity` or `FavoriteCityEntity` are used for persistence, they are **never exposed directly to the ViewModels or Views**.
+
+Instead, the app defines a domain model `City` that acts as an abstraction between the data layer and the UI/business logic.
+
+This approach ensures:
+
+- ✅ Decoupling the domain from SwiftData or any storage technology
+- ✅ Easier testing (e.g. using `InMemoryCityRepository` with pure Swift structs)
+- ✅ Long-term flexibility to switch to other storage engines (Realm, SQLite, CoreData)
 
 ---
 

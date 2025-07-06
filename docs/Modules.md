@@ -79,7 +79,7 @@ Each module contains:
 
 ---
 
-### 🧭 Coordinator Module
+### 🗺️ Coordinator Module
 
 | Component | Purpose |
 |-----------|---------|
