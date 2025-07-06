@@ -4,11 +4,28 @@ This document provides a full technical breakdown of the architecture for the **
 
 ---
 
+## 📌 Summary
+
+This architecture supports:
+
+- ✅ Scalable feature expansion
+- ✅ High-performance search and UI updates
+- ✅ Real-time observability via Amplitude & SwiftData
+- ✅ Full unit testing support with metrics included
+- ✅ Seamless CI/CD integration
+
+> See `/docs/img/architecture-diagram.png` for full system diagram.
+
+---
+
 ## 📐 High-Level Diagram
 
 Refer to `docs/img/architecture-diagram.png` for a visual overview of the app layers, from `Smart_CityApp` down to the data entities and remote sources.
 
+![Architecture Diagram](img/architecture-diagram.png)
+
 ---
+
 
 ## 🧭 Layered Architecture Breakdown
 
@@ -182,18 +199,4 @@ This flow illustrates how a search term entered by the user propagates through t
 - `debouncedTerm` is handled inside `CitySearchViewModel` via `.onChange(of:)` + `Task.detached`.
 - Results are filtered and sliced, then published to the view.
 - Latency is measured using `Date.now` and sent to `RecordSearchLatencyUseCase`.
-
----
-
-## 📌 Summary
-
-This architecture supports:
-
-- ✅ Scalable feature expansion
-- ✅ High-performance search and UI updates
-- ✅ Real-time observability via Amplitude & SwiftData
-- ✅ Full unit testing support with metrics included
-- ✅ Seamless CI/CD integration
-
-> See `/docs/img/architecture-diagram.png` for full system diagram.
 

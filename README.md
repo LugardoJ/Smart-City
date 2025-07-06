@@ -100,7 +100,7 @@ swiftformat .
 
 | Topic | Description |
 |-------|-------------|
-| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | 📐 Describes the overall system architecture using Clean Architecture and SOLID principles, with diagrams and flow details |
+| [ARCHITECTURE.md](docs/Architecture.md) | 📐 Describes the overall system architecture using Clean Architecture and SOLID principles, with diagrams and flow details |
 | [MODULES.md](docs/MODULES.md) | 📦 Lists and explains each app module: Search, Favorites, Metrics, Detail, Coordinator, Summary, etc. |
 | [PERFORMANCE.md](docs/PERFORMANCE.md) | ⚡ Covers optimizations for search latency, async loading, and debounce strategies |
 | [NAVIGATION.md](docs/NAVIGATION.md) | 🗺️ Explains the use of `AppCoordinator`, `NavigationStack`, `NavigationSplitView`, and `CompactLandscapeView` |
