@@ -104,7 +104,7 @@ swiftformat .
 | [MODULES.md](docs/Modules.md) | 📦 Lists and explains each app module: Search, Favorites, Metrics, Detail, Coordinator, Summary, etc. |
 | [PERFORMANCE.md](docs/Performance.md) | ⚡ Covers optimizations for search latency, async loading, and debounce strategies |
 | [NAVIGATION.md](docs/Navigation.md) | 🗺️ Explains the use of `AppCoordinator`, `NavigationStack`, `NavigationSplitView`, and `CompactLandscapeView` |
-| [FAVORITES.md](docs/FAVORITES.md) | ❤️ Shows how favorite cities are selected, persisted using SwiftData, and integrated into the search experience |
+| [FAVORITES.md](docs/Favorites.md) | ❤️ Shows how favorite cities are selected, persisted using SwiftData, and integrated into the search experience |
 | [WIKIPEDIA_INTEGRATION.md](docs/WIKIPEDIA_INTEGRATION.md) | 📚 Explains how Wikipedia summaries are fetched and rendered for each selected city |
 | [OBSERVABILITY.md](docs/Observability.md) | 📊 Explains how metrics are captured via `AmplitudeMetricsAdapter` and persisted locally using `MetricsRecording` |
 | [STYLE_GUIDE.md](docs/Style_Guide.md) | ✍️ Coding conventions, SwiftLint rules, PR process, and naming standards |
