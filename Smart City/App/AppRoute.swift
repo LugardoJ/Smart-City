@@ -7,7 +7,7 @@
 
 // MARK: - Coordinator
 
-enum AppRoute: Codable, Hashable {
+public enum AppRoute: Codable, Hashable {
     case cityDetail
     case metricsDashboard
 }

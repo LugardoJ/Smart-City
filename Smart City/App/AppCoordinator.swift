@@ -6,12 +6,20 @@
 //
 import SwiftUI
 
+public protocol AppCoordinatorProtocol: AnyObject {
+    func navigate(to route: AppRoute) async
+    func pop() async
+    func current() async -> AppRoute?
+    func reset() async
+    func setCity(_ city: City) async
+}
+
 @MainActor
-public final class AppCoordinator: ObservableObject {
+public final class AppCoordinator: ObservableObject, AppCoordinatorProtocol {
     @Published var path: [AppRoute] = []
     @Published var selectedCity: City?
 
-    func navigate(to route: AppRoute) {
+    public func navigate(to route: AppRoute) {
         switch route {
         case .cityDetail:
             path = [route]
@@ -21,21 +29,21 @@ public final class AppCoordinator: ObservableObject {
         }
     }
 
-    func pop() {
+    public func pop() {
         path.removeLast()
         selectedCity = nil
     }
 
-    func current() -> AppRoute? {
+    public func current() -> AppRoute? {
         path.last
     }
 
-    func reset() {
+    public func reset() {
         path.removeLast(path.count)
         selectedCity = nil
     }
 
-    func setCity(_ city: City) {
+    public func setCity(_ city: City) {
         selectedCity = city
     }
 }

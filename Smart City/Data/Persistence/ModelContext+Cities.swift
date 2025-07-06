@@ -7,44 +7,56 @@
 import Foundation
 import SwiftData
 
-@MainActor
-extension ModelContext {
-    func cacheCities(_ cities: [City]) throws {
-        let old = try fetch(FetchDescriptor<CityEntity>())
-        old.forEach(delete)
-        cities.map(CityEntity.fromDomain).forEach(insert)
-        try save()
+public protocol ModelContextProtocol: AnyObject {
+    // City cache helpers
+    func isCityCacheEmpty() -> Bool
+    func fetchCachedCities() -> [City]
+    func fetchBackgroundCachedCities() -> [City]
+    func fetchCachedCities(offset: Int, limit: Int) -> [City]
+    func cacheCities(_ cities: [City]) throws
+
+    // SwiftData access
+    func fetch<T>(_ descriptor: FetchDescriptor<T>) throws -> [T] where T: PersistentModel
+    func fetchCount(_ descriptor: FetchDescriptor<some PersistentModel>) throws -> Int
+}
+
+extension ModelContext: ModelContextProtocol {
+    public func isCityCacheEmpty() -> Bool {
+        ((try? fetchCount(FetchDescriptor<CityEntity>())) ?? 0) == 0
     }
 
-    func fetchCachedCities() -> [City] {
+    public func fetchCachedCities() -> [City] {
         let descriptor = FetchDescriptor<CityEntity>()
         let entities = (try? fetch(descriptor)) ?? []
-        return entities.map(\.toDomain)
+        return entities.map(\..toDomain)
     }
 
-    func fetchBackgroundCachedCities() -> [City] {
+    public func fetchBackgroundCachedCities() -> [City] {
         let descriptor = FetchDescriptor<CityEntity>()
         let entities = (try? fetch(descriptor)) ?? []
-        return entities.map(\.toDomain)
+        return entities.map(\..toDomain)
     }
 
-    func fetchCachedCities(offset: Int = 0, limit: Int = 10000) -> [City] {
+    public func fetchCachedCities(offset: Int = 0, limit: Int = 10000) -> [City] {
         var descriptor = FetchDescriptor<CityEntity>(
-            sortBy: [SortDescriptor(\.name)]
+            sortBy: [SortDescriptor(\CityEntity.name)]
         )
         descriptor.fetchOffset = offset
         descriptor.fetchLimit = limit
 
         do {
             let entities = try fetch(descriptor)
-            return entities.map(\.toDomain)
+            return entities.map(\..toDomain)
         } catch {
             print("🔴 Error fetching cached cities: \(error)")
             return []
         }
     }
 
-    func isCityCacheEmpty() -> Bool {
-        ((try? fetchCount(FetchDescriptor<CityEntity>())) ?? 0) == 0
+    public func cacheCities(_ cities: [City]) throws {
+        let old = try fetch(FetchDescriptor<CityEntity>())
+        old.forEach(delete)
+        cities.map(CityEntity.fromDomain).forEach(insert)
+        try save()
     }
 }

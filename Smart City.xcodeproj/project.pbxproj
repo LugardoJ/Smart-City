@@ -44,13 +44,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		0F11B37F2E19FAFC00AE22EA /* Exceptions for "Smart City" folder in "Smart City" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Smart-City-Info.plist",
-			);
-			target = 0FD4F6342E0F822300AE7944 /* Smart City */;
-		};
 		0FD4F6992E0F862B00AE7944 /* Exceptions for "Smart City" folder in "Smart CityTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -183,7 +176,6 @@
 		0FD4F6372E0F822300AE7944 /* Smart City */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				0F11B37F2E19FAFC00AE22EA /* Exceptions for "Smart City" folder in "Smart City" target */,
 				0FD4F6992E0F862B00AE7944 /* Exceptions for "Smart City" folder in "Smart CityTests" target */,
 				0FD4F69A2E0F862B00AE7944 /* Exceptions for "Smart City" folder in "Smart CityUITests" target */,
 			);
