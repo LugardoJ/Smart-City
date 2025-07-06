@@ -11,9 +11,6 @@
 		0FD4F7012E0F8A4500AE7944 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4F6F02E0F8A4500AE7944 /* README.md */; };
 		0FD4F7102E0F8A4500AE7944 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4F6F02E0F8A4500AE7944 /* README.md */; };
 		0FD4F7122E0F8A4500AE7944 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4F6F02E0F8A4500AE7944 /* README.md */; };
-		0FD4FDF92E14B18F00AE7944 /* Delivery.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4FDF82E14B18F00AE7944 /* Delivery.md */; };
-		0FD4FDFA2E14B18F00AE7944 /* Delivery.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4FDF82E14B18F00AE7944 /* Delivery.md */; };
-		0FD4FDFB2E14B18F00AE7944 /* Delivery.md in Resources */ = {isa = PBXBuildFile; fileRef = 0FD4FDF82E14B18F00AE7944 /* Delivery.md */; };
 		0FF755052E199CC500A87D47 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF755042E199CC500A87D47 /* AmplitudeSwift */; };
 		0FF755072E199CCF00A87D47 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0FF755062E199CCF00A87D47 /* AmplitudeSwift */; };
 /* End PBXBuildFile section */
@@ -40,7 +37,6 @@
 		0FD4005E2E14C1F900AE7944 /* Smart City.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smart City.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FD4005F2E14C1F900AE7944 /* Smart CityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Smart CityUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FD4F6F02E0F8A4500AE7944 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		0FD4FDF82E14B18F00AE7944 /* Delivery.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Delivery.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -229,7 +225,6 @@
 				0FD4F6482E0F822500AE7944 /* Smart CityTests */,
 				0FD4F6522E0F822500AE7944 /* Smart CityUITests */,
 				0FD4F6F02E0F8A4500AE7944 /* README.md */,
-				0FD4FDF82E14B18F00AE7944 /* Delivery.md */,
 				0FD4005D2E14C1F900AE7944 /* Smart CityTests.xctest */,
 				0FD4005E2E14C1F900AE7944 /* Smart City.app */,
 				0FD4005F2E14C1F900AE7944 /* Smart CityUITests.xctest */,
@@ -363,7 +358,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FD4F7012E0F8A4500AE7944 /* README.md in Resources */,
-				0FD4FDFB2E14B18F00AE7944 /* Delivery.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,7 +366,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FD4F7102E0F8A4500AE7944 /* README.md in Resources */,
-				0FD4FDF92E14B18F00AE7944 /* Delivery.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,7 +374,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FD4F7122E0F8A4500AE7944 /* README.md in Resources */,
-				0FD4FDFA2E14B18F00AE7944 /* Delivery.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

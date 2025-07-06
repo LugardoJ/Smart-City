@@ -215,3 +215,11 @@ This flow illustrates how a search term entered by the user propagates through t
 - Results are filtered and sliced, then published to the view.
 - Latency is measured using `Date.now` and sent to `RecordSearchLatencyUseCase`.
 
+
+---
+
+
+### 🎥 From Search to Detail
+
+▶️ [Watch: Search to Detail flow](vid/SearchDetailView.mp4) – Shows the transition between `CitySearchView` and `CityDetailView`
+
