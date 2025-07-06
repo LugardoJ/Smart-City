@@ -102,7 +102,7 @@ swiftformat .
 |-------|-------------|
 | [ARCHITECTURE.md](docs/Architecture.md) | 📐 Describes the overall system architecture using Clean Architecture and SOLID principles, with diagrams and flow details |
 | [MODULES.md](docs/Modules.md) | 📦 Lists and explains each app module: Search, Favorites, Metrics, Detail, Coordinator, Summary, etc. |
-| [PERFORMANCE.md](docs/PERFORMANCE.md) | ⚡ Covers optimizations for search latency, async loading, and debounce strategies |
+| [PERFORMANCE.md](docs/Performance.md) | ⚡ Covers optimizations for search latency, async loading, and debounce strategies |
 | [NAVIGATION.md](docs/Navigation.md) | 🗺️ Explains the use of `AppCoordinator`, `NavigationStack`, `NavigationSplitView`, and `CompactLandscapeView` |
 | [FAVORITES.md](docs/FAVORITES.md) | ❤️ Shows how favorite cities are selected, persisted using SwiftData, and integrated into the search experience |
 | [WIKIPEDIA_INTEGRATION.md](docs/WIKIPEDIA_INTEGRATION.md) | 📚 Explains how Wikipedia summaries are fetched and rendered for each selected city |
