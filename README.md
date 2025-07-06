@@ -56,7 +56,7 @@ The project includes comprehensive testing coverage:
 - ✅ ViewModel + SwiftUI snapshot testing
 - ✅ SwiftData persistence tests for favorites
 
-> See [TESTING.md](docs/TESTING.md) for complete test plan and implementation details.
+> See [TESTING.md](docs/Testing.md) for complete test plan and implementation details.
 
 ---
 
