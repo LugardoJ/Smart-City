@@ -47,60 +47,48 @@ Develop a feature called **Smart City**, which enables:
                                   |
                                   v
                         +----------------------+
-                        |       RootView       | ← NavigationSplitView
-                        +----------------------+
-                         |                   |
-                         v                   v
-        +--------------------------+   +---------------------------+
-        |   CitySearchView.swift   |   |   CityDetailView.swift    |
-        +--------------------------+   +---------------------------+
-                  |                                ^
-                  v                                |
-    +-------------------------------+              |
-    | CitySearchViewModel.swift     |--------------+
-    +-------------------------------+
-       |         |        |     |   |    \
-       |         |        |     |    \--> RecordLoadTimeUseCase
-       |         |        |     |
-       |         |        |     +--> RecordSearchTermUseCase
-       |         |        |
-       |         |        +--> ToggleFavoriteUseCase
-       |         |
-       |         +--> SearchCitiesUseCase
-       |
-       +--> LoadRemoteCitiesUseCase
-       |
-       +--> FetchRecentSearchesUseCase
-       |
-       +--> FetchTopSearchedTermsUseCase
-       +--> FetchTopVisitedCitiesUseCase
-       +--> RecordCityVisitUseCase
+                        |       RootView       | ← NavigationSplitView -----┤
+                        +----------------------+                            |
+                         |                   |                              |
+                         v                   v                              |
+        +--------------------------+   +---------------------------+        |
+        |   CitySearchView.swift   |   |   CityDetailView.swift    |        |
+        +--------------------------+   +---------------------------+        |
+             |         |    |                         ↑                     |
+             v         |    |                         |                     |
++---------------------+|    |                 +--------------------+        |
+| CitySearchViewModel ||    |                 | CityDetailViewModel|        |
++---------------------+|    |                 +--------------------+        |
+ |        |      |     |    |                            |                  |
+ |        |      |     |    |                            v                  |
+ |        |      |     |    |                  +------------------------+   |
+ |        |      |     |    |                  | CitySummaryRepository |    |
+ |        |      |     |    |                  +------------------------+   |
+ |        |      |     |    |                            ^                  |
+ |        |      |     |    |                            |                  |
+ |        |      |     |    |                   +------------------------+  |
+ |        |      |     |    |                   | WikipediaDataSource    |  |
+ |        |      |     |    |                   +------------------------+  |
+ |        |      |     |    |                                               |
+ |        |      |     |    |                                               |
+ v        v      v     v    v                                               |
+SearchUC LoadCitiesUC  ToggleFavUC                                          |
+         FetchRecentSearchesUC                                              |
+         RecordSearchLatencyUC                                              |
+         RecordSearchTermUC                                                 |
+         RecordLoadTimeUC                                                   |
+                                                                            |
+                                    +-------------------------------+       |
+                                    | MetricsDashboardViewModel     | <-----┤      
+                                    +-------------------------------+       
+                                       |       |       |       |
+                                       v       v       v       v
+                           TopSearchesUC  TopVisitedUC  LoadTimeUC  LatencyUC
 
-       ├────────────┬────────────┬─────────────┐
-       ↓            ↓            ↓             ↓
-+----------------+ +------------------+ +------------------+ +----------------------+
-| CityRepository | | FavoriteRepo     | | HistoryRepo      | | MetricsRepo          |
-| (InMemory...)  | | (SwiftData)      | | (SwiftData)      | | (SwiftData)          |
-+----------------+ +------------------+ +------------------+ +----------------------+
-        |                    |                |                             |
-        v                    |                |                             |
-+-----------------------------+       +-----------------------------+   +---------------------------+
-|  SwiftData (ModelContext)   |       |     SearchHistoryEntity     |   | + LoadTimeEntity          |
-+-----------------------------+       |     VisitMetricEntity       |   | + VisitMetricEntity       |
-        |                             |     SearchMetricEntity      |   |                           |
-        |                             +-----------------------------+   +---------------------------+
-        |
-        |      
-        v
-+---------------------------+
-| CityRemoteDataSource      |
-+---------------------------+
-
-         |
-         v
-+---------------------------+
-| WikipediaRemoteDataSource | ← It is only used in CityDetailView
-+---------------------------+   and does not save anything locally.
++-------------------+ +----------------+ +----------------+ +----------------+
+| CityRepository    | | FavoriteRepo   | | MetricsRepo    | | HistoryRepo    |
+| InMemory / SwiftD | | SwiftData      | | SwiftData      | | SwiftData      |
++-------------------+ +----------------+ +----------------+ +----------------+
    
 ```
 
@@ -112,119 +100,111 @@ Develop a feature called **Smart City**, which enables:
 ```
 Smart City
 │
-├── App
+├── App/
+│   ├── Smart_CityApp.swift
 │   ├── AppCoordinator.swift
 │   ├── AppRoute.swift
-│   ├── CompactLandscapeView.swift 
-│   ├── RootView.swift
-│   └── Smart_CityApp.swift
+│   ├── CompactLandscapeView.swift
+│   └── RootView.swift
 │
-├── Common
-│   └── Extensions
+├── Common/
+│   └── Extensions/
 │       ├── Device+Extensions.swift
 │       ├── String+Extensions.swift
 │       └── View+Modifiers.swift
 │
-├── Data
-│   ├── Persistence
+├── Data/
+│   ├── Persistence/
+│   │   ├── MetricEntities/
+│   │   │   ├── LoadTimeEntity.swift
+│   │   │   ├── SearchLatencyEntity.swift
+│   │   │   ├── SearchMetricEntity.swift
+│   │   │   └── VisitMetricEntity.swift
 │   │   ├── CityEntity.swift
-│   │   ├── LoadTimeMetricEntity.swift
 │   │   ├── SearchHistoryEntity.swift
-│   │   ├── SearchLatencyEntity.swift
-│   │   ├── SearchMetricEntity.swift
-│   │   ├── VisitMetricEntity.swift
 │   │   └── ModelContext+Cities.swift
-│   │
-│   └── Repositories
-│       ├── City
+│   └── Repositories/
+│       ├── City/
 │       │   ├── CityRepository.swift
 │       │   ├── InMemoryCityRepository.swift
 │       │   └── SwiftDataFavoritesRepository.swift
-│       │
-│       ├── Favorites
+│       ├── Favorites/
 │       │   └── FavoritesRepository.swift
-│       │
-│       ├── History
+│       ├── History/
 │       │   ├── SearchHistoryRepository.swift
 │       │   └── SwiftDataSearchHistoryRepo.swift
-│       │
-│       ├── Metrics
+│       ├── Metrics/
 │       │   ├── AmplitudeMetricsAdapter.swift
 │       │   ├── CompositeMetricsRecorder.swift
 │       │   ├── MetricsRepository.swift
-│       │   ├── SwiftDataMetricsRecorder.swift
-│       │   └── SwiftDataMetricsQueryRepository.swift
-│       │
-│       └── Summary
+│       │   └── SwiftDataMetricsRepository.swift
+│       └── Summary/
 │           ├── CitySummaryRepository.swift
 │           └── DefaultCitySummaryRepository.swift
 │
-├── Domain
-│   ├── Entities
+├── Domain/
+│   ├── Entities/
 │   │   ├── City.swift
 │   │   ├── City+Extensions.swift
 │   │   ├── CityWikiSummary.swift
 │   │   ├── LoadTime.swift
 │   │   └── SearchLatency.swift
-│   │
-│   └── UseCases
-│       ├── City
-│       │   ├── FetchCitySummaryUseCase.swift
-│       │   ├── FetchRecentSearchesUseCase.swift
-│       │   ├── LoadRemoteCitiesUseCase.swift
-│       │   ├── SearchCitiesUseCase.swift
-│       │   └── ToggleFavoriteCityUseCase.swift
-│       │
-│       ├── History
-│       │   └── DefaultRecordSearchMetricUseCase.swift
-│       │
-│       └── Metrics
-│           ├── FetchLoadTimeUseCase.swift
-│           ├── FetchSearchLatenciesUseCase.swift
-│           ├── FetchTopSearchTermsUseCase.swift
-│           ├── FetchTopVisitedCitiesUseCase.swift
-│           ├── RecordCityVisitUseCase.swift
-│           └── RecordLoadTimeUseCase.swift
+│   └── UseCases/
+│       ├── City/
+│       ├── History/
+│       └── Metrics/
+│           └── (7+ Use case for metrics)
 │
-├── Features
-│   └── CitySearch
-│       ├── Enums
-│       │   └── CityFilterType.swift
-│       │
-│       ├── View
-│       │   ├── Detail
-│       │   │   ├── CityDetailView.swift
-│       │   │   └── CityInfoCard.swift
-│       │   │
-│       │   └── Search
-│       │       ├── CitySearchView.swift
-│       │       ├── SearchFavoriteListView.swift
-│       │       └── SearchRowView.swift
-│       │
-│       ├── ViewModels
-│       │   ├── CityDetailViewModel.swift
-│       │   └── CitySearchViewModel.swift
-│       │
-│       └── Metrics                      
-│           ├── View
-│           │   └── MetricsDashboardView.swift
-│           │
-│           └── ViewModels
-│               └── MetricsDashboardViewModel.swift
+├── Features/
+│   ├── CitySearch/
+│   │   ├── View/
+│   │   │   ├── Search/
+│   │   │   │   ├── CitySearchView.swift
+│   │   │   │   ├── SearchRowView.swift
+│   │   │   │   └── SearchFavoriteListView.swift
+│   │   │   └── Detail/
+│   │   │       ├── CityDetailView.swift
+│   │   │       └── CityInfoCard.swift
+│   │   ├── ViewModels/
+│   │   │   ├── CitySearchViewModel.swift
+│   │   │   └── CityDetailViewModel.swift
+│   │   └── Enums/
+│   │       └── CityFilterType.swift
+│   └── Metrics/
+│       ├── View/
+│       │   └── MetricsDashboardView.swift
+│       └── ViewModels/
+│           └── MetricsDashboardViewModel.swift
 │
-├── Network
-│   ├── Protocols
-│   ├── Models
-│   └── Implementations
-│       ├── CityRemoteDataSource.swift
-│       ├── SessionRequest.swift
-│       └── WikipediaRemoteDataSource.swift
+├── Network/
+│   └── WikipediaRemoteDataSource.swift
 │
-├── Resources
-│   └── Assets.xcassets
+├── Resources/
+│   └── Assets.xcassets/
 │
-├── Smart_CityTests
-└── Smart_CityUITests
+├── Smart_CityTests/
+│   ├── Fixtures/
+│   │   └── cities/
+│   ├── Helpers/
+│   │   └── TestUtils.swift
+│   ├── Mocks/
+│   │   ├── Repositories/
+│   │   ├── UseCases/
+│   │   ├── Entities/
+│   │   └── Navigation/
+│   ├── ViewModels/
+│   │   └── (City & Metrics ViewModels Tests)
+│   ├── Views/
+│   │   ├── CityInfoCardTests.swift
+│   │   └── CityDetailViewTests.swift
+│   ├── Repositories/
+│   └── UseCases/
+│
+└── Smart_CityUITests/
+    ├── SearchFlowUITests.swift
+    ├── CityDetailUITests.swift
+    ├── MetricsDashboardUITests.swift
+    └── Smart_CityUITestsLaunchTests.swift
 
 ```
 
@@ -241,10 +221,10 @@ Smart City
 - [x] Reactive UI with SwiftUI
 - [x] Favorites saved locally (SwiftData).
 - [x] Visual indicators: country flags, full country names, favorite stars.
-- [x] Interactive map view (✅)
+- [x] Interactive map view
 + [x] 📊 **Metrics dashboard**: load time, search latency, top searches & visits
 + [x] 📱 **CompactLandscapeView** for iPhone (portrait push / landscape split)
-- [ ] Unit and integration testing (coming soon)
+- [x] Unit and integration testing (✅)
 
 
 ---
@@ -259,10 +239,10 @@ City data is fetched from the following JSON:
 
 ## 🧪 Testing Plan
 
-- [ ] Unit tests for search use cases.
-- [ ] Mock `CityRepository`.
-- [ ] ViewModel and UI snapshot tests.
-- [ ] Test SwiftData favorite persistence.
+- [x] Unit tests for search use cases.
+- [x] Mock `CityRepository`.
+- [x] ViewModel and UI snapshot tests.
+- [x] Test SwiftData favorite persistence.
 
 ---
 
@@ -270,7 +250,7 @@ City data is fetched from the following JSON:
 
 To ensure the success and usability of the **Smart City** feature, the following **key metrics** will be tracked:
 
-### ✅ Key Metrics (IN PROGRESS)
+### ✅ Key Metrics (✅)
 
 - ⏱️ **Search performance time** – Track how long it takes to get search results.
 - ❤️ **Number of favorited cities** – Understand user engagement with the feature.
