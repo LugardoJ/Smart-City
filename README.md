@@ -70,7 +70,7 @@ To ensure the success and usability of the Smart City feature, the following **k
 - 🧭 **Visited city IDs** – Capture which cities are tapped/viewed
 - 📊 **Session duration** – Time spent interacting with the feature
 
-> Full details in [OBSERVABILITY.md](docs/OBSERVABILITY.md)
+> Full details in [OBSERVABILITY.md](docs/Observability.md)
 
 ---
 
@@ -106,7 +106,7 @@ swiftformat .
 | [NAVIGATION.md](docs/NAVIGATION.md) | 🗺️ Explains the use of `AppCoordinator`, `NavigationStack`, `NavigationSplitView`, and `CompactLandscapeView` |
 | [FAVORITES.md](docs/FAVORITES.md) | ❤️ Shows how favorite cities are selected, persisted using SwiftData, and integrated into the search experience |
 | [WIKIPEDIA_INTEGRATION.md](docs/WIKIPEDIA_INTEGRATION.md) | 📚 Explains how Wikipedia summaries are fetched and rendered for each selected city |
-| [OBSERVABILITY.md](docs/OBSERVABILITY.md) | 📊 Explains how metrics are captured via `AmplitudeMetricsAdapter` and persisted locally using `MetricsRecording` |
+| [OBSERVABILITY.md](docs/Observability.md) | 📊 Explains how metrics are captured via `AmplitudeMetricsAdapter` and persisted locally using `MetricsRecording` |
 | [STYLE_GUIDE.md](docs/STYLE_GUIDE.md) | ✍️ Coding conventions, SwiftLint rules, PR process, and naming standards |
 | [TESTING.md](docs/TESTING.md) | 🧪 Describes the testing strategy for view models, repositories, use cases, and fixtures used |
 | [IMPLEMENTATION_STRATEGY.md](docs/IMPLEMENTATION_STRATEGY.md) | 🚀 Outlines the platform stack, team workload distribution, and quality assurance processes |
