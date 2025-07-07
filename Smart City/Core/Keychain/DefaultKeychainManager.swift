@@ -23,19 +23,19 @@ final class DefaultKeychainManager: KeychainManagerProtocol {
     @discardableResult
     func save(_ value: String, for key: KeychainKey) -> Bool {
         guard let data = value.data(using: .utf8) else { return false }
-        
+
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: key.rawValue,
             kSecValueData as String: data,
         ]
-        
+
         SecItemDelete(query as CFDictionary)
         let status = SecItemAdd(query as CFDictionary, nil)
-        
+
         return status == errSecSuccess
     }
-    
+
     /// Reads a stored value from the Keychain.
     ///
     /// - Parameter key: The `KeychainKey` associated with the stored value.
@@ -47,18 +47,18 @@ final class DefaultKeychainManager: KeychainManagerProtocol {
             kSecReturnData as String: true,
             kSecMatchLimit as String: kSecMatchLimitOne,
         ]
-        
+
         var result: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, &result)
-        
+
         guard status == errSecSuccess,
               let data = result as? Data,
               let string = String(data: data, encoding: .utf8)
         else { return nil }
-        
+
         return string
     }
-    
+
     /// Deletes a value from the Keychain.
     ///
     /// - Parameter key: The `KeychainKey` whose value should be removed.
@@ -68,7 +68,7 @@ final class DefaultKeychainManager: KeychainManagerProtocol {
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: key.rawValue,
         ]
-        
+
         let status = SecItemDelete(query as CFDictionary)
         return status == errSecSuccess
     }

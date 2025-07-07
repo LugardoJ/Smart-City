@@ -17,7 +17,7 @@ public final class AmplitudeMetricsAdapter: MetricsRecording {
         guard let key = keychain.read(for: .amplitudeAPIKey) else {
             fatalError("🚨 Amplitude API Key not found in Keychain.")
         }
-        
+
         amplitude = .init(
             configuration:
             Configuration(

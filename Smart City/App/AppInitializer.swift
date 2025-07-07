@@ -14,17 +14,16 @@ import Foundation
 /// This struct encapsulates early configuration logic to ensure a clean separation between the app's
 /// startup lifecycle and feature logic.
 struct AppInitializer {
-    
     /// The Keychain service used to store or retrieve secure tokens like API keys.
     private let keychain: KeychainManagerProtocol
-    
+
     /// Initializes the initializer with a concrete or mock keychain manager.
     ///
     /// - Parameter keychain: A concrete implementation of `KeychainManagerProtocol`. Defaults to `DefaultKeychainManager`.
     init(keychain: KeychainManagerProtocol = DefaultKeychainManager()) {
         self.keychain = keychain
     }
-    
+
     /// Performs all one-time setup routines required before the app becomes usable.
     ///
     /// This includes ensuring that the Amplitude API key is stored in the Keychain.

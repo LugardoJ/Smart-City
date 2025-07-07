@@ -19,13 +19,13 @@ protocol KeychainManagerProtocol {
     /// - Returns: A Boolean indicating whether the save operation succeeded.
     @discardableResult
     func save(_ value: String, for key: KeychainKey) -> Bool
-    
+
     /// Retrieves a previously stored string value from the Keychain.
     ///
     /// - Parameter key: The strongly-typed `KeychainKey` identifying the desired value.
     /// - Returns: The stored string if it exists, otherwise `nil`.
     func read(for key: KeychainKey) -> String?
-    
+
     /// Removes a value from the Keychain associated with the given key.
     ///
     /// - Parameter key: The strongly-typed `KeychainKey` of the item to delete.
