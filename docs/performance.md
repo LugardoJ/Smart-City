@@ -68,8 +68,12 @@ This ensures a smooth and reactive user experience, even with datasets of 200k+ 
 
 ### 🎥 Demo Preview
 
-▶️ [Watch: First app launch](vid/FirstLunch.mp4) – Demonstrates the full app flow from cold start  
+![](vid/FirstLunch.gif) 
+
+> Demonstrates the full app flow from cold start  
 
 ### 🎥 Search Optimization in Action
 
-▶️ [Watch: Debounced search demo](vid/SearchPerformance.mp4) – Demonstrates fast and smooth prefix-based search using debounce
+![](vid/SearchPerformance.gif)
+
+> Demonstrates fast and smooth prefix-based search using debounce  
