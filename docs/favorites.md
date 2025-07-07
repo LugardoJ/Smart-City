@@ -104,5 +104,7 @@ This design avoids the need for a separate favorites structure and improves main
 
 ### 🎥 Swipe-to-Favorite
 
-![](vid/SwipeAction.gif) – Shows how users can mark cities as favorites using swipe gestures
+![](vid/SwipeAction.gif)
+
+> Shows how users can mark cities as favorites using swipe gestures
 
