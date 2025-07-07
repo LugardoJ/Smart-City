@@ -128,6 +128,6 @@ The navigation system is responsive, testable, and adapts seamlessly to screen s
 
 ### 🎥 Navigation in Landscape
 
-![](../vid/LandscapeView.gif) – Shows `NavigationSplitView` adapting to horizontal orientation
+![](vid/LandscapeView.gif) – Shows `NavigationSplitView` adapting to horizontal orientation
 
 
