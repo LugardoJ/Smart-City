@@ -221,5 +221,5 @@ This flow illustrates how a search term entered by the user propagates through t
 
 ### 🎥 From Search to Detail
 
-▶️ [Watch: Search to Detail flow](vid/SearchDetailView.mp4) – Shows the transition between `CitySearchView` and `CityDetailView`
+▶️ [Watch: Search to Detail flow](vid/SearchDetailView.gif) – Shows the transition between `CitySearchView` and `CityDetailView`
 
