@@ -7,6 +7,7 @@
 import Foundation
 import SwiftData
 
+/// Value object for tracking latency between typing and receiving search results.
 @Model
 public final class SearchLatencyEntity {
     @Attribute(.unique) public var id = UUID()

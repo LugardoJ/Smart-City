@@ -5,8 +5,10 @@
 //  Created by Lugardo on 27/06/25.
 //
 
-// MARK: - Model (Domain Layer)
-
+/// Domain model representing a city used throughout the Smart City module.
+///
+/// This struct is mapped from JSON and SwiftData entities.
+/// Includes essential metadata like name, country, coordinates, and favorite status.
 public struct City: Identifiable, Codable, Equatable, Hashable {
     public let id: Int
     public let name: String
