@@ -8,7 +8,6 @@ import Foundation
 import Security
 
 final class DefaultKeychainManager: KeychainManagerProtocol {
-    
     @discardableResult
     func save(_ value: String, for key: KeychainKey) -> Bool {
         guard let data = value.data(using: .utf8) else { return false }
@@ -16,7 +15,7 @@ final class DefaultKeychainManager: KeychainManagerProtocol {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: key.rawValue,
-            kSecValueData as String: data
+            kSecValueData as String: data,
         ]
 
         SecItemDelete(query as CFDictionary)
@@ -30,7 +29,7 @@ final class DefaultKeychainManager: KeychainManagerProtocol {
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: key.rawValue,
             kSecReturnData as String: true,
-            kSecMatchLimit as String: kSecMatchLimitOne
+            kSecMatchLimit as String: kSecMatchLimitOne,
         ]
 
         var result: AnyObject?
@@ -47,7 +46,7 @@ final class DefaultKeychainManager: KeychainManagerProtocol {
     func delete(for key: KeychainKey) -> Bool {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: key.rawValue
+            kSecAttrAccount as String: key.rawValue,
         ]
 
         let status = SecItemDelete(query as CFDictionary)

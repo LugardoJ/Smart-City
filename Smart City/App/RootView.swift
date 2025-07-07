@@ -28,7 +28,7 @@ public struct RootView: View {
         let favoritesRepo = SwiftDataFavoritesRepository(context: context)
         let cityRepo = InMemoryCityRepository()
         let historyRepo = SwiftDataSearchHistoryRepo(context: context)
-        
+
         let recorder: MetricsRecording = CompositeMetricsRecorder(
             local: SwiftDataMetricsRecorder(context: context),
             remote: AmplitudeMetricsAdapter(keychain: keychain)
