@@ -125,4 +125,6 @@ This metrics system allows:
 
 ### 🎥 Metrics Dashboard
 
-▶️ [Watch: Metrics overview](vid/Metrics.gif) – Demonstrates `MetricsDashboardView` with real-time usage statistics
+![](vid/Metrics.gif) 
+
+> Demonstrates `MetricsDashboardView` with real-time usage statistics
