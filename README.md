@@ -1,5 +1,9 @@
 # 🚀 Smart City – Mobile Technical Lead Challenge (iOS)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+# 🌆 Smart City Exploration
+
+> 📦 **Last stable release:** `v1.0.0` – July 6, 2025
+
 
 This project is a solution to the technical challenge for the **Mobile Technical Lead** role at **Ualá**.  
 The goal is to allow users to explore and search for cities using an interactive map, optimizing both the user experience and codebase quality.
