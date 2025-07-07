@@ -19,8 +19,12 @@ struct AppInitializer {
 
     /// Initializes the initializer with a concrete or mock keychain manager.
     ///
-    /// - Parameter keychain: A concrete implementation of `KeychainManagerProtocol`. Defaults to `DefaultKeychainManager`.
-    init(keychain: KeychainManagerProtocol = DefaultKeychainManager()) {
+    /// - Parameter keychain:
+    ///   A concrete implementation of `KeychainManagerProtocol`.
+    ///   Defaults to `DefaultKeychainManager`.
+    init(keychain:
+        KeychainManagerProtocol = DefaultKeychainManager())
+    {
         self.keychain = keychain
     }
 

@@ -12,14 +12,13 @@ public protocol CityDetailViewModelProtocol {
     func loadSummary(for city: City) async
 }
 
-/// View model for managing data shown in the detail view of a selected city.
+/// View model responsible
+/// for handling detailed information about a selected city.
+/// Responsibilities:
+/// - Fetches the Wikipedia summary using `CitySummaryRepository`
+/// - Records the visit via `RecordCityVisitUseCase`
 ///
-/// It triggers:
-/// - The Wikipedia summary fetch via `CitySummaryRepository`
-/// - Tracking the city visit via `RecordCityVisitUseCase`
-///
-/// It's injected in `CityDetailView` and passed to `CityInfoCard`.
-// @MainActor
+/// This view model is injected into `CityDetailView` and passed to `CityInfoCard`.
 @Observable
 final class CityDetailViewModel: CityDetailViewModelProtocol {
     private let fetchSummaryUseCase: FetchCitySummaryUseCase

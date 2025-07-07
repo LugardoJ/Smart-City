@@ -4,7 +4,6 @@
 //
 //  Created by Lugardo on 27/06/25.
 //
-
 import SwiftData
 import SwiftUI
 
