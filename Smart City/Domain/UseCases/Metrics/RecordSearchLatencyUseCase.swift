@@ -10,6 +10,9 @@ public protocol RecordSearchLatencyUseCase {
     func execute(query: String, duration: TimeInterval)
 }
 
+/// Records how long a search took from query to result, for observability.
+///
+/// Sent to both local storage and analytics adapters (e.g., Amplitude).
 public struct DefaultRecordSearchLatencyUC:
     RecordSearchLatencyUseCase
 {

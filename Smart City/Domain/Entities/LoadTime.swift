@@ -6,6 +6,7 @@
 //
 import Foundation
 
+/// Value object representing how long a screen or feature took to load.
 public struct LoadTime: Identifiable, Equatable {
     public let id = UUID()
     public let source: String

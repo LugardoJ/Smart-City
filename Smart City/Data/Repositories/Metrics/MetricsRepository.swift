@@ -6,6 +6,9 @@
 //
 import Foundation
 
+/// Defines how metrics like load time, search latency, and visit events are tracked and retrieved.
+///
+/// Use this protocol to separate analytics from core logic.
 public protocol MetricsRecording {
     func recordLoadTime(source: String, duration: TimeInterval)
     func recordSearchTerm(_ term: String)

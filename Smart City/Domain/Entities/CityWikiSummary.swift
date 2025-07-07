@@ -6,6 +6,9 @@
 //
 import Foundation
 
+/// Lightweight summary information retrieved from Wikipedia for a given city.
+///
+/// Includes plain text extract and a thumbnail URL (if available).
 public struct CityWikiSummary: Codable {
     public let title: String
     public let description: String?

@@ -4,6 +4,9 @@
 //
 //  Created by Lugardo on 01/07/25.
 //
+/// Retrieves the most visited cities, based on user interaction history.
+///
+/// This is used in dashboards or UI widgets to show top destinations.
 public protocol FetchTopVisitedCitiesUseCase {
     func execute(limit: Int) -> [(Int, Int)]
 }
