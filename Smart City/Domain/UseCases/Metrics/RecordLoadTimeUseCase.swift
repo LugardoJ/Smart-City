@@ -6,6 +6,10 @@
 //
 import Foundation
 
+/// Records how long it took to load a given screen or feature.
+///
+/// This is part of the app's performance observability.
+/// Execution typically occurs once the view or data is fully rendered.
 public protocol RecordLoadTimeUseCase {
     func execute(source: String, duration: TimeInterval)
 }

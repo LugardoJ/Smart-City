@@ -7,6 +7,10 @@
 import SwiftData
 import SwiftUI
 
+/// Stores analytics-related entities using SwiftData.
+///
+/// This repository persists values like search latency, load time,
+/// and visit events for offline diagnostics or observability dashboards.
 public final class SwiftDataMetricsRecorder: MetricsRecording {
     private let context: ModelContext
 

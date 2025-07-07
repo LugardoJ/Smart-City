@@ -7,11 +7,24 @@
 import AmplitudeSwift
 import Foundation
 
+/// Concrete implementation of `MetricsRecording` that sends metrics to Amplitude.
+///
+/// Wraps the logic for serializing and sending analytics events.
 public final class AmplitudeMetricsAdapter: MetricsRecording {
     private let amplitude: Amplitude
 
-    public init(instance: Amplitude) {
-        amplitude = instance
+    init(keychain: KeychainManagerProtocol = DefaultKeychainManager()) {
+        guard let key = keychain.read(for: .amplitudeAPIKey) else {
+            fatalError("🚨 Amplitude API Key not found in Keychain.")
+        }
+
+        amplitude = .init(
+            configuration:
+            Configuration(
+                apiKey: key,
+                autocapture: .all
+            )
+        )
     }
 
     public func recordLoadTime(source: String, duration: TimeInterval) {

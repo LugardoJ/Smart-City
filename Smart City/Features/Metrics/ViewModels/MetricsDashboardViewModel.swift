@@ -6,6 +6,14 @@
 //
 import SwiftUI
 
+/// View model powering the Metrics Dashboard UI.
+///
+/// It aggregates key metrics for performance and product analytics:
+/// - Top searched terms
+/// - Most visited cities
+/// - Load times and search latencies
+///
+/// Retrieves data via SwiftData-backed repositories or adapters.
 @Observable
 final class MetricsDashboardViewModel {
     private let fetchTopTermsUC: FetchTopSearchTermsUseCase

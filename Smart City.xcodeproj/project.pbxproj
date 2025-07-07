@@ -44,6 +44,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				App/AppCoordinator.swift,
+				App/AppInitializer.swift,
 				App/AppRoute.swift,
 				App/CompactLandscapeView.swift,
 				App/RootView.swift,
@@ -107,6 +108,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				App/AppCoordinator.swift,
+				App/AppInitializer.swift,
 				App/AppRoute.swift,
 				App/CompactLandscapeView.swift,
 				App/RootView.swift,

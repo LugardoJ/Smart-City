@@ -4,6 +4,9 @@
 //
 //  Created by Lugardo on 30/06/25.
 //
+/// Enum representing filters applied to the city list (e.g. favorites only).
+///
+/// Used to update the visible results without affecting the full dataset.
 public enum CityFilterType: CaseIterable, Identifiable {
     case all
     case favorites

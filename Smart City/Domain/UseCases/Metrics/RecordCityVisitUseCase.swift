@@ -6,6 +6,10 @@
 //
 import Foundation
 
+/// Records a city visit event when a user opens a city’s detail view.
+///
+/// Used to measure which cities are most frequently explored by the user.
+/// Events are sent to both analytics and local SwiftData repository.
 public protocol RecordCityVisitUseCase {
     func execute(cityId: Int)
 }

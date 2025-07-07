@@ -5,8 +5,9 @@
 //  Created by Lugardo on 27/06/25.
 //
 
-// MARK: - Repository (Data Layer)
-
+/// Abstraction for city data access, allowing in-memory or persistent strategies.
+///
+/// Implementations handle city loading, indexing, and favorite status resolution.
 public protocol CityRepository {
     func searchCities(matching query: String) -> [City]
     func setCities(_ cities: [City])

@@ -12,6 +12,10 @@ import SwiftUI
 struct Smart_CityApp: App {
     @StateObject private var coordinator: AppCoordinator = .init()
 
+    init() {
+        AppInitializer().setup()
+    }
+
     private var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             CityEntity.self,

@@ -6,6 +6,10 @@
 //
 import Foundation
 
+/// Combines multiple metric recorders into a single unified interface.
+///
+/// Useful to send the same event to both Amplitude and a local database,
+/// or to A/B testing destinations.
 public final class CompositeMetricsRecorder: MetricsRecording {
     private let local: MetricsRecording
     private let remote: MetricsRecording

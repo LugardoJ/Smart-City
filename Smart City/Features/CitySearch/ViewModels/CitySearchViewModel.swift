@@ -7,8 +7,14 @@
 import SwiftData
 import SwiftUI
 
-// MARK: - ViewModel (Presentation Layer)
-
+/// View model responsible for managing the city search experience.
+///
+/// It handles:
+/// - Debounced query input
+/// - Fetching and filtering city results (with prefix-based search)
+/// - Tracking favorites and recent searches
+/// - Recording search metrics (latency, term usage)
+/// - Triggering navigation through `AppCoordinator`
 @Observable
 final class CitySearchViewModel {
     private let searchUseCase: SearchCitiesUseCase

@@ -4,6 +4,9 @@
 //
 //  Created by Lugardo on 01/07/25.
 //
+/// Loads the most recently searched terms, persisted via SwiftData.
+///
+/// Enables features like quick access, "recent searches" UI, or shortcuts.
 public protocol FetchRecentSearchesUseCase {
     func execute(limit: Int) -> [String]
     func delete(_ terms: [String])

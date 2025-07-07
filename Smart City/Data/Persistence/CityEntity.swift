@@ -6,6 +6,9 @@
 //
 import SwiftData
 
+/// A SwiftData model representing a city with favorite status.
+///
+/// Used to persist user interactions such as marking favorites or search history.
 @Model
 final class CityEntity {
     @Attribute(.unique) var id: Int

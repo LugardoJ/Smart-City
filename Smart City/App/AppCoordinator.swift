@@ -6,6 +6,11 @@
 //
 import SwiftUI
 
+/// Manages high-level navigation across feature flows.
+///
+/// `AppCoordinator` is injected into view models and views to control push, pop,
+/// sheet presentation, and deep-linking logic. It abstracts routing across compact
+/// and split view environments.
 public protocol AppCoordinatorProtocol: AnyObject {
     func navigate(to route: AppRoute) async
     func pop() async

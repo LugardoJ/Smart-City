@@ -4,6 +4,9 @@
 //
 //  Created by Lugardo on 01/07/25.
 //
+/// Retrieves the most frequently searched terms from local metric storage.
+///
+/// Used in the metrics dashboard to highlight user interest and trends.
 public protocol FetchTopSearchTermsUseCase {
     func execute(limit: Int) -> [(String, Int)]
 }

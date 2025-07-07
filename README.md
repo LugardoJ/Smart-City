@@ -1,4 +1,5 @@
 # 🚀 Smart City – Mobile Technical Lead Challenge (iOS)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 This project is a solution to the technical challenge for the **Mobile Technical Lead** role at **Ualá**.  
 The goal is to allow users to explore and search for cities using an interactive map, optimizing both the user experience and codebase quality.
@@ -17,17 +18,18 @@ Smart City Exploration allows users to:
 
 ---
 
-## 🧱 Technical Highlights
+### 🧱 Architecture & Tech Stack
 
-- **Clean Architecture** strictly following SOLID principles
-- Modular design using `UseCase`, `Repository`, and `DataSource` layers
-- **SwiftData** used for persistence of favorites and recent queries
-- **Amplitude + Local Metrics Adapter** for tracking behavior
-- CI pipeline with **SwiftLint**, **SwiftFormat**, and **unit testing**
-- Fully responsive layout with `NavigationSplitView` and `CompactLandscapeView`
-- Built with **Swift 6**, **SwiftUI**, targeting **iOS 18+**
+- 📐 Built with **Clean Architecture** following SOLID principles
+- 🧱 Modular structure: `UseCase`, `Repository`, `DataSource` layers
+- 💻 Developed in **Swift 6**, using **SwiftUI** and **MapKit**
+- 🗃️ Local persistence via **SwiftData**
+- 📊 Metrics recorded via **Amplitude** and local adapter
+- 🧪 Code quality with **SwiftLint**, **SwiftFormat**, and **GitHub Actions CI**
+- 📱 Adaptive UI using `NavigationSplitView` and `CompactLandscapeView`
 
 ---
+
 
 ### 📸 App UI Showcase
 
@@ -188,3 +190,9 @@ For questions or feedback:
 _Developed by **Juan Carlos Lugardo** as part of the recruitment process for Ualá's Mobile Technical Lead position._
 
 
+
+## 📅 Project Info
+
+- 📌 Last updated: July 2025
+- 🧾 License: [MIT License](LICENSE)
+- 📁 This project is intended for educational and technical evaluation purposes only.
