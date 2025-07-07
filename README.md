@@ -30,6 +30,17 @@ Smart City Exploration allows users to:
 
 ---
 
+## 📽️ Live Demo – iOS 26
+
+> ✅ Fully native SwiftUI architecture  
+> 🧱 Clean modular design using SwiftData, MapKit, Amplitude  
+> 📲 Universal layout for iPhone & iPad (iOS 18 through iOS 26)
+
+![](vid/iOS26Animation.gif)
+
+> 💡 Captured using Xcode 16 Beta on iOS 26 Simulator
+
+---
 
 ### 📸 App UI Showcase
 
