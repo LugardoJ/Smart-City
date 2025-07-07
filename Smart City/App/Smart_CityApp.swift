@@ -11,7 +11,11 @@ import SwiftUI
 @main
 struct Smart_CityApp: App {
     @StateObject private var coordinator: AppCoordinator = .init()
-
+    
+    init() {
+        AppInitializer().setup()
+    }
+    
     private var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             CityEntity.self,
@@ -28,7 +32,7 @@ struct Smart_CityApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
-
+    
     var body: some Scene {
         WindowGroup {
             RootView(coordinator: coordinator, sharedModelContainer: sharedModelContainer)

@@ -4,7 +4,6 @@
 //
 //  Created by Lugardo on 29/06/25.
 //
-import AmplitudeSwift
 import SwiftData
 import SwiftUI
 
@@ -24,19 +23,15 @@ public struct RootView: View {
         _coordinator = State(wrappedValue: coordinator)
         self.sharedModelContainer = sharedModelContainer
         let context = sharedModelContainer.mainContext
+        let keychain: KeychainManagerProtocol = DefaultKeychainManager()
 
         let favoritesRepo = SwiftDataFavoritesRepository(context: context)
         let cityRepo = InMemoryCityRepository()
         let historyRepo = SwiftDataSearchHistoryRepo(context: context)
-        let amplitude: Amplitude = .init(configuration:
-            Configuration(
-                apiKey: "d6b6f84cbc0bd82a3bc5a73a87306739",
-                autocapture: .all
-            ))
-
+        
         let recorder: MetricsRecording = CompositeMetricsRecorder(
             local: SwiftDataMetricsRecorder(context: context),
-            remote: AmplitudeMetricsAdapter(instance: amplitude)
+            remote: AmplitudeMetricsAdapter(keychain: keychain)
         )
 
         let recordHistoryUseCase = DefaultRecordSearchTermUseCase(historyRepo: historyRepo)
