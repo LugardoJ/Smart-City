@@ -15,7 +15,7 @@ struct EmptySearchOverlayModifier: ViewModifier {
     func body(content: Content) -> some View {
         content.if(!isLoading, transform: { view in
             view.overlay(alignment: .center) {
-                if let message = message {
+                if let message {
                     ContentUnavailableView("Search", systemImage: "magnifyingglass", description: Text(message))
                         .transition(.opacity)
                         .animation(.easeInOut, value: message)

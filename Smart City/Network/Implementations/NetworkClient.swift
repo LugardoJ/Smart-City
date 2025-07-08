@@ -14,8 +14,10 @@ public final class DefaultNetworkClient: NetworkClientProtocol {
     private let session: NetworkSession
     private let decoder: JSONDecoder
 
-    public init(session: NetworkSession = URLSession.shared,
-                decoder: JSONDecoder = JSONDecoder()) {
+    public init(
+        session: NetworkSession = URLSession.shared,
+        decoder: JSONDecoder = JSONDecoder()
+    ) {
         self.session = session
         self.decoder = decoder
     }

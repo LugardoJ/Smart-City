@@ -58,7 +58,8 @@ struct CityInfoCard: View {
     private var cityImageSection: some View {
         ZStack {
             if let urlString = viewModel.summary?.originalimage?.source,
-               let url = URL(string: urlString) {
+               let url = URL(string: urlString)
+            {
                 AsyncImage(url: url) { image in
                     image.resizable()
                         .aspectRatio(contentMode: .fit)
@@ -77,7 +78,7 @@ struct CityInfoCard: View {
         }
         .aspectRatio(contentMode: .fit)
         .frame(maxWidth: .infinity)
-        .frame(height: UIScreen.main.bounds.size.height * 0.3,alignment: .center)
+        .frame(height: UIScreen.main.bounds.size.height * 0.3, alignment: .center)
         .clipped()
         .cornerRadius(15, corners: [.bottomLeft, .bottomRight])
     }
