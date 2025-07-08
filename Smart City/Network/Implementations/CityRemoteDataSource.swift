@@ -11,41 +11,29 @@ protocol CityRemoteDataSourceProtocol {
 }
 
 final class CityRemoteDataSource: CityRemoteDataSourceProtocol {
-    private let session: NetworkSession
-    private let decoder: JSONDecoder
-    private let request: NetworkRequest
-
+    
+    private let client: NetworkClientProtocol
+    
     private static let citiesURLString = """
     https://gist.githubusercontent.com/hernan-uala/\
     dce8843a8edbe0b0018b32e137bc2b3a/raw/\
     0996accf70cb0ca0e16f9a99e0ee185fafca7af1/\
     cities.json
     """
-
+    
     private static let citiesURL: URL = {
         guard let url = URL(string: citiesURLString) else {
             fatalError("Invalid cities URL")
         }
         return url
     }()
-
-    init(
-        request: NetworkRequest = NetworkRequest(url: citiesURL),
-        session: NetworkSession = URLSession.shared,
-        decoder: JSONDecoder = JSONDecoder()
-    ) {
-        self.request = request
-        self.session = session
-        self.decoder = decoder
+    
+    init(client: NetworkClientProtocol = DefaultNetworkClient()) {
+        self.client = client
     }
-
+    
     func fetchCities() async throws -> [City] {
-        let (data, response) = try await session.data(for: request)
-
-        guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
-            throw URLError(.badServerResponse)
-        }
-
-        return try decoder.decode([City].self, from: data)
+        let request = NetworkRequest(url: Self.citiesURL)
+        return try await client.request(request)
     }
 }

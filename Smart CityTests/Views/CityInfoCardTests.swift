@@ -28,7 +28,7 @@ final class CityInfoCardTests: XCTestCase {
 
         Task {
             let mockViewModel = MockCityDetailViewModel()
-            let view = await CityInfoCard(city: city, isMaximized: isMaximized, viewModel: mockViewModel)
+            let view = await CityInfoCard(city: city, viewModel: mockViewModel)
             let host = await UIHostingController(rootView: view)
             _ = await host.view
 
@@ -43,7 +43,7 @@ final class CityInfoCardTests: XCTestCase {
         let mockViewModel = MockCityDetailViewModel()
         mockViewModel.error = "Wiki Error"
 
-        let view = CityInfoCard(city: city, isMaximized: isMaximized, viewModel: mockViewModel)
+        let view = CityInfoCard(city: city, viewModel: mockViewModel)
         let host = UIHostingController(rootView: view)
 
         _ = host.view // Fuerza el renderizado de la vista
