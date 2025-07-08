@@ -21,10 +21,16 @@ struct CitySearchView: View {
             listContainer
         }
         .modifier(EmptySearchOverlayModifier(isLoading: viewModel.isLoading, message: viewModel.searchMessage))
-        .modifier(FloatingFavoritesButtonModifier(selectedFilter: $viewModel.selectedFilter))
+        .modifier(
+            FloatingFavoritesButtonModifier(
+                selectedFilter: $viewModel.selectedFilter
+            )
+        )
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                Button(action: { coordinator.navigate(to: .metricsDashboard) }) {
+                Button {
+                    coordinator.navigate(to: .metricsDashboard)
+                } label: {
                     Image(systemName: "chart.bar.xaxis")
                 }
                 .tint(.accentColor)
