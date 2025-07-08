@@ -24,11 +24,10 @@ final class CityInfoCardTests: XCTestCase {
 
     func test_loadSummary_invoked_onCityChange() async {
         let city = Binding.constant(City.mock(id: 1, name: "Tokyo"))
-        let isMaximized = Binding.constant(true)
 
         Task {
             let mockViewModel = MockCityDetailViewModel()
-            let view = await CityInfoCard(city: city, isMaximized: isMaximized, viewModel: mockViewModel)
+            let view = await CityInfoCard(city: city, viewModel: mockViewModel)
             let host = await UIHostingController(rootView: view)
             _ = await host.view
 
@@ -39,11 +38,10 @@ final class CityInfoCardTests: XCTestCase {
 
     func test_displayError_showsUnavailableView() {
         let city = Binding.constant(City.mock(id: 1, name: "ErrorCity"))
-        let isMaximized = Binding.constant(true)
         let mockViewModel = MockCityDetailViewModel()
         mockViewModel.error = "Wiki Error"
 
-        let view = CityInfoCard(city: city, isMaximized: isMaximized, viewModel: mockViewModel)
+        let view = CityInfoCard(city: city, viewModel: mockViewModel)
         let host = UIHostingController(rootView: view)
 
         _ = host.view // Fuerza el renderizado de la vista

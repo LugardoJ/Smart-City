@@ -121,6 +121,7 @@ final class SearchFlowUITests: XCTestCase {
     func test_navigateToDetailAndInfo() throws {
         XCUIDevice.shared.orientation = .portrait
 
+        sleep(3)
         let searchField = app.searchFields["Search for cities"]
         XCTAssertTrue(searchField.waitForExistence(timeout: 3), "Search bar not found")
 
